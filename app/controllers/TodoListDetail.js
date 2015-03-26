@@ -11,11 +11,12 @@ var log = Alloy.Globals.log;
 log.info("Opened TodoListDetails");
 
 var args = arguments[0] || {};
-var itemId = args.itemId || "";
+var todo_id = args.todo_id || "";
 
 var todo = Alloy.Collections.instance("ToDo");
-var todoItem = _.first(todo.where({ todo_id: itemId }));
+var todoItem = _.first(todo.where({ todo_id: todo_id }));
 
+var galleryExists = false;
 var moment = require('moment');
 
 init();
@@ -72,9 +73,6 @@ function init() {
         $.viewContentContainer.height = 0;
     }
 
-    // @TODO Figure out why this is needed.  The nav widget should handle it
-    //$.windowTodoDetail.open();
-
 }
 
 /**
@@ -98,13 +96,13 @@ function setupNav() {
         image : "/images/action/ic_mode_edit_white_48dp.png",
         success: function() {
             log.debug('[Maintain] : Redirecting to Edit Page');
-            Alloy.Globals.Menu.setMainContent('TodoListNewEdit', {todoId: todoItem.get('todo_id')});
+            Alloy.Globals.Menu.setMainContent('TodoListNewEdit', {todo_id: todoItem.get('todo_id')});
         }
     });
 
     Alloy.Globals.Menu.showButton('l1');
     Alloy.Globals.Menu.showButton('r1');
-    Alloy.Globals.Menu.showButton('r2');
+    Alloy.Globals.Menu.hideButton('r2');
 }
 
 /**
@@ -129,7 +127,9 @@ function addEventListeners() {
     $.viewShare.addEventListener('click', shareTask);
 
     // Share the task
-    $.viewGallery.addEventListener('click', showItemGallery);
+    $.viewGallery.addEventListener('click', function(){
+        Alloy.Globals.Menu.setMainContent('TodoListGallery', {todo_id: todoItem.get("todo_id")});
+    });
 }
 
 /**
@@ -541,11 +541,9 @@ function savePhoto(image) {
         // Add +1 to the existing photoCount
         var photoCount = todoItem.get('photoCount') + 1;
 
-        var file = Ti.Filesystem.getFile(imageDir.resolve(), itemId +
-        photoCount + '.png');
+        var file = Ti.Filesystem.getFile(imageDir.resolve(), todo_id + photoCount + '.png');
 
-        log.debug("[TodoDetail] : Saving image to = ", imageDir.resolve() +
-        itemId + photoCount + '.png');
+        log.debug("[TodoDetail] : Saving image to = ", imageDir.resolve() + todo_id + photoCount + '.png');
 
         // Write to storage
         file.write(image.media);
@@ -584,7 +582,7 @@ function getPictureView(photoCount, width, height) {
         photoCount + ", width = " + width + ", height = " + height);
     // Create the directory if it doesn't exist
     var imageDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, 'todo');
-    var file = Ti.Filesystem.getFile(imageDir.resolve(), itemId + photoCount + '.png');
+    var file = Ti.Filesystem.getFile(imageDir.resolve(), todo_id + photoCount + '.png');
 
     if (!file.exists()) {
         log.warn(
@@ -692,7 +690,7 @@ function updateGallery() {
 
 }
 
-function deleteItem(itemId) {
+function deleteItem(todo_id) {
     // delete from model
 
     // refresh page

@@ -25,6 +25,67 @@ function init() {
 var videoUri = null;
 
 /**
+ * Ask user if they want supply media from gallery or camera
+ * @method promptGalleryOrCamera
+ */
+exports.promptGalleryOrCamera = function(args) {
+
+    var defaultOptions = {
+        options: ['Take a Photo', 'Gallery'],
+        selectedIndex: 0,
+        destructive: 0,
+        title: 'Take a Photo?'
+    };
+
+    var dialogOptions = args.dialogOptions ? args.dialogOptions : defaultOptions;
+
+    var photoArgs = args.photoArgs ? args.photoArgs : {};
+    var imageName = args.imageName ? args.imageName : 'photo-';
+    var directory = args.directory ? args.directory : ''
+    var success = args.success ? args.success : function() {
+        save(image, imageName, directory);
+    };
+
+
+    // open alert dialog
+    var dialog = Ti.UI.createOptionDialog(dialogOptions);
+    dialog.show();
+    dialog.addEventListener('click', function(e) {
+        if (e.index == 0) {
+            log.debug('[TodoDetail] : captureImage');
+            exports.captureImage(save);
+        } else {
+            log.debug('[TodoDetail] : captureImage');
+            exports.fromGallery(save);
+        }
+    });
+};
+
+/**
+ * Get images from Gallery
+ * @method fromGallery
+ */
+exports.fromGallery = function(args) {
+    alert("args: " + JSON.stringify(args, null, 4));
+    var success = args.success ? args.success : function(){};
+    var error = args.error ? args.cancel : function(){};
+    var cancel = args.cancel ? args.cancel : function(){};
+    Ti.Media.openPhotoGallery({
+        success:function(event) {
+            log.debug('Media Type from Gallerys: '+ event.mediaType);
+            if(event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
+                success(event);
+            }
+        },
+        error:function(err) {
+            error(err);
+        },
+        cancel: cancel,
+        mediaTypes:[Ti.Media.MEDIA_TYPE_PHOTO]
+    });
+};
+
+/**
  * This records video in Android by opening up an intent
  */
 exports.recordVideoAndroid = function() {
@@ -111,13 +172,16 @@ exports.compressVideo = function (pathToVideoFile) {
 
 /**
  * This invokes the camera
+ * @param {args}
  * @method captureImage
  * @return
  */
 exports.captureImage = function(args){
     log.debug('[VideoRecorder] : captureImage', args);
 
-    var success = args.success ? args.cancel : save;
+    var success = args.success ? args.success : function() {
+        save(args)
+    };
     var error = args.cancel ? args.cancel : function(err){
         if (err.code == Titanium.Media.NO_CAMERA) {
             alert('It appears you do not have support for the camera.');
@@ -151,19 +215,24 @@ exports.captureImage = function(args){
 
 /**
  * Save a photo to the SD card
+ * @param {Blob} image
+ * @param {String} imageName
+ * @param {String} directory
  * @method savePhoto
  */
-function save(image) {
+function save(image, imageName, directory) {
+    imageName = imageName ? imageName : 'photo-'
+    directory = directory ? directory : 'photos-'
     if (image.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
         log.debug('[VideoRecorder] : captureImage : Camera Success, image = ', image);
 
         // This part should be skipped to the existing function
-        var imageDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, 'todo');
+        var imageDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, directory);
         if (!imageDir.exists()) {
             imageDir.createDirectory();
         }
 
-        var file = Ti.Filesystem.getFile(imageDir.resolve(), itemId + photoCount + '.png');
+        var file = Ti.Filesystem.getFile(imageDir.resolve(), imageName + photoCount + '.png');
 
         log.debug("[VideoRecorder] : Saving image to = ", imageDir.resolve() + new Date.now() + '.png');
 

@@ -54,8 +54,8 @@ function setupNav() {
         image : "/images/Propelics.Logo.100x100.png",
         success: function() {
             log.debug('[TodoList] : Redirecting to HomePage');
-            //Alloy.Globals.Menu.setMainContent('HomePage');
-            Alloy.Globals.Menu.showInfoBar({title: "An Awesome Dev Company"});
+            Alloy.Globals.Menu.showInfoBar({title: "Check out this drawer with nothing in it"});
+            Alloy.Globals.Menu.toggleLeftSlider();
         }
     });
 
@@ -114,12 +114,12 @@ function addEventListeners() {
         log.warn(e.itemId);
         log.warn(e.itemIndex);
         if (Alloy.isTablet) {
-            Alloy.Globals.Menu.setSideContent('TodoListDetail', {itemId: e.itemId});
+            Alloy.Globals.Menu.setSideContent('TodoListDetail', {todo_id: e.itemId});
         } else {
             // Open our ToDo List Detail controller
             //var todoDetail = Alloy.createController('TodoListDetail', {itemId: e.itemId}).getView();
             //Alloy.Globals.navWindow.open(todoDetail);
-            Alloy.Globals.Menu.setMainContent('TodoListDetail', {itemId: e.itemId});
+            Alloy.Globals.Menu.setMainContent('TodoListDetail', {todo_id: e.itemId});
         }
     });
 }

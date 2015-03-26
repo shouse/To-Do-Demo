@@ -1,26 +1,26 @@
 <Alloy>
-    <Collection src="ToDo" />
-    <View id="viewMain" class="h-fill w-fill t-0 lo-vertical b-0">
-        <ScrollView id="viewRow" class="h-fill w-fill lo-vertical" horizontalBounce="false">
-            <View class="h-10 w-fill" backgroundColor="#eb5d36"/>
-            <View id="viewFormContainer" class="lo-vertical w-fill h-size l-20 r-20 t-0">
+<Collection src="ToDo" />
+<View id="viewMain" class="h-fill w-fill t-0 lo-vertical b-0">
+    <ScrollView id="viewRow" class="h-fill w-fill lo-vertical" horizontalBounce="false">
+        <View class="h-10 w-fill" backgroundColor="#eb5d36"/>
+        <View id="viewFormContainer" class="lo-vertical w-fill h-size l-20 r-20 t-0">
 
-                <Label id="labelName" class="t-10 b-10 w-fill h-45">Name</Label>
-                <TextField id="textFieldName" class="w-fill h-45"></TextField>
+            <Label id="labelName" class="t-10 b-10 w-fill h-45">Name</Label>
+            <TextField id="textFieldName" class="w-fill h-45"></TextField>
 
 
-                <Label id="labelContent" class="t-10 b-10 w-fill h-45">Content</Label>
-                <TextArea id="textFieldContent" class="w-fill h-45"></TextArea>
+            <Label id="labelContent" class="t-10 b-10 w-fill h-45">Content</Label>
+            <TextArea id="textFieldContent" class="w-fill h-45"></TextArea>
 
-                <!--
-                <View class="w-fill h-65 t-0 lo-horizontal">
-                    <Label id="label" class="t-10 b-10 w-35%">Add Due Date</Label><TextField id="textFieldTodo" class="w-fill"></TextField>
-                </View>
-                <View class="w-fill h-65 t-0 lo-horizontal">
-                    <Label id="labelAddPhoto" class="t-10 b-10 w-35%">Add Photo</Label><TextField id="textFieldAddPhoto" class="w-fill"></TextField>
-                </View>
-                -->
+            <!--
+            <View class="w-fill h-65 t-0 lo-horizontal">
+                <Label id="label" class="t-10 b-10 w-35%">Add Due Date</Label><TextField id="textFieldTodo" class="w-fill"></TextField>
             </View>
-        </ScrollView>
-    </View>
+            <View class="w-fill h-65 t-0 lo-horizontal">
+                <Label id="labelAddPhoto" class="t-10 b-10 w-35%">Add Photo</Label><TextField id="textFieldAddPhoto" class="w-fill"></TextField>
+            </View>
+            -->
+        </View>
+    </ScrollView>
+</View>
 </Alloy>

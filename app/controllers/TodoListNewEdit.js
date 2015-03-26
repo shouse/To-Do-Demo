@@ -11,7 +11,7 @@ var log = Alloy.Globals.log;
 log.info('[TodoList] : Opened Page');
 
 var args = arguments[0] || {};
-var todoId = args.todoId || false;
+var todo_id = args.todo_id || false;
 
 var todo = Alloy.Collections.instance("ToDo");
 var todoItem;
@@ -28,7 +28,7 @@ function init() {
     log.debug('[TodoListNewEdit] : Initializing');
     setupNav();
 
-    if (todoId) {
+    if (todo_id) {
         editItem();
     }
 
@@ -98,10 +98,10 @@ function addNewItem() {
     var formValues = getFormValues();
     var id;
     // Edit or create new
-    if (todoId) {
+    if (todo_id) {
         todoItem.set(formValues);
         todoItem.save();
-        id = todoId;
+        id = todo_id;
     } else {
         var newModel = Alloy.createModel("ToDo", formValues);
         newModel.save();
@@ -122,7 +122,7 @@ function addNewItem() {
  * @method addNewItem
  */
 function editItem() {
-    todoItem = _.first(todo.where({ todo_id: todoId }));
+    todoItem = _.first(todo.where({ todo_id: todo_id }));
     log.debug('[TodoListNewEdit] : Editing todo Item', todoItem);
 
     // Set the title to Edit

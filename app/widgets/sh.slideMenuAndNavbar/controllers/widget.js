@@ -481,20 +481,24 @@ exports.showInfoBar = function(args) {
     $.imageViewInfoBarIcon.image = args.icon ? args.icon : "/images/navigation/ic_cancel_white_48dp.png";
     $.imageViewInfoBarIcon2.image = args.icon ? args.icon : "/images/navigation/ic_check_white_48dp.png";
 
-    var cancel = function() {
-        args.cancel();
-        exports.hideInfoBar();
-    };
+    var cancel;
+    if (args.cancel !== null && args.cancel !== undefined) {
+        var cancel = function() {
+            args.cancel();
+            exports.hideInfoBar();
+        };
 
-    var yes = function() {
-        exports.hideInfoBar();
-        alert('here');
-    };
+        var yes = function() {
+            exports.hideInfoBar();
+            alert('here');
+        };
 
-    $.imageViewInfoBarIcon.removeEventListener(cancel);
-    $.imageViewInfoBarIcon2.removeEventListener(yes);
-    $.imageViewInfoBarIcon.addEventListener('click', cancel);
-    $.imageViewInfoBarIcon2.addEventListener('click', yes);
+        $.imageViewInfoBarIcon.removeEventListener(cancel);
+        $.imageViewInfoBarIcon2.removeEventListener(yes);
+        $.imageViewInfoBarIcon.addEventListener('click', cancel);
+        $.imageViewInfoBarIcon2.addEventListener('click', yes);
+    }
+
 
     _.delay(function(){
         var animation = Ti.UI.createAnimation({
