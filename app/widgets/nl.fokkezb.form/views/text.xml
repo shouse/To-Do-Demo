@@ -1,0 +1,3 @@
+<Alloy>
+  <TextField id="input" class="input" onChange="onChange" />
+</Alloy>

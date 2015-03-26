@@ -1,0 +1,9 @@
+<!-- This is the Base MVC - the cross-platform navigation is handled via the navigationgroup widget. See other contrllers -->
+<Alloy>
+    <Collection src="ToDo" />
+    <Window class="container h-fill w-fill l-0">
+        <!-- UI / UX Widget - Contains Left Menu, Main View, optional Right Menu, optional Bottom Menu Drawer -->
+        <!-- Alloy.Globals.Menu.setMainContent should be available now -->
+        <Require type="widget" src="sh.slideMenuAndNavbar" id="menu"/>
+    </Window>
+</Alloy>

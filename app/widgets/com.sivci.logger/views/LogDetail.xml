@@ -1,0 +1,20 @@
+<Alloy>
+    <View id="viewMain" layout="vertical" width="Ti.UI.FILL" height="Ti.UI.FILL">
+        <!-- This is the log summary similar to the widget.js single item -->
+        <View id="viewLogSummary" layout="horizontal" width="Ti.UI.FILL" height="50">
+            <View id="viewLogType" width="50" height="Ti.UI.FILL" left="0">
+                <Label id="labelLogType" width="Ti.UI.FILL" height="Ti.UI.SIZE"/>
+            </View>
+            <View layout="vertical" width="Ti.UI.FILL" height="Ti.UI.SIZE" left="20" right="20">
+                <Label id="labelDescription" width="Ti.UI.FILL" height="Ti.UI.SIZE" />
+                <Label id="labelDate" width="Ti.UI.FILL" height="Ti.UI.SIZE" />
+            </View>
+        </View>
+        <View class="hr" top="10"></View>
+        <!-- This is the Log Detail Message Scroll View -->
+        <ScrollView id="viewDetailInfo" height="Ti.UI.FILL" width="Ti.UI.FILL" layout="vertical" left="10" right="10">
+            <Label top="30">MESSAGE DETAILS</Label>
+            <Label id="labelDetail" />
+        </ScrollView>
+    </View>
+</Alloy>

@@ -1,0 +1,78 @@
+"#winNavBar": {
+	backgroundColor: "#efefef",
+	barColor: "#ffe100"
+},
+"#win": {
+	backgroundColor: "#efefef",
+	barColor: "#ffe100"
+},
+
+"#viewNavBar": {
+	top: "0dp",
+	left: "0dp",
+	width : Ti.UI.FILL,
+	height : "44dp",
+	backgroundGradient: {
+		type: "linear",
+		startPoint: {x: "50%", y: "0%"},
+		endPoint: {x: "50%", y: "100%"},
+		colors: [ {color: "#ffff7f", offset: 0.0}, {color:"#ffe100", offset: 0.5}, {color: "#cfb100", offset: 1.0} ]
+	}
+},
+"#buttonCancel": {
+	height: "32dp",
+	width: "60dp",
+	center: { x: "40dp", y: "50%" },
+	font: { fontSize: "12sp" },
+	title: "Cancel"
+},
+"#labelTitle[platform=android]": {
+	width: Ti.UI.SIZE,
+	height: Ti.UI.FILL,
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+	color: "#585858",
+	font: {
+		fontSize: "20sp",
+		fontWeight: "normal"
+	}
+},
+"#labelTitle[platform=ios]": {
+	text: "Local Device Log",
+	font: {
+		fontSize: "17sp",
+		fontWeight: "bold"
+	}
+},
+
+"#viewMain": {
+	backgroundColor: "#fff"
+}
+
+"#labelLogType": {
+	borderColor: '#000',
+	borderWidth: '1dp',
+	color: '#000',
+	font: {
+		fontSize: '18sp',
+		fontWeight: 'bold'
+	},
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
+},
+
+"#labelDescription": {
+	color: '#000',
+	font: {
+		fontSize: '16sp',
+		fontWeight: 'normal'
+	},
+	textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT
+},
+
+"#labelDate": {
+	color: '#666',
+	font: {
+		fontSize: '14sp',
+		fontWeight: 'normal'
+	},
+	textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT
+}

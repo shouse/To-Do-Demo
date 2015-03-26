@@ -1,0 +1,198 @@
+"Label" : {
+	color: "white"
+},
+
+"#imageViewTitle[formFactor=handheld]" : {
+	image : "/images/brand/thefleet_logotype.png"
+},
+
+"#imageViewTitle[formFactor=tablet]" : {
+	image : "/images/brand/thefleet_logotype.png"
+},
+
+"#labelTitle[formFactor=handheld]" : {
+	height: Ti.UI.SIZE,
+	width: Ti.UI.SIZE,
+	font : {
+		fontFamily : 'RobotoCondensed-Regular',
+		fontSize : '20sp'
+	},
+	color : '#FFF'
+},
+
+"#labelTitle[formFactor=tablet]" : {
+	height: Ti.UI.SIZE,
+	width: Ti.UI.SIZE,
+	font : {
+		fontFamily : 'RobotoCondensed-Regular',
+		fontSize : '22sp'
+	},
+	color : '#FFF'
+},
+
+"#buttonLeft[formFactor=handheld]": {
+	image : "/images/navigation/ic_menu_white_48dp.png",
+	left: 0,
+	top: 10,
+	bottom: 10,
+	style : "none"
+},
+
+"#buttonLeft[formFactor=tablet]": {
+	left : 0,
+	top: 10,
+	bottom: 10,
+	style : "none"
+},
+
+"#buttonLeft2[formFactor=handheld]": {
+	left : 60,
+	top: 10,
+	bottom: 10,
+	style : "none"
+},
+
+"#buttonLeft2[formFactor=tablet]": {
+	left : 90,
+	top: 10,
+	bottom: 10,
+	style : "none"
+},
+
+"#buttonRight[formFactor=handheld]": {
+	right : 0,
+	top: 10,
+	bottom: 10,
+	tintColor : '#fff'
+},
+
+"#buttonRight[formFactor=tablet]": {
+	right : 0,
+	top: 10,
+	bottom: 10,
+	tintColor : '#fff'
+},
+
+"#buttonRight2[formFactor=handheld]": {
+	top: 10,
+	bottom: 10,
+	tintColor : '#fff'
+},
+
+"#buttonRight2[formFactor=tablet]": {
+	top: 10,
+	bottom: 10,
+	tintColor : '#fff'
+},
+
+"#leftMenu[formFactor=handheld]": {
+	top: 0,
+	left: 0,
+	width: 250,
+	zIndex: "1"
+},
+
+"#leftMenu[formFactor=tablet]": {
+	top: 0,
+	left: 0,
+	width: 350,
+	zIndex: "1"
+},
+
+"#rightMenu[formFactor=handheld]": {
+	top: 0,
+	right: 0,
+	width: 250,
+	height: Ti.UI.FILL,
+	zIndex: "1"
+},
+"#rightMenu[formFactor=tablet]": {
+	top: 0,
+	right: 0,
+	width: 350,
+	height: Ti.UI.FILL,
+	zIndex: "1"
+},
+"#topNavigationDrawer": {
+	top: 0,
+	width: Ti.UI.FILL,
+	height: Ti.UI.FILL,
+	zIndex: 3
+},
+"#viewNav[formFactor=handheld]": {
+	top: 0,
+	left: 0,
+	width : Ti.UI.FILL,
+	height : 66,
+},
+"#viewNav[formFactor=tablet]": {
+	top: 0,
+	left: 0,
+	width : Ti.UI.FILL,
+	height : 88,
+},
+"#viewMovable": {
+	left: 0,
+	zIndex: 3
+},
+
+"#viewContentArea[formFactor=handheld]" : {
+	top: 64
+},
+
+"#viewContentArea[formFactor=tablet]" : {
+	top: 88
+},
+
+"#viewSideContent[formFactor=tablet]": {
+	width: "50%",
+	height: Ti.UI.FILL,
+	backgroundColor: "#f2eee9"
+},
+
+"#shadowview": {
+	shadowColor:"black",
+    shadowOffset:{x:"0",y:"0"},
+    shadowRadius:"2.5"
+},
+
+"#viewShadow[formFactor=handheld]" : {
+	top: 64
+},
+
+"#viewShadow[formFactor=tablet]" : {
+	top: 88
+},
+
+".viewMenuItem[formFactor=handheld]" : {
+	height: 50,
+	width: Ti.UI.FILL
+},
+
+".viewMenuItem[formFactor=tablet]" : {
+	height: 88
+},
+
+"#imageViewObserve" : {
+
+	image: "/images/brand/observe_bw.png",
+	height: Ti.UI.FILL
+},
+
+
+"#imageViewMaintain" : {
+
+	image: "/images/brand/maintain_bw.png",
+	height: Ti.UI.FILL
+},
+
+"#imageViewFix" : {
+
+	image:"/images/brand/fix_bw.png",
+	height: Ti.UI.FILL
+},
+
+"#imageViewCompete" : {
+	image:"/images/brand/compete_bw.png",
+	height: Ti.UI.FILL
+}

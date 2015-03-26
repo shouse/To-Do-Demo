@@ -1,0 +1,120 @@
+<h1>Ti.SQ</h1>
+
+<p>The TiSQ project allows you to use <a href="http://square.github.io">Square's</a> open source TimeSquare calendar picker in your Titanium app.</p>
+<p><a href="http://www.youtube.com/watch?v=HKy7pTjiRx8"><img alt="ScreenShot" src="https://raw.github.com/benbahrenburg/Ti.SQ/master/Screenshots/ios_youtube.png" /></a></p>
+<h2>Before you start</h2>
+
+<ul>
+<li>These are iOS and Android native modules designed to work with Titanium SDK 3.1.1.GA</li>
+<li>Before using this module you first need to install the package. If you need instructions on how to install a 3rd party module please read this installation guide.</li>
+</ul>
+<h2>Download the compiled release</h2>
+
+<p>Download the platform you wish to use:</p>
+<ul>
+<li><a href="https://github.com/benbahrenburg/Ti.SQ/tree/master/iOS/dist">iOS Dist</a></li>
+<li>Android Dist Coming soon...</li>
+</ul>
+<h2>Building from source?</h2>
+
+<p>If you are building from source you will need to do the following:</p>
+<p>Import the project into Xcode:</p>
+<ul>
+<li>Modify the titanium.xcconfig file with the path to your Titanium installation</li>
+</ul>
+<p>Import the project into Eclipse:</p>
+<ul>
+<li>Update the .classpath</li>
+<li>Update the build properties</li>
+</ul>
+<h2>Setup</h2>
+
+<ul>
+<li>Download the latest release from the releases folder ( or you can build it yourself )</li>
+<li>Install the ti.sq module. If you need help here is a "How To" <a href="https://wiki.appcelerator.org/display/guides/Configuring+Apps+to+Use+Modules">guide</a>. </li>
+<li>You can now use the module via the commonJS require method, example shown below.</li>
+</ul>
+<h2>Importing the module using require</h2>
+
+<pre><code>
+var square = require('ti.sq');
+</code></pre>
+
+<h2>Creating the View Object</h2>
+
+<p>The Ti.SQ view supports a majority of the standard <a href="http://docs.appcelerator.com/titanium/latest/#!/api/Titanium.UI.View">Ti.UI.View</a> properties.  The below listed properties are specific to the Ti.SQ calendar view.</p>
+<p><b>Parameters</b></p>
+<p><b>value</b> : Dictionary</p>
+<p>The selection value on the Ti.SQ calendar View</p>
+<p><b>min</b> : Dictionary</p>
+<p>The minimum date that will be shown and allowed to be selected on the Ti.SQ calendar view. </p>
+<p><b>max</b> : Dictionary</p>
+<p>The maximum date that will be shown and allowed to be selected on the Ti.SQ calendar view. </p>
+<p><b>PagingEnabled</b> : Boolean</p>
+<p>Enabled by default, this property determines if the Ti.SQ calendar view allows for scrolling</p>
+<p><b>BackgroundColor</b> : String/Color</p>
+<p>The color of the calendar view month headings</p>
+<p><b>Additional Properties</b></p>
+<p><b>dateValue</b> : Date</p>
+<p>Once the Calendar View has been created and added to your Ti.UI.Window, the dateValue property can be used to obtain a JavaScript date object with the selected date of the Calendar View.</p>
+<p><b>Example</b>
+<pre><code>
+//Require the square module into your project
+var square = require('ti.sq');</p>
+<p>var calendarView = square.createView({
+  height:Ti.UI.FILL,
+    width:Ti.UI.FILL,
+    pagingEnabled:true,
+    value:{
+        month:4,day:15,year:2013
+    },    <br />
+    min:{
+        month:2,day:15,year:2013
+    },
+    max:{
+        month:10,day:15,year:2013
+    }
+});</p>
+<p></code></pre></p>
+<h2>Events</h2>
+
+<p><b>dateChanged</b></p>
+<p>This event is called when a date is selected by the user.</p>
+<p><b>Callback Property Values</b></p>
+<p><b>dateValue</b> : Date</p>
+<p>A JavaScript date object with the selected date of the Calendar View</p>
+<p><b>value</b> : Dictionary</p>
+<p>A dictionary object with the day, month, and year of the selected date of the Calendar View. </p>
+<p>For exampe:</p>
+<pre><code>
+{
+    month:4,day:15,year:2013
+}
+</code></pre>
+
+<p><b>Example</b>
+<pre><code>
+calendarView.addEventListener('dateChanged',function(d){
+    Ti.API.info(JSON.stringify(d));
+    Ti.API.info(JSON.stringify(d.dateValue));
+    Ti.API.info(JSON.stringify(d.value));
+    Ti.API.info(JSON.stringify(calendarView.value));
+});
+</code></pre></p>
+<h2>Learn More</h2>
+
+<h3>Examples</h3>
+
+<p>Please check the module's example folder or </p>
+<ul>
+<li><a href="https://github.com/benbahrenburg/Ti.SQ/tree/master/iOS/example">iOS</a> </li>
+<li><a href="https://github.com/benbahrenburg/Ti.SQ/tree/master/Android/Module/example">Android</a></li>
+</ul>
+<p>for samples on how to use this project.</p>
+<h3>Twitter</h3>
+
+<p>Please consider following the <a href="http://www.twitter.com/benCoding">@benCoding Twitter</a> for updates 
+and more about Titanium.</p>
+<h3>Blog</h3>
+
+<p>For module updates, Titanium tutorials and more please check out my blog at <a href="http://benCoding.com">benCoding.Com</a>.</p>

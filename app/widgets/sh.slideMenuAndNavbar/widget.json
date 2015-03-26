@@ -1,0 +1,12 @@
+{
+	"id": "sh.slideMenuAndNavbar",
+	"description" : "Sliding Menu and Navigation Batr",
+	"author": "Steven House",
+	"version": "0.5",
+	"copyright":"Copyright (c) 2015 by Steven House",
+	"license":"Private",
+	"min-alloy-version": "0.1.16",
+	"min-titanium-version":"2.0",
+	"tags":"utility",
+	"platforms":"android,ios,mobileweb"
+}

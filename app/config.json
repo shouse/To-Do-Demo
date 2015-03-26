@@ -1,0 +1,29 @@
+{
+  "global": {
+    "logger": {
+      "enabled": true,
+      "remoteProvider": "acs",
+      "remoteLevel": "E",
+      "fileLevel": "D",
+      "crittercism": false,
+      "crittercismIOSAppId": "54a3119851de5e9f042ec6d5",
+      "crittercismAndroidAppId": "54a30d4651de5e9f042ec6d2"
+    }
+  },
+  "env:development": {},
+  "env:test": {},
+  "env:production": {},
+  "os:android": {},
+  "os:blackberry": {},
+  "os:ios": {},
+  "os:mobileweb": {},
+  "dependencies": {
+    "com.sivci.logger": "1.0",
+    "sh.slideMenuAndNavbar": "0.5",
+    "com.orthlieb.navigationgroup": "1.0",
+    "com.alcoapps.socialshare": "1.0",
+    "nl.fokkezb.form": "1.6.1",
+    "nl.fokkezb.color": "1.1.0",
+    "com.prodz.tidynamicgrid": "1.0"
+  }
+}

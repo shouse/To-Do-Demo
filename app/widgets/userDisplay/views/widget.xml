@@ -1,0 +1,11 @@
+<!-- This displays a user's profile summary, customizable -->
+<Alloy>
+	<View id="viewProfileSummary" class="w-fill h-size lo-horizontal">
+		<ImageView id="imageProfilePic" image="/images/userplaceholder.png" class="w-45 h-45 l-0" borderWidth="3" borderRadius="22" borderColor="#ccc" />
+
+		<View id="viewUserInfo" class="w-fill h-85 lo-vertical" top="20">
+			<Label id="labelUserRealName" class="latoBold r-10"/>
+			<Label id="labelUserLocation" class="latoNormal r-10"/>
+		</View>
+	</View>
+</Alloy>

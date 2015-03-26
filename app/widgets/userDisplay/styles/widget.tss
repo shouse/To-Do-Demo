@@ -1,0 +1,19 @@
+"Label": {
+	color: '#000',
+	font: {
+		fontSize: '18sp',
+		fontWeight: 'bold'
+	},
+	height: Ti.UI.SIZE,
+	width: Ti.UI.SIZE
+},
+
+"#imageProfilePic[formFactor=handheld]" : {
+	height: 88,
+	width: 88
+},
+
+"#imageProfilePic[formFactor=tablet]" : {
+	height: 200,
+	width: 200
+}

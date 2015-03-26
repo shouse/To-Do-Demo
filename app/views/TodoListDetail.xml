@@ -1,0 +1,62 @@
+<Alloy>
+    <Collection src="ToDo" />
+        <View id="viewMain" class="h-fill w-fill t-0 lo-vertical b-0">
+            <ScrollView id="viewRow" class="h-fill w-fill lo-vertical" horizontalBounce="false">
+                <View class="h-size lo-vertical" backgroundColor="#eb5d36">
+                    <Label id="labelTitle" class="w-fill h-size l-20 r-20 t-20 b-20 h4 text-center"/>
+                    <!--<Label id="labelSubtitle" width="Ti.UI.FILL" height="Ti.UI.SIZE" top="5" />-->
+                </View>
+                <View id="viewContentContainer" class="h-size lo-vertical h-0" backgroundColor="#ccc">
+                    <Label id="labelContent" class="w-fill h-size t-10 b-10 l-20 r-20 h5 text-center"/>
+                </View>
+                <View id="viewActionItems" class="w-fill h-fill lo-vertical">
+                    <View id="viewDone" class="todobbutton w-fill h-45 r-10 l-10 t-10 borderLightGreen">
+                        <ImageView id="imageViewCaptureDone" image="/images/action/ic_done_black_48dp.png" class="w-35 h-35 l-10 t-5" />
+                        <Label>DONE!</Label>
+                    </View>
+                    <View id="viewPhoto" class="todobbutton w-fill h-45 r-10 l-10 t-10 borderLightGreen">
+                        <ImageView id="imageViewCapturePhoto" image="/images/action/ic_camera_alt_black_48dp.png" class="w-35 h-35 l-10 t-5" />
+                        <Label>ADD A PHOTO</Label>
+                    </View>
+                    <!--
+                    <View id="viewVideo" class="todobbutton w-fill h-45 r-10 l-10 t-10 borderLightGreen">
+                        <ImageView id="imageViewCaptureVideo" image="/images/action/ic_camera_alt_black_48dp.png" class="w-35 h-35 l-10 t-5" />
+                        <Label>ADD A Video</Label>
+                    </View>
+                    <View id="viewAudio" class="todobbutton w-fill h-45 r-10 l-10 t-10 borderLightGreen">
+                        <ImageView id="imageViewCaptureAudio" image="/images/action/ic_camera_alt_black_48dp.png" class="w-35 h-35 l-10 t-5" />
+                        <Label>ADD AUDIO</Label>
+                    </View>
+                    -->
+                    <View id="viewDueDate" class="todobbutton w-fill h-45 r-10 l-10 t-10 borderGreen">
+                        <ImageView id="imageViewSetReminder" image="/images/action/ic_event_black_48dp.png" class="w-35 h-35 l-10 t-5" />
+                        <Label>SET DUE DATE</Label>
+                    </View>
+
+                    <View id="viewScheduleApt" class="todobbutton w-fill h-45 r-10 l-10 t-10 borderGreen">
+                        <ImageView id="imageViewSetReminder" image="/images/action/ic_alarm_black_48dp.png" class="w-35 h-35 l-10 t-5" />
+                        <Label id="labelReminder">SET REMINDER</Label>
+                    </View>
+
+                    <View id="viewAptTime" class="todobbutton w-fill h-0 r-10 l-10 t-10 borderGreen">
+                        <!--<ImageView id="imageViewAptTime" image="/images/action/ic_alarm_black_46dp.png" class="w-35 h-35 l-10 t-5" />-->
+                        <Label id="labelReminder"></Label>
+                    </View>
+
+                    <View id="viewShare" class="todobbutton w-fill h-45 r-10 l-10 t-10 borderGreen">
+                        <ImageView id="imageViewShare" image="/images/action/ic_share_black_48dp.png" class="w-35 h-35 l-10 t-5" />
+                        <Label id="labelShare">SHARE</Label>
+                    </View>
+
+                    <View id="viewGallery" class="todobbutton w-fill h-45 r-10 l-10 t-10 borderGreen">
+                        <ImageView id="imageGallery" image="/images/images/ic_collections_black_48dp.png" class="w-35 h-35 l-10 t-5" />
+                        <Label id="labelGallery">SHOW GALLERY</Label>
+                    </View>
+
+
+                </View>
+                <!-- Photo Gallery -->
+                <Require type="widget" src="com.prodz.tidynamicgrid" id="tdg" top="20" height="Ti.UI.SIZE"/>
+            </ScrollView>
+        </View>
+</Alloy>

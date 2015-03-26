@@ -1,0 +1,127 @@
+<Alloy>
+	<!-- Android -->
+	<Window id="win" layout="vertical" platform="android" navBarHidden="true">
+		<!-- Remove autofocus on Android text fields-->
+		<View platform="android" module="de.marcelpociot.autofocus" />
+
+		<View id="viewNavBar">
+			<Button id="buttonCancel" onClick="dismiss" />
+			<Label id="labelTitle" />
+		</View>
+
+		<View id="viewDetail" height="0"></View>
+
+		<!-- Filter Buttons -->
+		<View id="viewContainer" layout="vertical" width="Ti.UI.FILL" height="Ti.UI.FILL">
+			<View layout="horizontal" height="44">
+					<Button id="buttonFilterAll" title="ALL" width="19%" height="Ti.UI.FILL" />
+					<Button id="buttonFilterDebug" title="DEBUG" width="19%" height="Ti.UI.FILL" />
+					<Button id="buttonFilterInfo" title="INFO" width="19%" height="Ti.UI.FILL" />
+					<Button id="buttonFilterWarn" title="WARN" width="19%" height="Ti.UI.FILL" />
+					<Button id="buttonFilterError" title="ERROR" width="19%" height="Ti.UI.FILL" />
+			</View>
+			<ListView id="listView" onItemclick="listViewItemClick" defaultItemTemplate="templateMain" top="0">
+				<SearchBar barColor="#666" />
+				<Templates>
+					<!-- Main template for displaying the list items -->
+					<ItemTemplate id="templateMain" name="templateMain" class="templateMain" width="Ti.UI.FILL" height="80">
+						<!-- view to set the background color of the list item -->
+						<View id="viewMain" bindId="viewMain" layout="horizontal" width="Ti.UI.FILL" height="Ti.UI.FILL">
+							<View width="50" height="Ti.UI.FILL">
+								<Label id="labelLogType" bindId="labelLogType" width="30" height="30" />
+							</View>
+							<View layout="vertical" width="Ti.UI.FILL" height="Ti.UI.SIZE" right="20">
+								<View width="Ti.UI.FILL" height="40">
+									<Label id="labelDescription" bindId="labelDescription" width="Ti.UI.FILL" height="Ti.UI.FILL" top="0" />
+								</View>
+								<Label id="labelDate" bindId="labelDate" width="Ti.UI.FILL" height="Ti.UI.SIZE" top="0" right="0" />
+							</View>
+						</View>
+					</ItemTemplate>
+				</Templates>
+				<FooterView>
+					<View backgroundColor="#bbbbbb" width="Ti.UI.FILL" height="1" />
+				</FooterView>
+			</ListView>
+		</View>
+	</Window>
+
+	<!-- iOS -->
+	<NavigationWindow id="win" platform="ios">
+		<Window id="winNavBar" layout="vertical" title="Local Device Log">
+			<TitleControl>
+				<Label id="labelTitle" onClick="toggleLocalRemote" />
+			</TitleControl>
+			<LeftNavButton>
+				<Button onClick="dismiss" title="Cancel" style="Ti.UI.iPhone.SystemButtonStyle.DONE" />
+			</LeftNavButton>
+			<RightNavButton>
+				<Button id="buttonDeleteLogs" onClick="deleteLogs" systemButton="Ti.UI.iPhone.SystemButton.TRASH" />
+			</RightNavButton>
+
+			<View id="viewDetail" height="0"></View>
+
+			<!--<View id="viewContainer" layout="vertical" width="Ti.UI.FILL" height="Ti.UI.FILL">-->
+			<View id="viewContainer" layout="horizontal" width="Ti.UI.FILL" height="Ti.UI.FILL" left="0">
+				<View id="viewContainerMain" layout="vertical" width="Ti.UI.FILL">
+
+					<View layout="horizontal" height="44">
+						<Button id="buttonFilterAll" title="ALL" width="19%" height="Ti.UI.FILL" />
+						<Button id="buttonFilterDebug" title="DEBUG" width="19%" height="Ti.UI.FILL" />
+						<Button id="buttonFilterInfo" title="INFO" width="19%" height="Ti.UI.FILL" />
+						<Button id="buttonFilterWarn" title="WARN" width="19%" height="Ti.UI.FILL" />
+						<Button id="buttonFilterError" title="ERROR" width="19%" height="Ti.UI.FILL" />
+					</View>
+					<ListView id="listView" onItemclick="listViewItemClick" defaultItemTemplate="templateMain" top="0">
+						<SearchBar barColor="#666" />
+						<Templates>
+							<!-- Main template for displaying the local logs -->
+							<ItemTemplate id="templateMain" name="templateMain" class="templateMain" width="Ti.UI.FILL" height="80">
+								<!-- view to set the background color of the list item -->
+								<View id="viewMain" bindId="viewMain" layout="horizontal" width="Ti.UI.FILL" height="Ti.UI.FILL">
+									<View width="50" height="Ti.UI.FILL">
+										<Label id="labelLogType" bindId="labelLogType" width="30" height="30" />
+									</View>
+									<View layout="vertical" width="Ti.UI.FILL" height="Ti.UI.SIZE" right="20">
+										<View width="Ti.UI.FILL" height="40">
+											<Label id="labelDescription" bindId="labelDescription" width="Ti.UI.FILL" height="Ti.UI.FILL" top="0" />
+										</View>
+										<Label id="labelDate" bindId="labelDate" width="Ti.UI.FILL" height="Ti.UI.SIZE" top="0" />
+									</View>
+								</View>
+							</ItemTemplate>
+
+							<!-- Template for displaying remote logs -->
+							<ItemTemplate id="templateRemote" name="templateRemote" class="templateRemote" width="Ti.UI.FILL" height="80">
+								<!-- view to set the background color of the list item -->
+								<View id="viewMain" bindId="viewMain" layout="horizontal" width="Ti.UI.FILL" height="Ti.UI.FILL">
+									<View width="50" height="Ti.UI.FILL">
+										<Label id="labelLogType" bindId="labelLogType" width="30" height="30" />
+									</View>
+									<View layout="vertical" width="Ti.UI.FILL" height="Ti.UI.SIZE" right="20">
+										<View width="Ti.UI.FILL" height="40">
+											<Label id="labelDescription" bindId="labelDescription" width="Ti.UI.FILL" height="Ti.UI.FILL" top="0" />
+										</View>
+										<View width="Ti.UI.FILL" height="Ti.UI.SIZE" layout="horizontal">
+											<Label id="labelExtra" bindId="labelExtra" width="50%" height="Ti.UI.SIZE" top="0" />
+											<Label id="labelDate" bindId="labelDate" width="45%" height="Ti.UI.SIZE" top="0" right="0"/>
+										</View>
+									</View>
+								</View>
+							</ItemTemplate>
+						</Templates>
+						<FooterView>
+							<View backgroundColor="#bbbbbb" width="Ti.UI.FILL" height="1px" />
+						</FooterView>
+					</ListView>
+
+				</View>
+
+
+				<View width="Ti.UI.FILL" height="Ti.UI.FILL" id="viewDetailTablet" top="0" right="5" />
+
+
+			</View>
+		</Window>
+	</NavigationWindow>
+</Alloy>

@@ -1,0 +1,28 @@
+<Alloy>
+    <!-- Toggle Left Menu -->
+    <View class="h-fill w-15% l-0 t-10 b-10">
+        <ImageView id="buttonLeft" class="h-40" formFactor="handheld"/>
+        <ImageView id="buttonLeft" class="h-60" formFactor="tablet"/>
+    </View>
+
+    <View class="h-fill w-0 l-60 t-10 b-10">
+        <ImageView id="buttonLeft2" class="h-40" borderWidth="3" formFactor="handheld"/>
+        <ImageView id="buttonLeft2" class="h-60" formFactor="tablet"/>
+    </View>
+
+    <!-- Title: Defaults to text, can use images -->
+    <View id="viewTitleHolder" class="l-120 w-size h-fill">
+        <!--<ImageView id="imageViewTitle" class="t-20 b-20"/>-->
+        <Label id="labelTitle" />
+    </View>
+
+    <View class="h-fill w-15% r-10 t-10 b-10" right="50">
+        <ImageView id="buttonRight2" class="h-40" formFactor="handheld" visible="false" />
+        <ImageView id="buttonRight2" class="h-60" formFactor="tablet" visible="false" />
+    </View>
+
+    <View class="h-fill w-15% r-0 t-10 b-10">
+        <ImageView id="buttonRight" class="h-40" formFactor="handheld" visible="false"/>
+        <ImageView id="buttonRight" class="h-60" formFactor="tablet" visible="false"/>
+    </View>
+</Alloy>

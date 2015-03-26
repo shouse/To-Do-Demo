@@ -1,0 +1,20 @@
+".row": {
+  hasChild: true
+}
+
+".input": {
+  width: Ti.UI.FILL,
+
+  // align up with textfields
+  height: 40,
+
+  color: "#999",
+  font: {
+    fontSize: 17
+  }
+}
+
+"NavigationWindow": {
+  width: 300,
+  height: 250
+}

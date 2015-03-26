@@ -1,0 +1,6 @@
+".input": {
+  right: 0,
+
+  // align up with textfields
+  height: 40
+}

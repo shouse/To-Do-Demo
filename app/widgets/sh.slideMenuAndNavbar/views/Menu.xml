@@ -1,0 +1,91 @@
+<Alloy>
+    <ScrollView class="t-20 h-fill w-fill">
+
+        <!-- User Display -->
+        <Widget src="userDisplay" id="userDisplay" class="w-fill h-45 l-10" borderWidth="3" borderColor=""></Widget>
+
+        <View class="hr t-10" />
+
+        <View id="viewHome" class="viewMenuItem lo-horizontal w-fill" >
+            <ImageView id="imageViewHome" image="/images/navigation/ic_home_white_48dp.png" class="w-60 h-45 l-10"/>
+            <Label id="labelHome" class="w-fill h-size r-10 text-right" color="white">HOME</Label>
+        </View>
+
+        <View class="hr t-10"  />
+
+        <!-- Email -->
+        <View id="viewInbox" class="viewMenuItem lo-horizontal w-fill" >
+            <ImageView id="imageViewEmail" image="/images/communication/ic_email_white_48dp.png" class="w-45 h-45 l-10" />
+            <Label id="labelEmail" class="w-fill h-size r-10 text-right" color="white">INBOX</Label>
+        </View>
+
+        <View class="hr t-10" />
+
+        <View id="viewMyGarage" class="viewMenuItem lo-horizontal w-fill">
+            <ImageView id="imageViewMyGarage" image="/images/menu/left_icon.png" class="w-65 h-45 l-10" />
+            <Label id="labelMyGarage" class="w-fill h-size r-10 text-right" color="white">GARAGE</Label>
+        </View>
+
+
+        <View class="hr t-10" />
+
+        <!-- Gas -->
+        <View id="viewGas" class="viewMenuItem lo-horizontal w-fill">
+            <ImageView id="imageViewGas" image="/images/attach/ic_attach_money_white_48dp.png" class="w-45 h-45 l-10" />
+            <Label id="labelGas" class="w-fill h-size r-10 text-right" color="white">GAS PRICES</Label>
+        </View>
+
+        <View class="hr t-10" />
+
+        <!-- Groups -->
+        <View id="viewGroups" class="viewMenuItem lo-horizontal w-fill">
+            <ImageView id="imageViewGroups" image="/images/social/ic_group_white_48dp.png" class="w-45 h-45 l-10" />
+            <Label id="labelGroups" class="w-fill h-size r-10 text-right" color="white">GROUPS</Label>
+        </View>
+
+        <View class="hr t-10" />
+
+        <!-- Glove Box -->
+        <View id="viewGloveBox" class="viewMenuItem lo-horizontal w-fill">
+            <ImageView id="imageViewGloveBox" image="/images/file/ic_folder_open_white_48dp.png" class="w-45 h-45 l-10" />
+            <Label id="labelGloveBox" class="w-fill h-size r-10 text-right" color="white">GLOVE BOX</Label>
+        </View>
+
+        <View class="hr t-10" />
+
+        <!-- Settings launcher -->
+        <View id="viewAdapterStatus" class="viewMenuItem lo-horizontal w-fill">
+            <ImageView id="imageViewStatus" image="/images/action/ic_settings_bluetooth_white_48dp.png" class="w-45 h-45 l-10" />
+            <Label id="labelSettings" class="w-fill h-size r-10 text-right" color="white">STATUS</Label>
+        </View>
+
+        <View class="hr t-10"/>
+
+        <!-- Settings launcher -->
+        <View id="viewSettings" class="viewMenuItem lo-horizontal w-fill">
+            <ImageView id="imageViewSettings" image="/images/action/ic_settings_applications_white_48dp.png" class="w-45 h-45 l-10" />
+            <Label id="labelSettings" class="w-fill h-size r-10 text-right" color="white">SETTINGS</Label>
+        </View>
+
+        <View class="hr t-10" />
+
+        <!-- Feedback launcher -->
+        <View id="viewFeedback" class="viewMenuItem lo-horizontal w-fill">
+            <ImageView id="imageViewFeedback" image="/images/action/ic_question_answer_white_48dp.png" class="w-45 h-45 l-10" />
+            <Label id="labelFeedback" class="w-fill h-size r-10 text-right" color="white">FEEDBACK</Label>
+        </View>
+
+        <View class="hr t-10" />
+
+        <!-- Feedback launcher -->
+        <View id="viewLogger" class="viewMenuItem lo-horizontal w-fill" >
+            <ImageView id="imageViewLogger" image="/icons/light/ic_action_chat.png" class="w-45 h-45 l-10" />
+            <Label id="labelLogger" class="w-fill h-size r-10 text-right" color="white">VIEW LOGS</Label>
+        </View>
+
+    </ScrollView>
+    <View id="leftBottomMenu" class="b-0 lo-horizontal h-35">
+        <View><Label>Logout</Label></View>
+        <View><Label>Settings</Label></View>
+    </View>
+</Alloy>

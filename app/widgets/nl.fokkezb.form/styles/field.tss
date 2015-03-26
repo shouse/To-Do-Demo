@@ -1,0 +1,32 @@
+".row[platform=ios]": {
+  selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
+
+  layout: 'horizontal'
+}
+
+".label": {
+  width: 145,
+  height: Ti.UI.SIZE,
+  
+  top: 19,
+  left: 15,
+
+  color: '#000'
+}
+
+".control": {
+  height: Ti.UI.SIZE,
+
+  top: 10,
+  bottom: 10,
+  right: 15,
+  left: 15
+}
+
+".errorRow": {
+  backgroundColor: '#ff948d'
+}
+
+".errorLabel": {
+  color: '#fff'
+}

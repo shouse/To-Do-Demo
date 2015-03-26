@@ -1,0 +1,37 @@
+<Alloy>
+    <Collection src="ToDo" />
+        <View id="viewMain" class="h-fill w-fill t-0 lo-vertical">
+            <!-- Top Filters -->
+
+            <View id="viewListFilters" class="lo-horizontal w-fill t-0 h-44" backgroundColor="#eb5d36">
+                <Label id="labelFilterAll" class="h-fill w-50% h4" textAlign="center">ALL</Label>
+                <Label id="labelFilterDone" class="h-fill w-fill h4" textAlign="center">DONE</Label>
+            </View>
+            <!-- Hide Searchbar by default-->
+            <ListView id="listViewTodo" defaultItemTemplate="templateTodo" class="h-fill w-fill t-0" search="search">
+                <SearchBar id="search" barColor="#eb5d36" showCancel="true" height="0"/>
+                <Templates>
+                    <ItemTemplate id="templateTodo" name="templateTodo" class="templateTodo" onLongpress="deleteItem">
+                        <!-- Todo Row -->
+                        <View bindId="viewRow" id="viewRow" class="lo-horizontal w-fill">
+                            <!-- Done / Not done  @TODO Should this be the circular progress as well? -->
+                            <View bindId="viewStatusColor" id="viewStatusColor" class="w-10 h-fill"/>
+                            <ImageView bindId="imageViewCheckmark" id="imageViewCheckmark" class="w-45 h-45"/>
+
+                            <!-- Title / SubTitle -->
+                            <View class="h-size w-fill lo-vertical h-size">
+                                <Label bindId="itemTitle" id="itemTitle" class="w-fill h-45"/>
+                                <Label bindId="itemContent" id="itemContent" class="w-fill h-45"/>
+                                <!--<Label bindId="labelLastModified" id="labelLastModified" class="w-fill h-45"/>-->
+                            </View>
+
+
+
+                        </View>
+                    </ItemTemplate>
+                </Templates>
+            </ListView>
+
+            <Widget id="form" src="nl.fokkezb.form"/>
+        </View>
+</Alloy>

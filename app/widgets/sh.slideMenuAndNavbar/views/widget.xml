@@ -1,0 +1,79 @@
+<Alloy>
+	<!-- MAIN CONTAINER Holder -->
+	<View id="viewContainer" class="w-fill h-fill t-0 lo-composite" >
+		<!-- LeftMenu -->
+		<View id="leftMenu" class="bgDarkGray h-fill lo-vertical">
+			<ScrollView id="scrollViewMenu" class="t-20 h-fill w-fill">
+				<!-- Menu included here dynamically -->
+
+			</ScrollView>
+		</View>
+
+		<!-- RightMenu.  To add content here, use exports.addMenuView-->
+		<View id="rightMenu" class="bgDarkGray lo-vertical h-fill">
+			<!-- Removed to make menu on the left. -->
+		</View>
+
+		<!-- Top Navigation Drawer  - NOT CURRENTLY USED -->
+		<View id="topNavigationDrawer" class="bgLightBlue" >
+			<Label></Label>
+		</View>
+
+		<!-- Main View AND Navigation Bar -->
+		<View id="viewMovable" class="lo-vertical w-100%">
+			<View id="shadowview" class="lo-composite">
+
+				<!-- TOP NAV BAR - Can be set and Manipulated via controller exports-->
+				<View id="viewNav" class="lo-composite w-fill h-65">
+
+					<!-- Toggle Left Menu -->
+					<View class="h-fill w-15% l-0 t-10 b-10">
+						<ImageView id="buttonLeft" class="h-40" formFactor="handheld"/>
+						<ImageView id="buttonLeft" class="h-60" formFactor="tablet"/>
+					</View>
+
+					<View class="h-fill w-0 l-60 t-10 b-10">
+						<ImageView id="buttonLeft2" class="h-40" borderWidth="3" formFactor="handheld"/>
+						<ImageView id="buttonLeft2" class="h-60" formFactor="tablet"/>
+					</View>
+
+					<!-- Title: Defaults to text, can use images -->
+					<View id="viewTitleHolder" class="w-size h-fill">
+						<Label id="labelTitle" class="w-size">DOES THIS SAY ANYTHING</Label>
+					</View>
+
+					<View class="h-fill w-15% r-10 t-10 b-10" right="50">
+						<ImageView id="buttonRight2" class="h-40" formFactor="handheld" visible="false" />
+						<ImageView id="buttonRight2" class="h-60" formFactor="tablet" visible="false" />
+					</View>
+
+					<View class="h-fill w-15% r-0 t-10 b-10">
+						<ImageView id="buttonRight" class="h-40" formFactor="handheld" visible="false"/>
+						<ImageView id="buttonRight" class="h-60" formFactor="tablet" visible="false"/>
+					</View>
+				</View>
+
+				<!-- Info area / Alert area-->
+				<View id="viewInfoBar" class="t-65 h-1 w-fill lo-composite" formFactor="handheld" zIndex="100" opacity="0.0">
+					<ImageView id="imageViewInfoBarIcon" class="l-5 t-5 b-5 h-35 w-35" />
+					<Label id="labelInfoBarTitle" class="h4 w-fill h-fill text-center l-65 r-65" color="white"/>
+					<ImageView id="imageViewInfoBarIcon2" class="r-5 t-5 b-5 h-35 w-35" />
+				</View>
+				<View id="viewInfoBar" class="t-90 h-45 w-fill" formFactor="tablet" zIndex="100" />
+
+				<!-- MAIN CONTENT VIEW for controllers to display views in via controller exports -->
+				<View id="viewContentArea" class="lo-horizontal" backgroundColor="f2eee9">
+					<!-- This is where the -- !! MAIN !! - tab's content lives -->
+					<View id="viewMainContent" class="lo-composite t-0 l-0 w-fill h-fill" />
+
+					<!-- This is where the -- !! side !! -- content lives -->
+					<View id="viewSideContent" class="t-0" formFactor="tablet" />
+				</View>
+
+				<!-- Bottom menu bar -->
+				<View id="viewBottomBar" class="lo-horizontal h-0 w-fill b-0" zIndex="100" />
+
+			</View>
+		</View>
+	</View>
+</Alloy>

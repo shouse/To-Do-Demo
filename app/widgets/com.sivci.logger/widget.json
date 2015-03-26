@@ -1,0 +1,13 @@
+{
+	"id": "com.sivci.logger",
+	"name": "Logger Display Widget",
+	"description" : "This displays a listView of logs from app/lib/util/logger.js",
+	"author": "Steven House",
+	"version": "1.0",
+	"copyright":"Copyright (c) 2014",
+	"license":"Public Domain",
+	"min-alloy-version": "1.0",
+	"min-titanium-version":"2.1",
+	"tags":"logging, logs, logger",
+	"platforms":"android,blackberry,ios"
+}
