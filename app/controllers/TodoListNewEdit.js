@@ -113,7 +113,7 @@ function addNewItem() {
 
     //alert("Saved this model: " + JSON.stringify(newModel, null, 4));
 
-    Alloy.Globals.Menu.setMainContent('TodoListDetail', {itemId: id});
+    Alloy.Globals.Menu.setMainContent('TodoListDetail', {todo_id: id});
 
 };
 

@@ -117,7 +117,7 @@ function addEventListeners() {
             Alloy.Globals.Menu.setSideContent('TodoListDetail', {todo_id: e.itemId});
         } else {
             // Open our ToDo List Detail controller
-            //var todoDetail = Alloy.createController('TodoListDetail', {itemId: e.itemId}).getView();
+            //var todoDetail = Alloy.createController('TodoListDetail', {todo_id: e.itemId}).getView();
             //Alloy.Globals.navWindow.open(todoDetail);
             Alloy.Globals.Menu.setMainContent('TodoListDetail', {todo_id: e.itemId});
         }
@@ -242,7 +242,7 @@ function todoSuccess(recordsToShow) {
 
 function deleteItem(e){
     var section = e.section;
-    var itemId = e.itemId;
+    var todo_id = e.itemId;
     var itemIndex = e.itemIndex;
     log.warn("deleteItem: " + JSON.stringify(e, null, 4));
     var opts = {
@@ -258,7 +258,7 @@ function deleteItem(e){
      dialog.addEventListener('click', function(e) {
          if (e.index == 0) {
              alert("Delete Me!");
-             var todoItem = _.first(todo.where({ todo_id: itemId }));
+             var todoItem = _.first(todo.where({ todo_id: todo_id }));
              todo.remove(todoItem);
              todoItem.destroy();
              todo.fetch();
