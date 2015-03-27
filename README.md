@@ -2,7 +2,7 @@
 
 By [Steven House](https://www.linkedin.com/profile/view?id=4522122).
 
-[![Code Climate](Code Climate Badge IMG URL goes here)](Code Climate URL goes here)
+[![Code Climate](https://codeclimate.com/github/shouse/To-Do-Demo/badges/gpa.svg)](https://codeclimate.com/github/shouse/To-Do-Demo)
 
 ## Description
 **To-Do-Demo** is a To-Do app for Titanium showcasing many best practices and some reusable components.
