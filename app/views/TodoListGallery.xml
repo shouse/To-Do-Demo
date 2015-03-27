@@ -3,7 +3,7 @@
     <View id="viewMain" class="h-fill w-fill t-0 lo-vertical b-0">
         <ScrollView id="viewRow" class="h-fill w-fill lo-vertical" horizontalBounce="false" backgroundColor="#efefef">
             <View class="h-10 w-fill" backgroundColor="#eb5d36"/>
-            <Require type="widget" src="com.prodz.tidynamicgrid" id="tdg" class="h-fill w-fill" borderColor="red" borderWidth="4"/>
+            <Require type="widget" src="com.prodz.tidynamicgrid" id="tdg" class="h-fill w-fill"/>
             <Label id="label" class="h-0 t-0"> There are no photos to show</Label>
         </ScrollView>
     </View>

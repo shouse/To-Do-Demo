@@ -5,11 +5,11 @@
         <View class="h-10 w-fill" backgroundColor="#eb5d36"/>
         <View id="viewFormContainer" class="lo-vertical w-fill h-size l-20 r-20 t-0">
 
-            <Label id="labelName" class="t-10 b-10 w-fill h-45">Name</Label>
+            <Label id="labelName" class="t-10 b-10 w-fill h-45 h3">Name</Label>
             <TextField id="textFieldName" class="w-fill h-45"></TextField>
 
 
-            <Label id="labelContent" class="t-10 b-10 w-fill h-45">Content</Label>
+            <Label id="labelContent" class="t-10 b-10 w-fill h-45 h3">Content</Label>
             <TextArea id="textFieldContent" class="w-fill h-45"></TextArea>
 
             <!--

@@ -14,6 +14,8 @@ log.info('[TodoList] : Opened Page');
 var todo = Alloy.Collections.instance("ToDo");
 todo.fetch();
 
+var moment = require('moment');
+
 init();
 addEventListeners();
 
@@ -33,6 +35,8 @@ function init() {
     } else {
         getTasks();
     }
+
+
 
     if (Alloy.isTablet) {
         //Alloy.Globals.Menu.setSideContent('TodoListHistory');
@@ -155,12 +159,11 @@ function filter(item) {
 
 /**
  * This checks if todo items have been loaded,
- * then loads from data fileor bypass reload
- * @method getVehicletodo
+ * then loads from data file or bypass reload
+ * @method getTasks
  * @return
  */
 function getTasks() {
-    alert("getTasks")
     // If there are no models in the collection, let's start out with some demo data
     if (todo.length === 0) {
         var todoJSON = require('data/ToDo').getTasks();
@@ -202,6 +205,11 @@ function todoSuccess(recordsToShow) {
 
     // Push data to the List View
     _.each(sortedCollection, function(todoItem) {
+        var date = "";
+        if (todoItem.dueDateDateTime) {
+            date = moment(todoItem.dueDateDateTime).format("MM DD");
+        }
+
         data.push({
             viewStatusColor: {
                 backgroundColor: todoItem.status ? "green" : ""
@@ -220,6 +228,9 @@ function todoSuccess(recordsToShow) {
             },
             itemContent: {
                 text: todoItem.content
+            },
+            labelDueDate: {
+                text: date
             },
             properties: {
                 itemId: todoItem.todo_id,
@@ -240,6 +251,10 @@ function todoSuccess(recordsToShow) {
     $.listViewTodo.appendSection(listSection);
 }
 
+/**
+ * Delete an item
+ * @param e
+ */
 function deleteItem(e){
     var section = e.section;
     var todo_id = e.itemId;
@@ -257,15 +272,15 @@ function deleteItem(e){
      dialog.show();
      dialog.addEventListener('click', function(e) {
          if (e.index == 0) {
-             alert("Delete Me!");
              var todoItem = _.first(todo.where({ todo_id: todo_id }));
              todo.remove(todoItem);
              todoItem.destroy();
              todo.fetch();
              section.deleteItemsAt(itemIndex, 1);
+             Alloy.Globals.Menu.showInfoBar({title: "Deleted Task!"});
              return;
          } else {
-            alert("Not Deleted!");
+             Alloy.Globals.Menu.showInfoBar({title: "Not Deleted!"});
          }
      });
 }

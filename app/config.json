@@ -24,6 +24,7 @@
     "com.alcoapps.socialshare": "1.0",
     "nl.fokkezb.form": "1.6.1",
     "nl.fokkezb.color": "1.1.0",
-    "com.prodz.tidynamicgrid": "1.0"
+    "com.prodz.tidynamicgrid": "1.0",
+    "sh.checkbox": "1.0"
   }
 }

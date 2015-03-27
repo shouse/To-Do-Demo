@@ -1,0 +1,13 @@
+{
+	"id": "sh.checkbox",
+	"name": "sh.checkbox",
+	"description" : "A checkbox with a user-defined label",
+	"author": "Steven House",
+	"version": "1.0",
+	"copyright":"Copyright (c) 2014",
+	"license":"Public Domain",
+	"min-alloy-version": "1.0",
+	"min-titanium-version":"2.1",
+	"tags":"checkbox",
+	"platforms":"android,blackberry,ios,mobileweb,tizen"
+}

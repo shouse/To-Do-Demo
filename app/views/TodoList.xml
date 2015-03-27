@@ -16,7 +16,7 @@
                         <View bindId="viewRow" id="viewRow" class="lo-horizontal w-fill">
                             <!-- Done / Not done  @TODO Should this be the circular progress as well? -->
                             <View bindId="viewStatusColor" id="viewStatusColor" class="w-10 h-fill"/>
-                            <ImageView bindId="imageViewCheckmark" id="imageViewCheckmark" class="w-45 h-45"/>
+                            <ImageView bindId="imageViewCheckmark" id="imageViewCheckmark" class="w-25 h-25"/>
 
                             <!-- Title / SubTitle -->
                             <View class="h-size w-fill lo-vertical h-size">
@@ -24,6 +24,7 @@
                                 <Label bindId="itemContent" id="itemContent" class="w-fill h-45"/>
                                 <!--<Label bindId="labelLastModified" id="labelLastModified" class="w-fill h-45"/>-->
                             </View>
+                            <Label bindId="labelDueDate" id="labelDueDate" class="w-size h-size" borderColor="red" borderWidth="4"/>
 
 
 

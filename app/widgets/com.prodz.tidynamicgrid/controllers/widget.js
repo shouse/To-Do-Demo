@@ -75,52 +75,64 @@ var addGridItem = function(item){
 	var tmpView = Ti.UI.createView({
 		width:columnWidth,
 		height:Ti.UI.SIZE,
-		visible:false
+		visible:true
 	});
 	tmpView.add(item.view);
+    tmpView.addEventListener('click', function(e) {
+        onItemClick(e.source.image);
+    });
 	$.tdgMain.add(tmpView);
-	
-	setTimeout(function(){
-		//Ti.API.info('Item Height is:' + tmpView.size.height);
-		
-		var frame = Ti.UI.createView({
-			width:Ti.UI.FILL,
-			height:Ti.UI.SIZE,
-			backgroundColor:itemsOptions.backgroundColor,
-			bottom:space+"dp",
-			borderColor:itemsOptions.borderColor,
-			borderRadius:itemsOptions.borderRadius,
-			borderWidth:itemsOptions.borderWidth
-		});
-		
-		var overlay = Ti.UI.createView({
-			width:Ti.UI.FILL,
-			height:Ti.UI.SIZE,
-			backgroundColor:'transparent',
-			zIndex:1,
-			data:item.data
-		});
-		
-		var gridElement = item.view;
-		
-		//ADD CUSTOM FUNCTION ONCE AN ITEM IS CLICKED
-		overlay.addEventListener('click',function(e){
-			onItemClick(e);
-		});
-				 
-		frame.add(gridElement);
-		frame.add(overlay);
-		
-		$.tdgMain.remove(tmpView);
-		tmpView = null;
-		
-		$.tdgScrollView.children[currentCol].add(frame);
-		currentCol++;
-		
-		if(currentCol == colViews.length){
-			currentCol=0;
-		}	
-	},delayTime);
+    $.tdgScrollView.children[currentCol].add(tmpView);
+
+    currentCol++;
+
+    if(currentCol == colViews.length){
+        currentCol=0;
+    }
+    /*
+    setTimeout(function(){
+        //Ti.API.info('Item Height is:' + tmpView.size.height);
+
+        var frame = Ti.UI.createView({
+            width:Ti.UI.FILL,
+            height:Ti.UI.SIZE,
+            backgroundColor:itemsOptions.backgroundColor,
+            bottom:space+"dp",
+            borderColor:itemsOptions.borderColor,
+            borderRadius:itemsOptions.borderRadius,
+            borderWidth:itemsOptions.borderWidth
+        });
+
+        var overlay = Ti.UI.createView({
+            width:Ti.UI.FILL,
+            height:Ti.UI.SIZE,
+            backgroundColor:'green',
+            zIndex:2,
+            data:item.data
+        });
+
+        var gridElement = item.view;
+
+        //ADD CUSTOM FUNCTION ONCE AN ITEM IS CLICKED
+        overlay.addEventListener('click',function(e){
+            alert('clicked');
+            onItemClick(e);
+        });
+
+        frame.add(gridElement);
+        frame.add(overlay);
+
+        $.tdgMain.remove(tmpView);
+        tmpView = null;
+
+        $.tdgScrollView.children[currentCol].add(frame);
+        currentCol++;
+
+        if(currentCol == colViews.length){
+            currentCol=0;
+        }
+    },delayTime);
+    */
 };
 
 var clearGrid = function(){

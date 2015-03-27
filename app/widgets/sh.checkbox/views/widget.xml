@@ -1,0 +1,6 @@
+<Alloy>
+	<View id="container" class="w-size h-size lo-horizontal">
+		<ImageView id="checkbox" onClick="checkboxClick" class="w-size h-size"/>
+		<Label id="label" onClick="checkboxClick" class="w-size h-size l-0"/>
+	</View>
+</Alloy>

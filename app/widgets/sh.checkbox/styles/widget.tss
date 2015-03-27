@@ -1,0 +1,11 @@
+"#checkbox": {
+	image: WPATH('checkmark-on.png')
+}
+
+"#label": {
+	color: '#000',
+	font: {
+		fontSize: '18dp',
+		fontWeight: 'bold'
+	}
+}

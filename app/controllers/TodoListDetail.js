@@ -1,7 +1,7 @@
 /**
  * This is the controller file for "TodoDetail"
  *
- * @class Controller.TodoDetail
+ * @class Controller.TodoListDetail
  * @author Steven House
  * @email steven.m.house@gmail.com
  */
@@ -17,6 +17,7 @@ var todo = Alloy.Collections.instance("ToDo");
 var todoItem = _.first(todo.where({ todo_id: todo_id }));
 
 var galleryExists = false;
+var checkBox;
 var moment = require('moment');
 
 init();
@@ -29,42 +30,9 @@ init();
 function init() {
     setupNav();
     addEventListeners();
+    addCheckbox();
 
     $.labelTitle.text = todoItem.get("name").toUpperCase();
-
-    if (isDone()) {
-        log.debug('[TodoDetail] : Initializing : Completed');
-        $.viewDone.height = 44;
-        //$.viewPhoto.height = 0;
-        $.addClass($.viewDone, 'bgDarkGreen');
-    }
-
-    if (hasReminder()) {
-        log.debug('[TodoDetail] : Initializing : Completed');
-
-        $.viewAptTime.height = 44;
-        $.viewScheduleApt.height = 0;
-        $.addClass($.viewScheduleApt, 'bgDarkGreen');
-
-        var reminderDate = todoItem.get('reminderDateTime');
-
-        var dateText = moment.utc(reminderDate).fromNow();
-        $.labelReminder.text = dateText;
-        // + reminderDate;
-    }
-
-    if (hasDueDate()) {
-        log.debug('[TodoDetail] : Initializing : Completed');
-
-        $.viewAptTime.height = 44;
-        $.viewScheduleApt.height = 0;
-        $.addClass($.viewScheduleApt, 'bgDarkGreen');
-
-        var dueDate = todoItem.get('dueDateDateTime');
-
-        var dateText = moment.utc(reminderDate).fromNow();
-        $.labelReminder.text = dateText;
-    }
 
     if (todoItem.get("content") && todoItem.get("content").length > 0) {
         $.labelContent.text = todoItem.get("content");
@@ -73,6 +41,24 @@ function init() {
         $.viewContentContainer.height = 0;
     }
 
+    if (hasDueDate()) {
+        $.labelDueDate.text = "Due " + moment(todoItem.get('dueDateDateTime')).fromNow();
+    }
+
+    /*
+     if (hasReminder()) {
+     $.viewAptTime.height = 44;
+     $.viewScheduleApt.height = 0;
+     $.addClass($.viewScheduleApt, 'bgDarkGreen');
+
+     var reminderDate = todoItem.get('reminderDateTime');
+
+     var dateText = moment.utc(reminderDate).fromNow();
+     $.labelReminder.text = dateText;
+     // + reminderDate;
+     }
+     */
+
 }
 
 /**
@@ -80,6 +66,7 @@ function init() {
  * @method setupNav
  */
 function setupNav() {
+    Alloy.Globals.Menu.setTitle("Detail View");
     // Add menu
     Alloy.Globals.Menu.setButton({
         button: 'l1',
@@ -111,14 +98,8 @@ function setupNav() {
  * @return
  */
 function addEventListeners() {
-    // Mark as Done
-    $.viewDone.addEventListener('click', done);
-
     // Set A Due Date
     $.viewDueDate.addEventListener('click', setDueDate);
-
-    // Set Reminder
-    $.viewScheduleApt.addEventListener('click', setReminder);
 
     // Capture a photo
     $.viewPhoto.addEventListener('click', captureImage);
@@ -133,24 +114,46 @@ function addEventListeners() {
 }
 
 /**
+ * Add a checkbox
+ * @method checkboxStuff
+ */
+function addCheckbox() {
+    checkbox = Alloy.createWidget("sh.checkbox", {value: todoItem.get("status")});
+    //checkbox.value = false;
+
+    // Create a handler for the change event.
+    checkbox.on('change', function(e) {
+        //toggleStatus(checkbox.value);
+        toggleStatus();
+    });
+    // Add the checkbox to the view.
+    $.viewCheckboxContainer.add(checkbox.getView());
+}
+
+/**
  * Handles the done click event listener
  * @method done
  * @return
  */
-function done() {
-    //$.addClass($.viewDone, 'bgDarkGreen');
+function toggleStatus() {
+    log.warn("[Task Details] toggling status to " + !todoItem.get("status"));
+    if (todo.get("status") === 0){
+        todoItem.set({
+            status: !todoItem.get("status"),
+            completedDateTime: new Date().toISOString(),
+            lastModifiedDateTime: new Date().toISOString()
+        });
+        Alloy.Globals.Menu.showInfoBar({title: "Keep Up The Good Work!"});
+    } else {
+        todoItem.set({
+            status: !todoItem.get("status"),
+            completedDateTime: undefined,
+            lastModifiedDateTime: new Date().toISOString()
+        });
+    }
 
-    log.warn("todoItem ", todoItem);
-
-    todoItem.set({
-        status: true,
-        completedDateTime: new Date().toISOString()
-    });
     todoItem.save();
-
     todo.fetch();
-
-    Alloy.Globals.Menu.showInfoBar({title: "Keep Up The Good Work!"});
 }
 
 /**
@@ -302,7 +305,7 @@ function setDueDate() {
                 if (e.index == 0) {
                     saveDate(d.dateValue, "Due Date");
                 } else {
-                    Allog.Globals.Menu.showInfoBar("Due Date NOT Set");
+                    Alloy.Globals.Menu.showInfoBar("Due Date NOT Set");
                 }
 
                 $.viewMain.remove(calendarView);
@@ -457,11 +460,13 @@ function saveDate(d, type) {
         eventId: todoItem.get('name')
     });
 
-    todoItem.set({ reminderDateTime: d });
+    todoItem.set({ dueDateDateTime: d });
     todoItem.save();
+    todo.fetch();
 
+    $.labelDueDate.text = "Due " + moment(d).fromNow();
     //Alloy.Globals.toast.show("Reminder set!");
-    Alloy.Globals.Menu.showInfoBar({title: type + " set for " + moment(d).fromNow() + " from now"});
+    Alloy.Globals.Menu.showInfoBar({title: type + " set " + moment(d).fromNow() + " from now"});
 }
 
 /**
@@ -520,7 +525,6 @@ function showItemGallery() {
  * @method savePhoto
  */
 function savePhoto(image) {
-    alert(JSON.stringify(image, null, 4));
     if (image.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
 
         log.event({
@@ -554,10 +558,7 @@ function savePhoto(image) {
         });
         todoItem.save();
 
-        log.debug('[TodoDetail] : Saved image to this location : ',
-            file.nativePath);
-
-        updateGallery();
+        log.debug('[TodoDetail] : Saved image to this location : ', file.nativePath);
 
     } else {
         alert('We are only supporting images at the moment.');
@@ -567,131 +568,6 @@ function savePhoto(image) {
         });
         todoItem.save();
     }
-}
 
-/**
- * This returns an imageView created from the file system
- * @method getPictureView
- * @param {photoCount}
- * @param {width}
- * @param {height}
- * @return {Object} imageView
- */
-function getPictureView(photoCount, width, height) {
-    log.debug('[TodoDetail] : getPictureView : photoCount = ',
-        photoCount + ", width = " + width + ", height = " + height);
-    // Create the directory if it doesn't exist
-    var imageDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, 'todo');
-    var file = Ti.Filesystem.getFile(imageDir.resolve(), todo_id + photoCount + '.png');
-
-    if (!file.exists()) {
-        log.warn(
-            '[TodoDetail] : No saved pictures found.  Should not see this'
-        );
-        return false;
-    } else {
-        var image = file.read();
-        log.info('[TodoDetail] : Retrieved saved picture : ',
-            image);
-
-        var imageView = Ti.UI.createImageView({
-            image: image,
-            width: width,
-            height: height,
-            borderColor: "white"
-        });
-
-        //$.viewMain.add(imageView);
-        return imageView;
-    }
-
-}
-
-/**
- * Create Gallery of photos / videos
- * @method createGallery
- */
-function createGallery() {
-    log.debug('[TodoDetail] : createGallery() : image number = ', todoItem.get('photoCount'));
-    galleryExists = true;
-
-    var photoCount = todoItem.get('photoCount');
-    var images = [];
-    var columns = 0;
-
-    // Bail if no photos
-    if (photoCount < 1) {
-        log.debug("[TodoDetail] : createGallery : photoCount === 0");
-        return false;
-    } else if (photoCount == 1) {
-        columns = 1;
-    } else if (photoCount == 2) {
-        columns = 2;
-    } else {
-        columns = 3;
-    }
-
-    $.tdg.init({
-        columns: columns,
-        space: 5,
-        delayTime: 500,
-        gridBackgroundColor: '#e1e1e1',
-        itemBackgroundColor: '#9fcd4c',
-        itemBorderColor: '#6fb442',
-        itemBorderWidth: 0,
-        itemBorderRadius: 3
-    });
-
-    // For each photo count create a photo
-    _(photoCount).times(function(n) {
-        //THIS IS THE DATA THAT WE WANT AVAILABLE FOR THIS ITEM WHEN onItemClick OCCURS
-        var itemData = {
-            caption: 'Test'
-        };
-
-        var imageView = getPictureView(n + 1, 150, 150);
-
-        //NOW WE PUSH TO THE ARRAY THE VIEW AND THE DATA
-        images.push({
-            view: imageView,
-            data: itemData
-        });
-    });
-
-    //ADD ALL THE ITEMS TO THE GRID
-    $.tdg.addGridItems(images);
-
-    $.tdg.setOnItemClick(function(e){
-        alert('Selected Item: ' + JSON.stringify(e, null, 4));
-    });
-}
-
-/**
- * Update the gallery and add a menu item
- * @method updateGallery
- */
-function updateGallery() {
-    log.debug("[TodoDetail] : Updating Gallery");
-    // If gallery doesn't exist create it
-    if (!galleryExists) {
-        createGallery();
-        return
-    }
-
-    // If gallery does exist add the first item
-    var imageView = getPictureView(1, 150, 150);
-
-    $.tdg.addGridItems({
-        view: imageView,
-        data: {
-            caption: 'Test'
-        }
-    });
-
-}
-
-function deleteItem(todo_id) {
-    // delete from model
-
-    // refresh page
+    todo.fetch();
 }

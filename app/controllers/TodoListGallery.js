@@ -115,21 +115,7 @@ function getPictureView(photoCount, width, height) {
             borderColor: "white"
         });
 
-        //$.viewMain.add(imageView);
-        return imageView;
-    }
-
-    if (todoItem.get('hasPhoto')) {
-
-        if (!todoItem.get('photoCount') !== 0) {
-            createGallery();
-            galleryExists = true;
-        } else {
-            $.tdg.height = 0;
-            $.tdb.visible = false;
-            $.labelBlank.removeClass("h-0");
-            $.labelBlank.addClass("h-100");
-        }
+        return {view: imageView, file: file};
     }
 
 }
@@ -143,7 +129,6 @@ function createGallery() {
     galleryExists = true;
 
     var photoCount = todoItem.get('photoCount');
-    var images = [];
     var columns = 0;
 
     // Bail if no photos, otherwise set the number of columns based on current photo count
@@ -171,36 +156,41 @@ function createGallery() {
         //itemBackgroundColor: '#9fcd4c',
         itemBorderColor: '#eb5d36',
         itemBorderWidth: 3,
-        itemBorderRadius: 5
+        itemBorderRadius: 5,
+        onItemClick: openLargeImage
     });
 
-    displayAllPhotos(photoCount, images);
+    displayAllPhotos(photoCount);
 }
 
+function openLargeImage(image) {
+    Alloy.Globals.Menu.setMainContent('TodoListGalleryItem', {image: image, todo_id: todoItem.get('todo_id')});
+}
 
-function displayAllPhotos(photoCount, images) {
+/**
+ * Display all photos
+ * @param photoCount
+ */
+function displayAllPhotos(photoCount) {
+    var images = [];
     // For each photo count create a photo
     _(photoCount).times(function(n) {
+        var imageViewAndFile = getPictureView(n + 1, 150, 150);
         //THIS IS THE DATA THAT WE WANT AVAILABLE FOR THIS ITEM WHEN onItemClick OCCURS
         var itemData = {
-            caption: 'Test'
+            caption: 'Test',
+            file: imageViewAndFile.file
         };
-
-        var imageView = getPictureView(n + 1, 150, 150);
-
         //NOW WE PUSH TO THE ARRAY THE VIEW AND THE DATA
         images.push({
-            view: imageView,
+            view: imageViewAndFile.view,
             data: itemData
         });
+
     });
 
     //ADD ALL THE ITEMS TO THE GRID
     $.tdg.addGridItems(images);
-
-    $.tdg.setOnItemClick(function(e){
-        alert('Selected Item: ' + JSON.stringify(e, null, 4));
-    });
 }
 
 /**

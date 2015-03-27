@@ -105,7 +105,7 @@ function addNewItem() {
     } else {
         var newModel = Alloy.createModel("ToDo", formValues);
         newModel.save();
-        id = newModel.todo_id;
+        id = newModel.get("todo_id");
     }
 
     // Make sure the collection is current
