@@ -218,7 +218,7 @@ exports.setSideContent = function(controller, args) {
     // Remove children, save render
     if ($.viewSideContent.children.length > 0) {
         // First cleanup the view
-        $.viewSideContent.children[0].cleanup();
+        //$.viewSideContent.children[0].cleanup();
         $.viewSideContent.removeAllChildren();
     }
 

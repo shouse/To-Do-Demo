@@ -52,6 +52,7 @@
     <module platform="android" version="0.2">ti.sq</module>
     <module platform="iphone" version="0.4">ti.sq</module>
     <module platform="ios" version="1.7.10">dk.napp.social</module>
+    <module platform="android" version="0.3">yy.tidialogs</module>
   </modules>
 	<deployment-targets>
 		<target device="android">true</target>
