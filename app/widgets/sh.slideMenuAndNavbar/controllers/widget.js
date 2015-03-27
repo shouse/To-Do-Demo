@@ -185,9 +185,9 @@ exports.setMainContent = function(viewTitle, args) {
         // Remove children, save render
         if ($.viewMainContent.children.length > 0) {
             // First cleanup the view
-            //if ($.viewMainContent.children[0].cleanup !== null) {
-                //$.viewMainContent.children[0].cleanup();
-            //}
+            if ($.viewMainContent.children[0].cleanup !== null) {
+                $.viewMainContent.children[0].cleanup();
+            }
             $.viewMainContent.removeAllChildren();
         }
         var mainContentView = Alloy.createController(viewTitle, args);

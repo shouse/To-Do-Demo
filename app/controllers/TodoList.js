@@ -45,6 +45,16 @@ function init() {
 }
 
 /**
+ * Any cleanup the controller needs
+ * @method cleanup
+ * @return
+ */
+$.viewMain.cleanup = function() {
+    $.destroy();
+    $.off();
+};
+
+/**
  * Setup the Nav Bar
  * @method setupNav
  */

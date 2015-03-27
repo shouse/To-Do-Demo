@@ -65,6 +65,16 @@ function init() {
 }
 
 /**
+ * Any cleanup the controller needs
+ * @method cleanup
+ * @return
+ */
+$.viewMain.cleanup = function() {
+    $.destroy();
+    $.off();
+};
+
+/**
  * Setup the Nav Bar
  * @method setupNav
  */
@@ -140,16 +150,16 @@ function addCheckbox() {
  */
 function toggleStatus() {
     log.warn("[Task Details] toggling status to " + !todoItem.get("status"));
-    if (todo.get("status") === 0){
+    if (todo.get("status") == 0){
         todoItem.set({
-            status: !todoItem.get("status"),
+            status: 1,
             completedDateTime: new Date().toISOString(),
             lastModifiedDateTime: new Date().toISOString()
         });
         Alloy.Globals.Menu.showInfoBar({title: "Keep Up The Good Work!"});
     } else {
         todoItem.set({
-            status: !todoItem.get("status"),
+            status: 0,
             completedDateTime: undefined,
             lastModifiedDateTime: new Date().toISOString()
         });
