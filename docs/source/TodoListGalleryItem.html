@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Controller-TodoListGalleryItem'>/**
+</span> * This is the controller file for &quot;TodoListGalleryItem&quot;
+ * It displays a single
+ *
+ * @class Controller.TodoListGalleryItem
+ * @author Steven House
+ * @email steven.m.house@gmail.com
+ */
+// Include logging utility
+var log = Alloy.Globals.log;
+log.info(&quot;Opened TodoListDetails&quot;);
+
+var args = arguments[0] || {};
+var todo_id = args.todo_id || &quot;&quot;;
+
+var todo = Alloy.Collections.instance(&quot;ToDo&quot;);
+var todoItem = _.first(todo.where({ todo_id: todo_id }));
+
+var galleryExists = false;
+var checkBox;
+var moment = require(&#39;moment&#39;);
+
+init();
+
+<span id='Controller-TodoListGalleryItem-method-init'>/**
+</span> * Start the controller running
+ * @method init
+ * @return
+ */
+function init() {
+    setupNav();
+    $.imageViewLarge.image = args.image;
+}
+
+<span id='Controller-TodoListGalleryItem-method-setupNav'>/**
+</span> * Setup the Nav Bar
+ * @method setupNav
+ */
+function setupNav() {
+    Alloy.Globals.Menu.setTitle(&quot;Task Image&quot;);
+    // Add menu
+    Alloy.Globals.Menu.setButton({
+        button: &#39;l1&#39;,
+        image : &quot;/images/navigation/ic_chevron_left_white_48dp.png&quot;,
+        success: function() {
+            log.debug(&#39;[Maintain] : Redirecting to HomePage&#39;);
+            Alloy.Globals.Menu.setMainContent(&#39;TodoListGallery&#39;, {todo_id: todoItem.get(&#39;todo_id&#39;)});
+        }
+    });
+
+    Alloy.Globals.Menu.showButton(&#39;l1&#39;);
+    Alloy.Globals.Menu.hideButton(&#39;r1&#39;);
+    Alloy.Globals.Menu.hideButton(&#39;r2&#39;);
+}</pre>
+</body>
+</html>

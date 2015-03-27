@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Widgets-nlFokkezbForm-controllers-switch'>/**
+</span> * Controller for the switch field type.
+ *
+ * The switch field type is a `Ti.UI.Switch`.
+ *
+ * @class Widgets.nlFokkezbForm.controllers.switch
+ * @extends Widgets.nlFokkezbForm.controllers.field
+ * @xtype switch
+ */
+
+exports.baseController = &#39;../widgets/nl.fokkezb.form/controllers/field&#39;;
+
+$.focus = focus;
+$.getValue = getValue;
+$.setValue = setValue;
+$.isValid = isValid;
+
+<span id='Widgets-nlFokkezbForm-controllers-switch-method-Controller'>/**
+</span> * Constructor.
+ *
+ * @constructor
+ * @method Controller
+ * @param args Arguments which will also be used to call {@link Widgets.nlFokkezbForm.controllers.field#Controller}.
+ * @param {Object} [args.input] Properties to apply to the `Ti.UI.Switch`.
+ * @param {Boolean} [args.value=false] Set to `true` to turn the switch on.
+ */
+(function constructor(args) {
+
+  // input properties to apply
+  if (args.input) {
+    $.input.applyProperties(args.input);
+  }
+
+  // add the input to the row
+  $.setInput($.input);
+
+})(arguments[0]);
+
+<span id='Widgets-nlFokkezbForm-controllers-switch-method-focus'>/**
+</span> * Toggles the switch.
+ *
+ * This method is called by {@link Widgets.nlFokkezbForm.controllers.widget} when the user clicks on the row.
+ */
+function focus() {
+  var val = !$.input.value;
+
+  $.input.value = val;
+}
+
+function getValue(val) {
+  return $.input.value;
+}
+
+function setValue(val) {
+  $.input.value = !!val;
+}
+
+<span id='Widgets-nlFokkezbForm-controllers-switch-method-isValid'>/**
+</span> * A switch is always valid.
+ *
+ * @return {Boolean} Always `true`.
+ */
+function isValid() {
+  return true;
+}
+
+function onChange(e) {
+  $.change();
+}</pre>
+</body>
+</html>

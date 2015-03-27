@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='global-property-args'>/**
+</span> * This widget displays user&#39;s information
+ */
+
+var args = arguments[0] || {};
+
+var type = args.type || &#39;regular&#39;;
+
+var userInfo = _.isUndefined(Ti.App.Properties.getObject(&quot;userInfo&quot;, null)) ?
+    &#39;Not Logged In&#39; : Alloy.CFG.drupalConfig.userInfo;
+
+init();
+addEventListeners();
+
+<span id='global-method-init'>/**
+</span> * Start it off
+ */
+function init() {
+    log.info(&quot;[WIDGET User Display] : Initializing&quot;);
+    log.debug(&quot;[WIDGET User Display] : User Info&quot;, userInfo);
+
+    var imagePath = &#39;&#39;
+    //if (!userInfo.picture === null &amp;&amp; !userInfo.picture.url === null) {
+        //imagePath = userInfo.picture.url;
+    //}
+
+    var realName = _.isUndefined(userInfo) ? &#39;Not Logged In&#39; : userInfo.realname;
+    var imageProfilePic = imagePath;
+    $.labelUserRealName.text = realName;
+    //$.imageProfilePic.image = imageProfilePic;
+
+    if (type === &#39;regular&#39;) {
+        displayRegular();
+    } else {
+        displaySmall();
+    }
+}
+
+<span id='global-method-addEventListeners'>/**
+</span> * Add Event Listeners
+ */
+function addEventListeners() {
+    $.viewProfileSummary.addEventListener(&#39;click&#39;, function() {
+        Alloy.Globals.Menu.setMainContent(&#39;UserProfile&#39;);
+    });
+}
+
+<span id='global-method-displayRegular'>/**
+</span> *
+ */
+function displayRegular() {
+
+}
+
+<span id='global-method-displaySmall'>/**
+</span> *
+ */
+function displaySmall() {
+    $.imageProfilePic.left = 10;
+    $.imageProfilePic.top = 10;
+    $.imageProfilePic.height = 44;
+    $.imageProfilePic.width = 44;
+    $.viewProfileSummary.height = 50;
+}
+
+$.setSize = function(type) {
+    if (type === &#39;regular&#39;) {
+        displayRegular();
+    } else {
+        displaySmall();
+    }
+};
+
+$.setType = function(type) {
+    if (type === &#39;regular&#39;) {
+        displayRegular();
+    } else if (type == &#39;medium&#39;) {
+        $.imageProfilePic.left = 20;
+        $.imageProfilePic.height = 75;
+        $.imageProfilePic.width = 75;
+        $.viewProfileSummary.height = 100;
+    } else {
+        displaySmall();
+    }
+};
+
+$.setStyle = function(style) {
+    if (style == &#39;light&#39;) {
+
+    } else if (style == &#39;dark&#39;) {
+        $.viewUserInfo.color = &#39;white&#39;;
+        $.labelUserRealName.color = &#39;white&#39;;
+        $.labelUserLocation.color = &#39;white&#39;;
+    }
+}
+</pre>
+</body>
+</html>

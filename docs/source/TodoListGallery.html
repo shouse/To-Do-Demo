@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Controller-TodoListGallery'>/**
+</span> * This is the controller file for &quot;TodoListGallery&quot;
+ *
+ * @class Controller.TodoListGallery
+ * @author Steven House
+ * @email steven.m.house@gmail.com
+ */
+
+// Include logging utility
+var log = Alloy.Globals.log;
+log.info(&quot;Opened TodoListDetails&quot;);
+
+var args = arguments[0] || {};
+var todo_id = args.todo_id || &quot;&quot;;
+
+var todo = Alloy.Collections.instance(&quot;ToDo&quot;);
+var todoItem = _.first(todo.where({ todo_id: todo_id }));
+
+var galleryExists = false;
+
+init();
+
+<span id='Controller-TodoListGallery-method-init'>/**
+</span> * Start this baby runnin...
+ * @method init
+ */
+function init() {
+    log.info(&quot;[Gallery] Initializing &quot;);
+
+    setupNav();
+
+    if (!todoItem.get(&#39;photoCount&#39;) !== 0) {
+        createGallery();
+        galleryExists = true;
+    } else {
+        $.tdg.height = 0;
+        $.tdb.visible = false;
+        $.labelBlank.removeClass(&quot;h-0&quot;);
+        $.labelBlank.addClass(&quot;h-100&quot;);
+    }
+}
+
+<span id='Controller-TodoListGallery-method-setupNav'>/**
+</span> * Setup the Nav Bar
+ * @method setupNav
+ */
+function setupNav() {
+    Alloy.Globals.Menu.setTitle(&quot;Task Gallery&quot;);
+    Alloy.Globals.Menu.setColor(&quot;#aaa&quot;);
+
+    // Add menu
+    Alloy.Globals.Menu.setButton({
+        button: &#39;l1&#39;,
+        image : &quot;/images/navigation/ic_chevron_left_white_48dp.png&quot;,
+        success: function() {
+            log.debug(&#39;[Gallery] : Redirecting to Detail Page&#39;);
+            Alloy.Globals.Menu.setMainContent(&#39;TodoListDetail&#39;, {todo_id: todoItem.get(&#39;todo_id&#39;)});
+            //Alloy.Globals.Menu.goBack();
+        }
+    });
+
+    Alloy.Globals.Menu.setButton({
+        button: &#39;r2&#39;,
+        image: &quot;/images/action/ic_search_white_48dp.png&quot;,
+        success: function() {
+            if ($.search.height == 0) {
+                $.search.height = 44;
+            } else {
+                $.search.height = 0;
+            }
+
+        }
+    });
+
+    Alloy.Globals.Menu.setButton({
+        button: &#39;r1&#39;,
+        image: &quot;/images/action/ic_add_white_48dp.png&quot;,
+        success: function() {
+            require(&#39;Camera&#39;).promptGalleryOrCamera();
+        }
+    });
+
+    Alloy.Globals.Menu.showButton(&#39;r1&#39;);
+    Alloy.Globals.Menu.hideButton(&#39;r2&#39;);
+    Alloy.Globals.Menu.showButton(&#39;l1&#39;);
+}
+
+<span id='Controller-TodoListGallery-method-getPictureView'>/**
+</span> * This returns an imageView created from the file system
+ * @method getPictureView
+ * @param {photoCount} count of photos
+ * @param {width} width
+ * @param {height} height
+ * @return {Object} imageView
+ */
+function getPictureView(photoCount, width, height) {
+    log.debug(&#39;[Gallery] : getPictureView : photoCount = &#39;, photoCount + &quot;, width = &quot; + width + &quot;, height = &quot; + height);
+    // Create the directory if it doesn&#39;t exist.  Use the Application Directory and specify /todo for directory
+    var imageDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, &#39;todo&#39;);
+    var file = Ti.Filesystem.getFile(imageDir.resolve(), todo_id + photoCount + &#39;.png&#39;);
+
+    // Check Filesystem for picture
+    if (!file.exists()) {
+        log.warn(&#39;[TodoListGallery] : No saved pictures found.  Should not see this&#39;);
+        return false;
+    } else {
+        var image = file.read();
+        log.info(&#39;[TodoListGallery] : Retrieved saved picture : &#39;,
+            image);
+
+        var imageView = Ti.UI.createImageView({
+            image: image,
+            width: width,
+            height: height,
+            borderColor: &quot;white&quot;
+        });
+
+        return {view: imageView, file: file};
+    }
+
+}
+
+<span id='Controller-TodoListGallery-method-createGallery'>/**
+</span> * Create Gallery of photos / videos
+ * @method createGallery
+ */
+function createGallery() {
+    log.debug(&#39;[Gallery] : createGallery() : number of images = &#39;, todoItem.get(&#39;photoCount&#39;));
+    galleryExists = true;
+
+    var photoCount = todoItem.get(&#39;photoCount&#39;);
+    var columns = 0;
+
+    // Bail if no photos, otherwise set the number of columns based on current photo count
+    if (photoCount &lt; 1) {
+        Alloy.Globals.Menu.showInfoBar({title: &quot;No Photos To Display&quot;});
+        log.debug(&quot;[Gallery] : createGallery : photoCount === 0&quot;);
+        return false;
+    } else if (photoCount == 1) {
+        columns = 1;
+    } else if (photoCount == 2) {
+        columns = 2;
+    } else {
+        columns = 3;
+    }
+
+    if (columns == 0) {
+        return;
+    }
+
+    $.tdg.init({
+        columns: columns,
+        space: 10,
+        delayTime: 500,
+        //gridBackgroundColor: &#39;#e1e1e1&#39;,
+        //itemBackgroundColor: &#39;#9fcd4c&#39;,
+        itemBorderColor: &#39;#eb5d36&#39;,
+        itemBorderWidth: 3,
+        itemBorderRadius: 5,
+        onItemClick: openLargeImage
+    });
+
+    displayAllPhotos(photoCount);
+}
+
+function openLargeImage(image) {
+    Alloy.Globals.Menu.setMainContent(&#39;TodoListGalleryItem&#39;, {image: image, todo_id: todoItem.get(&#39;todo_id&#39;)});
+}
+
+<span id='Controller-TodoListGallery-method-displayAllPhotos'>/**
+</span> * Display all photos
+ * @param photoCount
+ */
+function displayAllPhotos(photoCount) {
+    var images = [];
+    // For each photo count create a photo
+    _(photoCount).times(function(n) {
+        var imageViewAndFile = getPictureView(n + 1, 150, 150);
+        //THIS IS THE DATA THAT WE WANT AVAILABLE FOR THIS ITEM WHEN onItemClick OCCURS
+        var itemData = {
+            caption: &#39;Test&#39;,
+            file: imageViewAndFile.file
+        };
+        //NOW WE PUSH TO THE ARRAY THE VIEW AND THE DATA
+        images.push({
+            view: imageViewAndFile.view,
+            data: itemData
+        });
+
+    });
+
+    //ADD ALL THE ITEMS TO THE GRID
+    $.tdg.addGridItems(images);
+}
+
+<span id='Controller-TodoListGallery-method-updateGallery'>/**
+</span> * Update the gallery and add a menu item
+ * @method updateGallery
+ */
+function updateGallery() {
+    log.debug(&quot;[Gallery] : Updating Gallery&quot;);
+    // If gallery doesn&#39;t exist create it
+    if (!galleryExists) {
+        if (!todoItem.get(&#39;photoCount&#39;) !== 0) {
+            createGallery();
+            galleryExists = true;
+        } else {
+            $.tdg.height = 0;
+            $.tdb.visible = false;
+            $.labelBlank.removeClass(&quot;h-0&quot;);
+            $.labelBlank.addClass(&quot;h-100&quot;);
+        }
+        return
+    }
+
+    // If gallery does exist add the first item
+    var imageView = getPictureView(1, 150, 150);
+
+    $.tdg.addGridItems({
+        view: imageView,
+        data: {
+            caption: &#39;Test&#39;
+        }
+    });
+
+}
+</pre>
+</body>
+</html>

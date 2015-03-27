@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">//! moment.js
+//! version : 2.2.1
+//! authors : Tim Wood, Iskren Chernev, Moment.js contributors
+//! license : MIT
+//! momentjs.com
+(function(a){
+<span id='global-method-b'>/**
+</span> * Description
+ * @method b
+ * @param {} a
+ * @param {} b
+ * @return FunctionExpression
+ */
+function b(a,b){return function(c){return i(a.call(this,c),b)}}
+<span id='global-method-c'>/**
+</span> * Description
+ * @method c
+ * @param {} a
+ * @param {} b
+ * @return FunctionExpression
+ */
+function c(a,b){return function(c){return this.lang().ordinal(a.call(this,c),b)}}
+<span id='global-method-d'>/**
+</span> * Description
+ * @method d
+ * @return 
+ */
+function d(){}
+<span id='global-method-e'>/**
+</span> * Description
+ * @method e
+ * @param {} a
+ * @return 
+ */
+function e(a){g(this,a)}
+<span id='global-method-f'>/**
+</span> * Description
+ * @method f
+ * @param {} a
+ * @return 
+ */
+function f(a){var b=a.years||a.year||a.y||0,c=a.months||a.month||a.M||0,d=a.weeks||a.week||a.w||0,e=a.days||a.day||a.d||0,f=a.hours||a.hour||a.h||0,g=a.minutes||a.minute||a.m||0,h=a.seconds||a.second||a.s||0,i=a.milliseconds||a.millisecond||a.ms||0;this._input=a,this._milliseconds=+i+1e3*h+6e4*g+36e5*f,this._days=+e+7*d,this._months=+c+12*b,this._data={},this._bubble()}
+<span id='global-method-g'>/**
+</span> * Description
+ * @method g
+ * @param {} a
+ * @param {} b
+ * @return a
+ */
+function g(a,b){for(var c in b)b.hasOwnProperty(c)&amp;&amp;(a[c]=b[c]);return a}
+<span id='global-method-h'>/**
+</span> * Description
+ * @method h
+ * @param {} a
+ * @return ConditionalExpression
+ */
+function h(a){return 0&gt;a?Math.ceil(a):Math.floor(a)}
+<span id='global-method-i'>/**
+</span> * Description
+ * @method i
+ * @param {} a
+ * @param {} b
+ * @return c
+ */
+function i(a,b){for(var c=a+&quot;&quot;;c.length&lt;b;)c=&quot;0&quot;+c;return c}
+<span id='global-method-j'>/**
+</span> * Description
+ * @method j
+ * @param {} a
+ * @param {} b
+ * @param {} c
+ * @param {} d
+ * @return 
+ */
+function j(a,b,c,d){var e,f,g=b._milliseconds,h=b._days,i=b._months;g&amp;&amp;a._d.setTime(+a._d+g*c),(h||i)&amp;&amp;(e=a.minute(),f=a.hour()),h&amp;&amp;a.date(a.date()+h*c),i&amp;&amp;a.month(a.month()+i*c),g&amp;&amp;!d&amp;&amp;L.updateOffset(a),(h||i)&amp;&amp;(a.minute(e),a.hour(f))}
+<span id='global-method-k'>/**
+</span> * Description
+ * @method k
+ * @param {} a
+ * @return BinaryExpression
+ */
+function k(a){return&quot;[object Array]&quot;===Object.prototype.toString.call(a)}
+<span id='global-method-l'>/**
+</span> * Description
+ * @method l
+ * @param {} a
+ * @param {} b
+ * @return BinaryExpression
+ */
+function l(a,b){var c,d=Math.min(a.length,b.length),e=Math.abs(a.length-b.length),f=0;for(c=0;d&gt;c;c++)~~a[c]!==~~b[c]&amp;&amp;f++;return f+e}
+<span id='global-method-m'>/**
+</span> * Description
+ * @method m
+ * @param {} a
+ * @return ConditionalExpression
+ */
+function m(a){return a?ib[a]||a.toLowerCase().replace(/(.)s$/,&quot;$1&quot;):a}
+<span id='global-method-n'>/**
+</span> * Description
+ * @method n
+ * @param {} a
+ * @param {} b
+ * @return SequenceExpression
+ */
+function n(a,b){return b.abbr=a,P[a]||(P[a]=new d),P[a].set(b),P[a]}
+<span id='global-method-o'>/**
+</span> * Description
+ * @method o
+ * @param {} a
+ * @return 
+ */
+function o(a){delete P[a]}
+<span id='global-method-p'>/**
+</span> * Description
+ * @method p
+ * @param {} a
+ * @return LogicalExpression
+ */
+function p(a){if(!a)return L.fn._lang;if(!P[a]&amp;&amp;Q)try{require(&quot;./lang/&quot;+a)}catch(b){return L.fn._lang}return P[a]||L.fn._lang}
+<span id='global-method-q'>/**
+</span> * Description
+ * @method q
+ * @param {} a
+ * @return ConditionalExpression
+ */
+function q(a){return a.match(/\[.*\]/)?a.replace(/^\[|\]$/g,&quot;&quot;):a.replace(/\\/g,&quot;&quot;)}
+<span id='global-method-r'>/**
+</span> * Description
+ * @method r
+ * @param {} a
+ * @return FunctionExpression
+ */
+function r(a){var b,c,d=a.match(T);for(b=0,c=d.length;c&gt;b;b++)d[b]=mb[d[b]]?mb[d[b]]:q(d[b]);return function(e){var f=&quot;&quot;;for(b=0;c&gt;b;b++)f+=d[b]instanceof Function?d[b].call(e,a):d[b];return f}}
+<span id='global-method-s'>/**
+</span> * Description
+ * @method s
+ * @param {} a
+ * @param {} b
+ * @return SequenceExpression
+ */
+function s(a,b){return b=t(b,a.lang()),jb[b]||(jb[b]=r(b)),jb[b](a)}
+<span id='global-method-t'>/**
+</span> * Description
+ * @method t
+ * @param {} a
+ * @param {} b
+ * @return a
+ */
+function t(a,b){
+<span id='global-method-c'>/**
+</span> * Description
+ * @method c
+ * @param {} a
+ * @return LogicalExpression
+ */
+function c(a){return b.longDateFormat(a)||a}for(var d=5;d--&amp;&amp;(U.lastIndex=0,U.test(a));)a=a.replace(U,c);return a}
+<span id='global-method-u'>/**
+</span> * Description
+ * @method u
+ * @param {} a
+ * @param {} b
+ * @return 
+ */
+function u(a,b){switch(a){case&quot;DDDD&quot;:return X;case&quot;YYYY&quot;:return Y;case&quot;YYYYY&quot;:return Z;case&quot;S&quot;:case&quot;SS&quot;:case&quot;SSS&quot;:case&quot;DDD&quot;:return W;case&quot;MMM&quot;:case&quot;MMMM&quot;:case&quot;dd&quot;:case&quot;ddd&quot;:case&quot;dddd&quot;:return $;case&quot;a&quot;:case&quot;A&quot;:return p(b._l)._meridiemParse;case&quot;X&quot;:return bb;case&quot;Z&quot;:case&quot;ZZ&quot;:return _;case&quot;T&quot;:return ab;case&quot;MM&quot;:case&quot;DD&quot;:case&quot;YY&quot;:case&quot;HH&quot;:case&quot;hh&quot;:case&quot;mm&quot;:case&quot;ss&quot;:case&quot;M&quot;:case&quot;D&quot;:case&quot;d&quot;:case&quot;H&quot;:case&quot;h&quot;:case&quot;m&quot;:case&quot;s&quot;:return V;default:return new RegExp(a.replace(&quot;\\&quot;,&quot;&quot;))}}
+<span id='global-method-v'>/**
+</span> * Description
+ * @method v
+ * @param {} a
+ * @return ConditionalExpression
+ */
+function v(a){var b=(_.exec(a)||[])[0],c=(b+&quot;&quot;).match(fb)||[&quot;-&quot;,0,0],d=+(60*c[1])+~~c[2];return&quot;+&quot;===c[0]?-d:d}
+<span id='global-method-w'>/**
+</span> * Description
+ * @method w
+ * @param {} a
+ * @param {} b
+ * @param {} c
+ * @return 
+ */
+function w(a,b,c){var d,e=c._a;switch(a){case&quot;M&quot;:case&quot;MM&quot;:null!=b&amp;&amp;(e[1]=~~b-1);break;case&quot;MMM&quot;:case&quot;MMMM&quot;:d=p(c._l).monthsParse(b),null!=d?e[1]=d:c._isValid=!1;break;case&quot;D&quot;:case&quot;DD&quot;:null!=b&amp;&amp;(e[2]=~~b);break;case&quot;DDD&quot;:case&quot;DDDD&quot;:null!=b&amp;&amp;(e[1]=0,e[2]=~~b);break;case&quot;YY&quot;:e[0]=~~b+(~~b&gt;68?1900:2e3);break;case&quot;YYYY&quot;:case&quot;YYYYY&quot;:e[0]=~~b;break;case&quot;a&quot;:case&quot;A&quot;:c._isPm=p(c._l).isPM(b);break;case&quot;H&quot;:case&quot;HH&quot;:case&quot;h&quot;:case&quot;hh&quot;:e[3]=~~b;break;case&quot;m&quot;:case&quot;mm&quot;:e[4]=~~b;break;case&quot;s&quot;:case&quot;ss&quot;:e[5]=~~b;break;case&quot;S&quot;:case&quot;SS&quot;:case&quot;SSS&quot;:e[6]=~~(1e3*(&quot;0.&quot;+b));break;case&quot;X&quot;:c._d=new Date(1e3*parseFloat(b));break;case&quot;Z&quot;:case&quot;ZZ&quot;:c._useUTC=!0,c._tzm=v(b)}null==b&amp;&amp;(c._isValid=!1)}
+<span id='global-method-x'>/**
+</span> * Description
+ * @method x
+ * @param {} a
+ * @return 
+ */
+function x(a){var b,c,d,e=[];if(!a._d){for(d=z(a),b=0;3&gt;b&amp;&amp;null==a._a[b];++b)a._a[b]=e[b]=d[b];for(;7&gt;b;b++)a._a[b]=e[b]=null==a._a[b]?2===b?1:0:a._a[b];e[3]+=~~((a._tzm||0)/60),e[4]+=~~((a._tzm||0)%60),c=new Date(0),a._useUTC?(c.setUTCFullYear(e[0],e[1],e[2]),c.setUTCHours(e[3],e[4],e[5],e[6])):(c.setFullYear(e[0],e[1],e[2]),c.setHours(e[3],e[4],e[5],e[6])),a._d=c}}
+<span id='global-method-y'>/**
+</span> * Description
+ * @method y
+ * @param {} a
+ * @return 
+ */
+function y(a){var b=a._i;a._d||(a._a=[b.years||b.year||b.y,b.months||b.month||b.M,b.days||b.day||b.d,b.hours||b.hour||b.h,b.minutes||b.minute||b.m,b.seconds||b.second||b.s,b.milliseconds||b.millisecond||b.ms],x(a))}
+<span id='global-method-z'>/**
+</span> * Description
+ * @method z
+ * @param {} a
+ * @return ConditionalExpression
+ */
+function z(a){var b=new Date;return a._useUTC?[b.getUTCFullYear(),b.getUTCMonth(),b.getUTCDate()]:[b.getFullYear(),b.getMonth(),b.getDate()]}
+<span id='global-method-A'>/**
+</span> * Description
+ * @method A
+ * @param {} a
+ * @return 
+ */
+function A(a){var b,c,d,e=p(a._l),f=&quot;&quot;+a._i;for(d=t(a._f,e).match(T),a._a=[],b=0;b&lt;d.length;b++)c=(u(d[b],a).exec(f)||[])[0],c&amp;&amp;(f=f.slice(f.indexOf(c)+c.length)),mb[d[b]]&amp;&amp;w(d[b],c,a);f&amp;&amp;(a._il=f),a._isPm&amp;&amp;a._a[3]&lt;12&amp;&amp;(a._a[3]+=12),a._isPm===!1&amp;&amp;12===a._a[3]&amp;&amp;(a._a[3]=0),x(a)}
+<span id='global-method-B'>/**
+</span> * Description
+ * @method B
+ * @param {} a
+ * @return 
+ */
+function B(a){var b,c,d,f,h,i=99;for(f=0;f&lt;a._f.length;f++)b=g({},a),b._f=a._f[f],A(b),c=new e(b),h=l(b._a,c.toArray()),c._il&amp;&amp;(h+=c._il.length),i&gt;h&amp;&amp;(i=h,d=c);g(a,d)}
+<span id='global-method-C'>/**
+</span> * Description
+ * @method C
+ * @param {} a
+ * @return 
+ */
+function C(a){var b,c=a._i,d=cb.exec(c);if(d){for(a._f=&quot;YYYY-MM-DD&quot;+(d[2]||&quot; &quot;),b=0;4&gt;b;b++)if(eb[b][1].exec(c)){a._f+=eb[b][0];break}_.exec(c)&amp;&amp;(a._f+=&quot; Z&quot;),A(a)}else a._d=new Date(c)}
+<span id='global-method-D'>/**
+</span> * Description
+ * @method D
+ * @param {} b
+ * @return 
+ */
+function D(b){var c=b._i,d=R.exec(c);c===a?b._d=new Date:d?b._d=new Date(+d[1]):&quot;string&quot;==typeof c?C(b):k(c)?(b._a=c.slice(0),x(b)):c instanceof Date?b._d=new Date(+c):&quot;object&quot;==typeof c?y(b):b._d=new Date(c)}
+<span id='global-method-E'>/**
+</span> * Description
+ * @method E
+ * @param {} a
+ * @param {} b
+ * @param {} c
+ * @param {} d
+ * @param {} e
+ * @return CallExpression
+ */
+function E(a,b,c,d,e){return e.relativeTime(b||1,!!c,a,d)}
+<span id='global-method-F'>/**
+</span> * Description
+ * @method F
+ * @param {} a
+ * @param {} b
+ * @param {} c
+ * @return SequenceExpression
+ */
+function F(a,b,c){var d=O(Math.abs(a)/1e3),e=O(d/60),f=O(e/60),g=O(f/24),h=O(g/365),i=45&gt;d&amp;&amp;[&quot;s&quot;,d]||1===e&amp;&amp;[&quot;m&quot;]||45&gt;e&amp;&amp;[&quot;mm&quot;,e]||1===f&amp;&amp;[&quot;h&quot;]||22&gt;f&amp;&amp;[&quot;hh&quot;,f]||1===g&amp;&amp;[&quot;d&quot;]||25&gt;=g&amp;&amp;[&quot;dd&quot;,g]||45&gt;=g&amp;&amp;[&quot;M&quot;]||345&gt;g&amp;&amp;[&quot;MM&quot;,O(g/30)]||1===h&amp;&amp;[&quot;y&quot;]||[&quot;yy&quot;,h];return i[2]=b,i[3]=a&gt;0,i[4]=c,E.apply({},i)}
+<span id='global-method-G'>/**
+</span> * Description
+ * @method G
+ * @param {} a
+ * @param {} b
+ * @param {} c
+ * @return SequenceExpression
+ */
+function G(a,b,c){var d,e=c-b,f=c-a.day();return f&gt;e&amp;&amp;(f-=7),e-7&gt;f&amp;&amp;(f+=7),d=L(a).add(&quot;d&quot;,f),{week:Math.ceil(d.dayOfYear()/7),year:d.year()}}
+<span id='global-method-H'>/**
+</span> * Description
+ * @method H
+ * @param {} a
+ * @return ConditionalExpression
+ */
+function H(a){var b=a._i,c=a._f;return null===b||&quot;&quot;===b?null:(&quot;string&quot;==typeof b&amp;&amp;(a._i=b=p().preparse(b)),L.isMoment(b)?(a=g({},b),a._d=new Date(+b._d)):c?k(c)?B(a):A(a):D(a),new e(a))}
+<span id='global-method-I'>/**
+</span> * Description
+ * @method I
+ * @param {} a
+ * @param {} b
+ * @return 
+ */
+function I(a,b){L.fn[a]=
+<span id='global-method-'>/**
+</span> * Description
+ * @param {} a
+ * @return ConditionalExpression
+ */
+L.fn[a+&quot;s&quot;]=function(a){var c=this._isUTC?&quot;UTC&quot;:&quot;&quot;;return null!=a?(this._d[&quot;set&quot;+c+b](a),L.updateOffset(this),this):this._d[&quot;get&quot;+c+b]()}}
+<span id='global-method-J'>/**
+</span> * Description
+ * @method J
+ * @param {} a
+ * @return 
+ */
+function J(a){
+<span id='global-method-a'>/**
+</span> * Description
+ * @method a
+ * @return MemberExpression
+ */
+L.duration.fn[a]=function(){return this._data[a]}}
+<span id='global-method-K'>/**
+</span> * Description
+ * @method K
+ * @param {} a
+ * @param {} b
+ * @return 
+ */
+function K(a,b){
+<span id='global-method-fn["as" + a]'>/**
+</span> * Description
+ * @return BinaryExpression
+ */
+L.duration.fn[&quot;as&quot;+a]=function(){return+this/b}}for(var L,M,N=&quot;2.2.1&quot;,O=Math.round,P={},Q=&quot;undefined&quot;!=typeof module&amp;&amp;module.exports,R=/^\/?Date\((\-?\d+)/i,S=/(\-)?(?:(\d*)\.)?(\d+)\:(\d+)\:(\d+)\.?(\d{3})?/,T=/(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|SS?S?|X|zz?|ZZ?|.)/g,U=/(\[[^\[]*\])|(\\)?(LT|LL?L?L?|l{1,4})/g,V=/\d\d?/,W=/\d{1,3}/,X=/\d{3}/,Y=/\d{1,4}/,Z=/[+\-]?\d{1,6}/,$=/[0-9]*[&#39;a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i,_=/Z|[\+\-]\d\d:?\d\d/i,ab=/T/i,bb=/[\+\-]?\d+(\.\d{1,3})?/,cb=/^\s*\d{4}-\d\d-\d\d((T| )(\d\d(:\d\d(:\d\d(\.\d\d?\d?)?)?)?)?([\+\-]\d\d:?\d\d)?)?/,db=&quot;YYYY-MM-DDTHH:mm:ssZ&quot;,eb=[[&quot;HH:mm:ss.S&quot;,/(T| )\d\d:\d\d:\d\d\.\d{1,3}/],[&quot;HH:mm:ss&quot;,/(T| )\d\d:\d\d:\d\d/],[&quot;HH:mm&quot;,/(T| )\d\d:\d\d/],[&quot;HH&quot;,/(T| )\d\d/]],fb=/([\+\-]|\d\d)/gi,gb=&quot;Date|Hours|Minutes|Seconds|Milliseconds&quot;.split(&quot;|&quot;),hb={Milliseconds:1,Seconds:1e3,Minutes:6e4,Hours:36e5,Days:864e5,Months:2592e6,Years:31536e6},ib={ms:&quot;millisecond&quot;,s:&quot;second&quot;,m:&quot;minute&quot;,h:&quot;hour&quot;,d:&quot;day&quot;,w:&quot;week&quot;,W:&quot;isoweek&quot;,M:&quot;month&quot;,y:&quot;year&quot;},jb={},kb=&quot;DDD w W M D d&quot;.split(&quot; &quot;),lb=&quot;M D H h m s w W&quot;.split(&quot; &quot;),mb={
+<span id='global-method-M'>/**
+</span> * Description
+ * @method M
+ * @return BinaryExpression
+ */
+M:function(){return this.month()+1},
+<span id='global-method-MMM'>/**
+</span> * Description
+ * @method MMM
+ * @param {} a
+ * @return CallExpression
+ */
+MMM:function(a){return this.lang().monthsShort(this,a)},
+<span id='global-method-MMMM'>/**
+</span> * Description
+ * @method MMMM
+ * @param {} a
+ * @return CallExpression
+ */
+MMMM:function(a){return this.lang().months(this,a)},
+<span id='global-method-D'>/**
+</span> * Description
+ * @method D
+ * @return CallExpression
+ */
+D:function(){return this.date()},
+<span id='global-method-DDD'>/**
+</span> * Description
+ * @method DDD
+ * @return CallExpression
+ */
+DDD:function(){return this.dayOfYear()},
+<span id='global-method-d'>/**
+</span> * Description
+ * @method d
+ * @return CallExpression
+ */
+d:function(){return this.day()},
+<span id='global-method-dd'>/**
+</span> * Description
+ * @method dd
+ * @param {} a
+ * @return CallExpression
+ */
+dd:function(a){return this.lang().weekdaysMin(this,a)},
+<span id='global-method-ddd'>/**
+</span> * Description
+ * @method ddd
+ * @param {} a
+ * @return CallExpression
+ */
+ddd:function(a){return this.lang().weekdaysShort(this,a)},
+<span id='global-method-dddd'>/**
+</span> * Description
+ * @method dddd
+ * @param {} a
+ * @return CallExpression
+ */
+dddd:function(a){return this.lang().weekdays(this,a)},
+<span id='global-method-w'>/**
+</span> * Description
+ * @method w
+ * @return CallExpression
+ */
+w:function(){return this.week()},
+<span id='global-method-W'>/**
+</span> * Description
+ * @method W
+ * @return CallExpression
+ */
+W:function(){return this.isoWeek()},
+<span id='global-method-YY'>/**
+</span> * Description
+ * @method YY
+ * @return CallExpression
+ */
+YY:function(){return i(this.year()%100,2)},
+<span id='global-method-YYYY'>/**
+</span> * Description
+ * @method YYYY
+ * @return CallExpression
+ */
+YYYY:function(){return i(this.year(),4)},
+<span id='global-method-YYYYY'>/**
+</span> * Description
+ * @method YYYYY
+ * @return CallExpression
+ */
+YYYYY:function(){return i(this.year(),5)},
+<span id='global-method-gg'>/**
+</span> * Description
+ * @method gg
+ * @return CallExpression
+ */
+gg:function(){return i(this.weekYear()%100,2)},
+<span id='global-method-gggg'>/**
+</span> * Description
+ * @method gggg
+ * @return CallExpression
+ */
+gggg:function(){return this.weekYear()},
+<span id='global-method-ggggg'>/**
+</span> * Description
+ * @method ggggg
+ * @return CallExpression
+ */
+ggggg:function(){return i(this.weekYear(),5)},
+<span id='global-method-GG'>/**
+</span> * Description
+ * @method GG
+ * @return CallExpression
+ */
+GG:function(){return i(this.isoWeekYear()%100,2)},
+<span id='global-method-GGGG'>/**
+</span> * Description
+ * @method GGGG
+ * @return CallExpression
+ */
+GGGG:function(){return this.isoWeekYear()},
+<span id='global-method-GGGGG'>/**
+</span> * Description
+ * @method GGGGG
+ * @return CallExpression
+ */
+GGGGG:function(){return i(this.isoWeekYear(),5)},
+<span id='global-method-e'>/**
+</span> * Description
+ * @method e
+ * @return CallExpression
+ */
+e:function(){return this.weekday()},
+<span id='global-method-E'>/**
+</span> * Description
+ * @method E
+ * @return CallExpression
+ */
+E:function(){return this.isoWeekday()},
+<span id='global-method-a'>/**
+</span> * Description
+ * @method a
+ * @return CallExpression
+ */
+a:function(){return this.lang().meridiem(this.hours(),this.minutes(),!0)},
+<span id='global-method-A'>/**
+</span> * Description
+ * @method A
+ * @return CallExpression
+ */
+A:function(){return this.lang().meridiem(this.hours(),this.minutes(),!1)},
+<span id='global-method-H'>/**
+</span> * Description
+ * @method H
+ * @return CallExpression
+ */
+H:function(){return this.hours()},
+<span id='global-method-h'>/**
+</span> * Description
+ * @method h
+ * @return LogicalExpression
+ */
+h:function(){return this.hours()%12||12},
+<span id='global-method-m'>/**
+</span> * Description
+ * @method m
+ * @return CallExpression
+ */
+m:function(){return this.minutes()},
+<span id='global-method-s'>/**
+</span> * Description
+ * @method s
+ * @return CallExpression
+ */
+s:function(){return this.seconds()},
+<span id='global-method-S'>/**
+</span> * Description
+ * @method S
+ * @return UnaryExpression
+ */
+S:function(){return~~(this.milliseconds()/100)},
+<span id='global-method-SS'>/**
+</span> * Description
+ * @method SS
+ * @return CallExpression
+ */
+SS:function(){return i(~~(this.milliseconds()/10),2)},
+<span id='global-method-SSS'>/**
+</span> * Description
+ * @method SSS
+ * @return CallExpression
+ */
+SSS:function(){return i(this.milliseconds(),3)},
+<span id='global-method-Z'>/**
+</span> * Description
+ * @method Z
+ * @return SequenceExpression
+ */
+Z:function(){var a=-this.zone(),b=&quot;+&quot;;return 0&gt;a&amp;&amp;(a=-a,b=&quot;-&quot;),b+i(~~(a/60),2)+&quot;:&quot;+i(~~a%60,2)},
+<span id='global-method-ZZ'>/**
+</span> * Description
+ * @method ZZ
+ * @return SequenceExpression
+ */
+ZZ:function(){var a=-this.zone(),b=&quot;+&quot;;return 0&gt;a&amp;&amp;(a=-a,b=&quot;-&quot;),b+i(~~(10*a/6),4)},
+<span id='global-method-z'>/**
+</span> * Description
+ * @method z
+ * @return CallExpression
+ */
+z:function(){return this.zoneAbbr()},
+<span id='global-method-zz'>/**
+</span> * Description
+ * @method zz
+ * @return CallExpression
+ */
+zz:function(){return this.zoneName()},
+<span id='global-method-X'>/**
+</span> * Description
+ * @method X
+ * @return CallExpression
+ */
+X:function(){return this.unix()}};kb.length;)M=kb.pop(),mb[M+&quot;o&quot;]=c(mb[M],M);for(;lb.length;)M=lb.pop(),mb[M+M]=b(mb[M],2);for(mb.DDDD=b(mb.DDD,3),g(d.prototype,{
+<span id='global-method-set'>/**
+</span> * Description
+ * @method set
+ * @param {} a
+ * @return 
+ */
+set:function(a){var b,c;for(c in a)b=a[c],&quot;function&quot;==typeof b?this[c]=b:this[&quot;_&quot;+c]=b},_months:&quot;January_February_March_April_May_June_July_August_September_October_November_December&quot;.split(&quot;_&quot;),
+<span id='global-method-months'>/**
+</span> * Description
+ * @method months
+ * @param {} a
+ * @return MemberExpression
+ */
+months:function(a){return this._months[a.month()]},_monthsShort:&quot;Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec&quot;.split(&quot;_&quot;),
+<span id='global-method-monthsShort'>/**
+</span> * Description
+ * @method monthsShort
+ * @param {} a
+ * @return MemberExpression
+ */
+monthsShort:function(a){return this._monthsShort[a.month()]},
+<span id='global-method-monthsParse'>/**
+</span> * Description
+ * @method monthsParse
+ * @param {} a
+ * @return 
+ */
+monthsParse:function(a){var b,c,d;for(this._monthsParse||(this._monthsParse=[]),b=0;12&gt;b;b++)if(this._monthsParse[b]||(c=L.utc([2e3,b]),d=&quot;^&quot;+this.months(c,&quot;&quot;)+&quot;|^&quot;+this.monthsShort(c,&quot;&quot;),this._monthsParse[b]=new RegExp(d.replace(&quot;.&quot;,&quot;&quot;),&quot;i&quot;)),this._monthsParse[b].test(a))return b},_weekdays:&quot;Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday&quot;.split(&quot;_&quot;),
+<span id='global-method-weekdays'>/**
+</span> * Description
+ * @method weekdays
+ * @param {} a
+ * @return MemberExpression
+ */
+weekdays:function(a){return this._weekdays[a.day()]},_weekdaysShort:&quot;Sun_Mon_Tue_Wed_Thu_Fri_Sat&quot;.split(&quot;_&quot;),
+<span id='global-method-weekdaysShort'>/**
+</span> * Description
+ * @method weekdaysShort
+ * @param {} a
+ * @return MemberExpression
+ */
+weekdaysShort:function(a){return this._weekdaysShort[a.day()]},_weekdaysMin:&quot;Su_Mo_Tu_We_Th_Fr_Sa&quot;.split(&quot;_&quot;),
+<span id='global-method-weekdaysMin'>/**
+</span> * Description
+ * @method weekdaysMin
+ * @param {} a
+ * @return MemberExpression
+ */
+weekdaysMin:function(a){return this._weekdaysMin[a.day()]},
+<span id='global-method-weekdaysParse'>/**
+</span> * Description
+ * @method weekdaysParse
+ * @param {} a
+ * @return 
+ */
+weekdaysParse:function(a){var b,c,d;for(this._weekdaysParse||(this._weekdaysParse=[]),b=0;7&gt;b;b++)if(this._weekdaysParse[b]||(c=L([2e3,1]).day(b),d=&quot;^&quot;+this.weekdays(c,&quot;&quot;)+&quot;|^&quot;+this.weekdaysShort(c,&quot;&quot;)+&quot;|^&quot;+this.weekdaysMin(c,&quot;&quot;),this._weekdaysParse[b]=new RegExp(d.replace(&quot;.&quot;,&quot;&quot;),&quot;i&quot;)),this._weekdaysParse[b].test(a))return b},_longDateFormat:{LT:&quot;h:mm A&quot;,L:&quot;MM/DD/YYYY&quot;,LL:&quot;MMMM D YYYY&quot;,LLL:&quot;MMMM D YYYY LT&quot;,LLLL:&quot;dddd, MMMM D YYYY LT&quot;},
+<span id='global-method-longDateFormat'>/**
+</span> * Description
+ * @method longDateFormat
+ * @param {} a
+ * @return SequenceExpression
+ */
+longDateFormat:function(a){var b=this._longDateFormat[a];return!b&amp;&amp;this._longDateFormat[a.toUpperCase()]&amp;&amp;(b=this._longDateFormat[a.toUpperCase()].replace(/MMMM|MM|DD|dddd/g,function(a){return a.slice(1)}),this._longDateFormat[a]=b),b},
+<span id='global-method-isPM'>/**
+</span> * Description
+ * @method isPM
+ * @param {} a
+ * @return BinaryExpression
+ */
+isPM:function(a){return&quot;p&quot;===(a+&quot;&quot;).toLowerCase().charAt(0)},_meridiemParse:/[ap]\.?m?\.?/i,
+<span id='global-method-meridiem'>/**
+</span> * Description
+ * @method meridiem
+ * @param {} a
+ * @param {} b
+ * @param {} c
+ * @return ConditionalExpression
+ */
+meridiem:function(a,b,c){return a&gt;11?c?&quot;pm&quot;:&quot;PM&quot;:c?&quot;am&quot;:&quot;AM&quot;},_calendar:{sameDay:&quot;[Today at] LT&quot;,nextDay:&quot;[Tomorrow at] LT&quot;,nextWeek:&quot;dddd [at] LT&quot;,lastDay:&quot;[Yesterday at] LT&quot;,lastWeek:&quot;[Last] dddd [at] LT&quot;,sameElse:&quot;L&quot;},
+<span id='global-method-calendar'>/**
+</span> * Description
+ * @method calendar
+ * @param {} a
+ * @param {} b
+ * @return ConditionalExpression
+ */
+calendar:function(a,b){var c=this._calendar[a];return&quot;function&quot;==typeof c?c.apply(b):c},_relativeTime:{future:&quot;in %s&quot;,past:&quot;%s ago&quot;,s:&quot;a few seconds&quot;,m:&quot;a minute&quot;,mm:&quot;%d minutes&quot;,h:&quot;an hour&quot;,hh:&quot;%d hours&quot;,d:&quot;a day&quot;,dd:&quot;%d days&quot;,M:&quot;a month&quot;,MM:&quot;%d months&quot;,y:&quot;a year&quot;,yy:&quot;%d years&quot;},
+<span id='global-method-relativeTime'>/**
+</span> * Description
+ * @method relativeTime
+ * @param {} a
+ * @param {} b
+ * @param {} c
+ * @param {} d
+ * @return ConditionalExpression
+ */
+relativeTime:function(a,b,c,d){var e=this._relativeTime[c];return&quot;function&quot;==typeof e?e(a,b,c,d):e.replace(/%d/i,a)},
+<span id='global-method-pastFuture'>/**
+</span> * Description
+ * @method pastFuture
+ * @param {} a
+ * @param {} b
+ * @return ConditionalExpression
+ */
+pastFuture:function(a,b){var c=this._relativeTime[a&gt;0?&quot;future&quot;:&quot;past&quot;];return&quot;function&quot;==typeof c?c(b):c.replace(/%s/i,b)},
+<span id='global-method-ordinal'>/**
+</span> * Description
+ * @method ordinal
+ * @param {} a
+ * @return CallExpression
+ */
+ordinal:function(a){return this._ordinal.replace(&quot;%d&quot;,a)},_ordinal:&quot;%d&quot;,
+<span id='global-method-preparse'>/**
+</span> * Description
+ * @method preparse
+ * @param {} a
+ * @return a
+ */
+preparse:function(a){return a},
+<span id='global-method-postformat'>/**
+</span> * Description
+ * @method postformat
+ * @param {} a
+ * @return a
+ */
+postformat:function(a){return a},
+<span id='global-method-week'>/**
+</span> * Description
+ * @method week
+ * @param {} a
+ * @return MemberExpression
+ */
+week:function(a){return G(a,this._week.dow,this._week.doy).week},_week:{dow:0,doy:6}}),
+<span id='global-method-'>/**
+</span> * Description
+ * @param {} a
+ * @param {} b
+ * @param {} c
+ * @return CallExpression
+ */
+L=function(a,b,c){return H({_i:a,_f:b,_l:c,_isUTC:!1})},
+<span id='global-method-utc'>/**
+</span> * Description
+ * @method utc
+ * @param {} a
+ * @param {} b
+ * @param {} c
+ * @return CallExpression
+ */
+L.utc=function(a,b,c){return H({_useUTC:!0,_isUTC:!0,_l:c,_i:a,_f:b}).utc()},
+<span id='global-method-unix'>/**
+</span> * Description
+ * @method unix
+ * @param {} a
+ * @return CallExpression
+ */
+L.unix=function(a){return L(1e3*a)},
+<span id='global-method-duration'>/**
+</span> * Description
+ * @method duration
+ * @param {} a
+ * @param {} b
+ * @return SequenceExpression
+ */
+L.duration=function(a,b){var c,d,e=L.isDuration(a),g=&quot;number&quot;==typeof a,h=e?a._input:g?{}:a,i=S.exec(a);return g?b?h[b]=a:h.milliseconds=a:i&amp;&amp;(c=&quot;-&quot;===i[1]?-1:1,h={y:0,d:~~i[2]*c,h:~~i[3]*c,m:~~i[4]*c,s:~~i[5]*c,ms:~~i[6]*c}),d=new f(h),e&amp;&amp;a.hasOwnProperty(&quot;_lang&quot;)&amp;&amp;(d._lang=a._lang),d},L.version=N,L.defaultFormat=db,
+<span id='global-method-updateOffset'>/**
+</span> * Description
+ * @method updateOffset
+ * @return 
+ */
+L.updateOffset=function(){},
+<span id='global-method-lang'>/**
+</span> * Description
+ * @method lang
+ * @param {} a
+ * @param {} b
+ * @return ConditionalExpression
+ */
+L.lang=function(a,b){return a?(a=a.toLowerCase(),a=a.replace(&quot;_&quot;,&quot;-&quot;),b?n(a,b):null===b?(o(a),a=&quot;en&quot;):P[a]||p(a),L.duration.fn._lang=L.fn._lang=p(a),void 0):L.fn._lang._abbr},
+<span id='global-method-langData'>/**
+</span> * Description
+ * @method langData
+ * @param {} a
+ * @return SequenceExpression
+ */
+L.langData=function(a){return a&amp;&amp;a._lang&amp;&amp;a._lang._abbr&amp;&amp;(a=a._lang._abbr),p(a)},
+<span id='global-method-isMoment'>/**
+</span> * Description
+ * @method isMoment
+ * @param {} a
+ * @return BinaryExpression
+ */
+L.isMoment=function(a){return a instanceof e},
+<span id='global-method-isDuration'>/**
+</span> * Description
+ * @method isDuration
+ * @param {} a
+ * @return BinaryExpression
+ */
+L.isDuration=function(a){return a instanceof f},g(L.fn=e.prototype,{
+<span id='global-method-clone'>/**
+</span> * Description
+ * @method clone
+ * @return CallExpression
+ */
+clone:function(){return L(this)},
+<span id='global-method-valueOf'>/**
+</span> * Description
+ * @method valueOf
+ * @return BinaryExpression
+ */
+valueOf:function(){return+this._d+6e4*(this._offset||0)},
+<span id='global-method-unix'>/**
+</span> * Description
+ * @method unix
+ * @return CallExpression
+ */
+unix:function(){return Math.floor(+this/1e3)},
+<span id='global-method-toString'>/**
+</span> * Description
+ * @method toString
+ * @return CallExpression
+ */
+toString:function(){return this.format(&quot;ddd MMM DD YYYY HH:mm:ss [GMT]ZZ&quot;)},
+<span id='global-method-toDate'>/**
+</span> * Description
+ * @method toDate
+ * @return ConditionalExpression
+ */
+toDate:function(){return this._offset?new Date(+this):this._d},
+<span id='global-method-toISOString'>/**
+</span> * Description
+ * @method toISOString
+ * @return CallExpression
+ */
+toISOString:function(){return s(L(this).utc(),&quot;YYYY-MM-DD[T]HH:mm:ss.SSS[Z]&quot;)},
+<span id='global-method-toArray'>/**
+</span> * Description
+ * @method toArray
+ * @return ArrayExpression
+ */
+toArray:function(){var a=this;return[a.year(),a.month(),a.date(),a.hours(),a.minutes(),a.seconds(),a.milliseconds()]},
+<span id='global-method-isValid'>/**
+</span> * Description
+ * @method isValid
+ * @return SequenceExpression
+ */
+isValid:function(){return null==this._isValid&amp;&amp;(this._isValid=this._a?!l(this._a,(this._isUTC?L.utc(this._a):L(this._a)).toArray()):!isNaN(this._d.getTime())),!!this._isValid},
+<span id='global-method-invalidAt'>/**
+</span> * Description
+ * @method invalidAt
+ * @return a
+ */
+invalidAt:function(){var a,b=this._a,c=(this._isUTC?L.utc(this._a):L(this._a)).toArray();for(a=6;a&gt;=0&amp;&amp;b[a]===c[a];--a);return a},
+<span id='global-method-utc'>/**
+</span> * Description
+ * @method utc
+ * @return CallExpression
+ */
+utc:function(){return this.zone(0)},
+<span id='global-method-local'>/**
+</span> * Description
+ * @method local
+ * @return SequenceExpression
+ */
+local:function(){return this.zone(0),this._isUTC=!1,this},
+<span id='global-method-format'>/**
+</span> * Description
+ * @method format
+ * @param {} a
+ * @return CallExpression
+ */
+format:function(a){var b=s(this,a||L.defaultFormat);return this.lang().postformat(b)},
+<span id='global-method-add'>/**
+</span> * Description
+ * @method add
+ * @param {} a
+ * @param {} b
+ * @return SequenceExpression
+ */
+add:function(a,b){var c;return c=&quot;string&quot;==typeof a?L.duration(+b,a):L.duration(a,b),j(this,c,1),this},
+<span id='global-method-subtract'>/**
+</span> * Description
+ * @method subtract
+ * @param {} a
+ * @param {} b
+ * @return SequenceExpression
+ */
+subtract:function(a,b){var c;return c=&quot;string&quot;==typeof a?L.duration(+b,a):L.duration(a,b),j(this,c,-1),this},
+<span id='global-method-diff'>/**
+</span> * Description
+ * @method diff
+ * @param {} a
+ * @param {} b
+ * @param {} c
+ * @return SequenceExpression
+ */
+diff:function(a,b,c){var d,e,f=this._isUTC?L(a).zone(this._offset||0):L(a).local(),g=6e4*(this.zone()-f.zone());return b=m(b),&quot;year&quot;===b||&quot;month&quot;===b?(d=432e5*(this.daysInMonth()+f.daysInMonth()),e=12*(this.year()-f.year())+(this.month()-f.month()),e+=(this-L(this).startOf(&quot;month&quot;)-(f-L(f).startOf(&quot;month&quot;)))/d,e-=6e4*(this.zone()-L(this).startOf(&quot;month&quot;).zone()-(f.zone()-L(f).startOf(&quot;month&quot;).zone()))/d,&quot;year&quot;===b&amp;&amp;(e/=12)):(d=this-f,e=&quot;second&quot;===b?d/1e3:&quot;minute&quot;===b?d/6e4:&quot;hour&quot;===b?d/36e5:&quot;day&quot;===b?(d-g)/864e5:&quot;week&quot;===b?(d-g)/6048e5:d),c?e:h(e)},
+<span id='global-method-from'>/**
+</span> * Description
+ * @method from
+ * @param {} a
+ * @param {} b
+ * @return CallExpression
+ */
+from:function(a,b){return L.duration(this.diff(a)).lang(this.lang()._abbr).humanize(!b)},
+<span id='global-method-fromNow'>/**
+</span> * Description
+ * @method fromNow
+ * @param {} a
+ * @return CallExpression
+ */
+fromNow:function(a){return this.from(L(),a)},
+<span id='global-method-calendar'>/**
+</span> * Description
+ * @method calendar
+ * @return CallExpression
+ */
+calendar:function(){var a=this.diff(L().zone(this.zone()).startOf(&quot;day&quot;),&quot;days&quot;,!0),b=-6&gt;a?&quot;sameElse&quot;:-1&gt;a?&quot;lastWeek&quot;:0&gt;a?&quot;lastDay&quot;:1&gt;a?&quot;sameDay&quot;:2&gt;a?&quot;nextDay&quot;:7&gt;a?&quot;nextWeek&quot;:&quot;sameElse&quot;;return this.format(this.lang().calendar(b,this))},
+<span id='global-method-isLeapYear'>/**
+</span> * Description
+ * @method isLeapYear
+ * @return LogicalExpression
+ */
+isLeapYear:function(){var a=this.year();return 0===a%4&amp;&amp;0!==a%100||0===a%400},
+<span id='global-method-isDST'>/**
+</span> * Description
+ * @method isDST
+ * @return LogicalExpression
+ */
+isDST:function(){return this.zone()&lt;this.clone().month(0).zone()||this.zone()&lt;this.clone().month(5).zone()},
+<span id='global-method-day'>/**
+</span> * Description
+ * @method day
+ * @param {} a
+ * @return ConditionalExpression
+ */
+day:function(a){var b=this._isUTC?this._d.getUTCDay():this._d.getDay();return null!=a?&quot;string&quot;==typeof a&amp;&amp;(a=this.lang().weekdaysParse(a),&quot;number&quot;!=typeof a)?this:this.add({d:a-b}):b},
+<span id='global-method-month'>/**
+</span> * Description
+ * @method month
+ * @param {} a
+ * @return ConditionalExpression
+ */
+month:function(a){var b,c=this._isUTC?&quot;UTC&quot;:&quot;&quot;;return null!=a?&quot;string&quot;==typeof a&amp;&amp;(a=this.lang().monthsParse(a),&quot;number&quot;!=typeof a)?this:(b=this.date(),this.date(1),this._d[&quot;set&quot;+c+&quot;Month&quot;](a),this.date(Math.min(b,this.daysInMonth())),L.updateOffset(this),this):this._d[&quot;get&quot;+c+&quot;Month&quot;]()},
+<span id='global-method-startOf'>/**
+</span> * Description
+ * @method startOf
+ * @param {} a
+ * @return SequenceExpression
+ */
+startOf:function(a){switch(a=m(a)){case&quot;year&quot;:this.month(0);case&quot;month&quot;:this.date(1);case&quot;week&quot;:case&quot;isoweek&quot;:case&quot;day&quot;:this.hours(0);case&quot;hour&quot;:this.minutes(0);case&quot;minute&quot;:this.seconds(0);case&quot;second&quot;:this.milliseconds(0)}return&quot;week&quot;===a?this.weekday(0):&quot;isoweek&quot;===a&amp;&amp;this.isoWeekday(1),this},
+<span id='global-method-endOf'>/**
+</span> * Description
+ * @method endOf
+ * @param {} a
+ * @return SequenceExpression
+ */
+endOf:function(a){return a=m(a),this.startOf(a).add(&quot;isoweek&quot;===a?&quot;week&quot;:a,1).subtract(&quot;ms&quot;,1)},
+<span id='global-method-isAfter'>/**
+</span> * Description
+ * @method isAfter
+ * @param {} a
+ * @param {} b
+ * @return SequenceExpression
+ */
+isAfter:function(a,b){return b=&quot;undefined&quot;!=typeof b?b:&quot;millisecond&quot;,+this.clone().startOf(b)&gt;+L(a).startOf(b)},
+<span id='global-method-isBefore'>/**
+</span> * Description
+ * @method isBefore
+ * @param {} a
+ * @param {} b
+ * @return SequenceExpression
+ */
+isBefore:function(a,b){return b=&quot;undefined&quot;!=typeof b?b:&quot;millisecond&quot;,+this.clone().startOf(b)&lt;+L(a).startOf(b)},
+<span id='global-method-isSame'>/**
+</span> * Description
+ * @method isSame
+ * @param {} a
+ * @param {} b
+ * @return SequenceExpression
+ */
+isSame:function(a,b){return b=&quot;undefined&quot;!=typeof b?b:&quot;millisecond&quot;,+this.clone().startOf(b)===+L(a).startOf(b)},
+<span id='global-method-min'>/**
+</span> * Description
+ * @method min
+ * @param {} a
+ * @return SequenceExpression
+ */
+min:function(a){return a=L.apply(null,arguments),this&gt;a?this:a},
+<span id='global-method-max'>/**
+</span> * Description
+ * @method max
+ * @param {} a
+ * @return SequenceExpression
+ */
+max:function(a){return a=L.apply(null,arguments),a&gt;this?this:a},
+<span id='global-method-zone'>/**
+</span> * Description
+ * @method zone
+ * @param {} a
+ * @return ConditionalExpression
+ */
+zone:function(a){var b=this._offset||0;return null==a?this._isUTC?b:this._d.getTimezoneOffset():(&quot;string&quot;==typeof a&amp;&amp;(a=v(a)),Math.abs(a)&lt;16&amp;&amp;(a=60*a),this._offset=a,this._isUTC=!0,b!==a&amp;&amp;j(this,L.duration(b-a,&quot;m&quot;),1,!0),this)},
+<span id='global-method-zoneAbbr'>/**
+</span> * Description
+ * @method zoneAbbr
+ * @return ConditionalExpression
+ */
+zoneAbbr:function(){return this._isUTC?&quot;UTC&quot;:&quot;&quot;},
+<span id='global-method-zoneName'>/**
+</span> * Description
+ * @method zoneName
+ * @return ConditionalExpression
+ */
+zoneName:function(){return this._isUTC?&quot;Coordinated Universal Time&quot;:&quot;&quot;},
+<span id='global-method-hasAlignedHourOffset'>/**
+</span> * Description
+ * @method hasAlignedHourOffset
+ * @param {} a
+ * @return SequenceExpression
+ */
+hasAlignedHourOffset:function(a){return a=a?L(a).zone():0,0===(this.zone()-a)%60},
+<span id='global-method-daysInMonth'>/**
+</span> * Description
+ * @method daysInMonth
+ * @return CallExpression
+ */
+daysInMonth:function(){return L.utc([this.year(),this.month()+1,0]).date()},
+<span id='global-method-dayOfYear'>/**
+</span> * Description
+ * @method dayOfYear
+ * @param {} a
+ * @return ConditionalExpression
+ */
+dayOfYear:function(a){var b=O((L(this).startOf(&quot;day&quot;)-L(this).startOf(&quot;year&quot;))/864e5)+1;return null==a?b:this.add(&quot;d&quot;,a-b)},
+<span id='global-method-weekYear'>/**
+</span> * Description
+ * @method weekYear
+ * @param {} a
+ * @return ConditionalExpression
+ */
+weekYear:function(a){var b=G(this,this.lang()._week.dow,this.lang()._week.doy).year;return null==a?b:this.add(&quot;y&quot;,a-b)},
+<span id='global-method-isoWeekYear'>/**
+</span> * Description
+ * @method isoWeekYear
+ * @param {} a
+ * @return ConditionalExpression
+ */
+isoWeekYear:function(a){var b=G(this,1,4).year;return null==a?b:this.add(&quot;y&quot;,a-b)},
+<span id='global-method-week'>/**
+</span> * Description
+ * @method week
+ * @param {} a
+ * @return ConditionalExpression
+ */
+week:function(a){var b=this.lang().week(this);return null==a?b:this.add(&quot;d&quot;,7*(a-b))},
+<span id='global-method-isoWeek'>/**
+</span> * Description
+ * @method isoWeek
+ * @param {} a
+ * @return ConditionalExpression
+ */
+isoWeek:function(a){var b=G(this,1,4).week;return null==a?b:this.add(&quot;d&quot;,7*(a-b))},
+<span id='global-method-weekday'>/**
+</span> * Description
+ * @method weekday
+ * @param {} a
+ * @return ConditionalExpression
+ */
+weekday:function(a){var b=(this._d.getDay()+7-this.lang()._week.dow)%7;return null==a?b:this.add(&quot;d&quot;,a-b)},
+<span id='global-method-isoWeekday'>/**
+</span> * Description
+ * @method isoWeekday
+ * @param {} a
+ * @return ConditionalExpression
+ */
+isoWeekday:function(a){return null==a?this.day()||7:this.day(this.day()%7?a:a-7)},
+<span id='global-method-get'>/**
+</span> * Description
+ * @method get
+ * @param {} a
+ * @return SequenceExpression
+ */
+get:function(a){return a=m(a),this[a.toLowerCase()]()},
+<span id='global-method-set'>/**
+</span> * Description
+ * @method set
+ * @param {} a
+ * @param {} b
+ * @return 
+ */
+set:function(a,b){a=m(a),this[a.toLowerCase()](b)},
+<span id='global-method-lang'>/**
+</span> * Description
+ * @method lang
+ * @param {} b
+ * @return ConditionalExpression
+ */
+lang:function(b){return b===a?this._lang:(this._lang=p(b),this)}}),M=0;M&lt;gb.length;M++)I(gb[M].toLowerCase().replace(/s$/,&quot;&quot;),gb[M]);I(&quot;year&quot;,&quot;FullYear&quot;),L.fn.days=L.fn.day,L.fn.months=L.fn.month,L.fn.weeks=L.fn.week,L.fn.isoWeeks=L.fn.isoWeek,L.fn.toJSON=L.fn.toISOString,g(L.duration.fn=f.prototype,{_bubble:function(){var a,b,c,d,e=this._milliseconds,f=this._days,g=this._months,i=this._data;i.milliseconds=e%1e3,a=h(e/1e3),i.seconds=a%60,b=h(a/60),i.minutes=b%60,c=h(b/60),i.hours=c%24,f+=h(c/24),i.days=f%30,g+=h(f/30),i.months=g%12,d=h(g/12),i.years=d},
+<span id='global-method-weeks'>/**
+</span> * Description
+ * @method weeks
+ * @return CallExpression
+ */
+weeks:function(){return h(this.days()/7)},
+<span id='global-method-valueOf'>/**
+</span> * Description
+ * @method valueOf
+ * @return BinaryExpression
+ */
+valueOf:function(){return this._milliseconds+864e5*this._days+2592e6*(this._months%12)+31536e6*~~(this._months/12)},
+<span id='global-method-humanize'>/**
+</span> * Description
+ * @method humanize
+ * @param {} a
+ * @return SequenceExpression
+ */
+humanize:function(a){var b=+this,c=F(b,!a,this.lang());return a&amp;&amp;(c=this.lang().pastFuture(b,c)),this.lang().postformat(c)},
+<span id='global-method-add'>/**
+</span> * Description
+ * @method add
+ * @param {} a
+ * @param {} b
+ * @return SequenceExpression
+ */
+add:function(a,b){var c=L.duration(a,b);return this._milliseconds+=c._milliseconds,this._days+=c._days,this._months+=c._months,this._bubble(),this},
+<span id='global-method-subtract'>/**
+</span> * Description
+ * @method subtract
+ * @param {} a
+ * @param {} b
+ * @return SequenceExpression
+ */
+subtract:function(a,b){var c=L.duration(a,b);return this._milliseconds-=c._milliseconds,this._days-=c._days,this._months-=c._months,this._bubble(),this},
+<span id='global-method-get'>/**
+</span> * Description
+ * @method get
+ * @param {} a
+ * @return SequenceExpression
+ */
+get:function(a){return a=m(a),this[a.toLowerCase()+&quot;s&quot;]()},
+<span id='global-method-as'>/**
+</span> * Description
+ * @method as
+ * @param {} a
+ * @return SequenceExpression
+ */
+as:function(a){return a=m(a),this[&quot;as&quot;+a.charAt(0).toUpperCase()+a.slice(1)+&quot;s&quot;]()},lang:L.fn.lang});for(M in hb)hb.hasOwnProperty(M)&amp;&amp;(K(M,hb[M]),J(M.toLowerCase()));K(&quot;Weeks&quot;,6048e5),
+<span id='global-method-asMonths'>/**
+</span> * Description
+ * @method asMonths
+ * @return BinaryExpression
+ */
+L.duration.fn.asMonths=function(){return(+this-31536e6*this.years())/2592e6+12*this.years()},L.lang(&quot;en&quot;,{
+<span id='global-method-ordinal'>/**
+</span> * Description
+ * @method ordinal
+ * @param {} a
+ * @return BinaryExpression
+ */
+ordinal:function(a){var b=a%10,c=1===~~(a%100/10)?&quot;th&quot;:1===b?&quot;st&quot;:2===b?&quot;nd&quot;:3===b?&quot;rd&quot;:&quot;th&quot;;return a+c}}),Q&amp;&amp;(module.exports=L),&quot;undefined&quot;==typeof ender&amp;&amp;(this.moment=L),&quot;function&quot;==typeof define&amp;&amp;define.amd&amp;&amp;define(&quot;moment&quot;,[],function(){return L})}).call(this);</pre>
+</body>
+</html>

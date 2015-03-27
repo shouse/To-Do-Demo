@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Widgets-nlFokkezbColor-controllers-widget'>/**
+</span> * Exposes a view displaying the HSV color space that can have any size and works
+ * with any default system unit. By tapping or dragging the user can #change the
+ * selected color, which will be returned in HSV, RGB and HEX.
+ *
+ * Inspired by: [https://github.com/JigarM/TiColorPicker/]()
+ *
+ * # Built-in spectrums
+ *
+ * The default color spectrum is {@link Widgets.nlFokkezbColor.lib.ghsv ghsv},
+ * but you can also set this to {@link Widgets.nlFokkezbColor.lib.hsvg hsvg}
+ * or {@link Widgets.nlFokkezbColor.lib.hsv hsv}.
+ *
+ * # Custom spectrums
+ *
+ * You can also set the `spectrum` argument to a custom type. Just pass an
+ * object exposing the required `image` property (start your path by `/` to
+ * prevent the widget to prepend the widget asset path) and the `pc2hsv`
+ * and `hsv2pc` methods as with the builtins.
+ *
+ * @class Widgets.nlFokkezbColor.controllers.widget
+ * @requires Widgets.nlFokkezbColor.lib.convert
+ */
+
+/* exported onPostlayout, onColorChange */
+
+<span id='Widgets-nlFokkezbColor-controllers-widget-property-convert'>/** @property {Object} convert  The Widgets.nlFokkezbColor.lib.convert library. */
+</span>$.convert = require(WPATH(&#39;convert&#39;));
+
+<span id='Widgets-nlFokkezbColor-controllers-widget-property-color'>/**
+</span> * @property {Object} color  Current color
+ *
+ * @property {Object} color.hsv    Color in HSV
+ * @property {Number} color.hsv.h  Hue (0 - 359)
+ * @property {Number} color.hsv.s  Saturation (0 - 100)
+ * @property {Number} color.hsv.v  Value (0 - 100)
+ *
+ * @property {Object} color.rgb    Color in RGB
+ * @property {Number} color.rgb.r  Red (0 - 255)
+ * @property {Number} color.rgb.g  Green (0 - 255)
+ * @property {Number} color.rgb.b  Blue (0 - 255)
+ *
+ * @property {String} color.hex  Color in HEX
+ *
+ * @property {String} color.bw  Either `white` or `black` depending on contrast.
+ */
+Object.defineProperty($, &#39;color&#39;, {
+  get: getColor,
+  set: setColor
+});
+
+<span id='Widgets-nlFokkezbColor-controllers-widget-method-setColor'>/**
+</span> * Set the current color.
+ *
+ * This can be formatted as #color or any of it&#39;s properties.
+ *
+ * @param {Object|String} clr  Color to set
+ */
+$.setColor = setColor;
+
+<span id='Widgets-nlFokkezbColor-controllers-widget-method-getColor'>/**
+</span> * Get the current color.
+ *
+ * @return {Object}  Current #color
+ */
+$.getColor = getColor;
+
+$.applyProperties = applyProperties;
+
+<span id='Widgets-nlFokkezbColor-controllers-widget-event-change'>/**
+</span> * Fired when the user changes the color.
+ *
+ * @event change
+ *
+ * @param {Object} e        Event
+ * @param {Object} e.color  Current #color
+ */
+
+// private vars
+var spectrum, rect, unit, color;
+
+<span id='Widgets-nlFokkezbColor-controllers-widget-method-Controller'>/**
+</span> * Constructor for the widget.
+ *
+ * @method  Controller
+ * @param {Object} args  Arguments passed to the controller, which will be applied to the main view.
+ * @param {Object|String} [args.color]  The color to set.
+ * @param {Object|String} [args.spectrum]  One of the built-in color spectrum names or an object exposing one.
+ * @param {Array} [args.children]       Child views to overlay.
+ */
+(function constuctor(args) {
+
+  if (args.children) {
+    _.each(args.children, function(child) {
+      $.image.add(child);
+    });
+  }
+
+  args.spectrum = args.spectrum || &#39;ghsv&#39;;
+
+  applyProperties(args);
+
+})(arguments[0] || {});
+
+<span id='Widgets-nlFokkezbColor-controllers-widget-method-applyProperties'>/**
+</span> * Set properties for the widget.
+ *
+ * @param {Object} prop                    Properties to apply to the main view.
+ * @param {Object|String} [prop.color]     The color to set.
+ * @param {Object|String} [prop.spectrum]  One of the built-in color spectrum names or an object exposing one.
+ */
+function applyProperties(prop) {
+
+  if (prop.spectrum) {
+    spectrum = _.isObject(prop.spectrum) ? prop.spectrum : require(WPATH(prop.spectrum));
+
+    var image = spectrum.image;
+
+    if (image.substr(0, 1) !== &#39;/&#39;) {
+      image = WPATH(image);
+    }
+
+    prop.backgroundImage = image;
+  }
+
+  var apply = _.omit(prop, &#39;id&#39;, &#39;__parentSymbol&#39;, &#39;__itemTemplate&#39;, &#39;$model&#39;, &#39;children&#39;, &#39;color&#39;, &#39;spectrum&#39;);
+
+  if (_.size(apply) &gt; 0) {
+    $.image.applyProperties(apply);
+  }
+
+  if (prop.color) {
+    setColor(prop.color);
+
+  } else if (prop.spectrum) {
+    setCircle();
+  }
+}
+
+function setColor(clr) {
+  parseColor(clr);
+
+  setCircle();
+}
+
+function getColor() {
+  return color;
+}
+
+function onPostlayout(e) { // jshint unused:false
+
+  $.image.removeEventListener(&#39;postlayout&#39;, onPostlayout);
+
+  rect = $.image.rect;
+
+  setCircle();
+}
+
+function onColorChange(e) {
+  var x = e.x,
+    y = e.y;
+
+  // Android doesn&#39;t return these in system unit, but always in px
+  if (OS_ANDROID) {
+
+    var def = getDefaultUnit();
+
+    if (def !== Ti.UI.UNIT_PX) {
+      x = Ti.UI.convertUnits(x.toString() + &#39;px&#39;, def);
+      y = Ti.UI.convertUnits(y.toString() + &#39;px&#39;, def);
+    }
+  }
+
+  x = Math.max(0, Math.min(rect.width, x));
+  y = Math.max(0, Math.min(rect.height, y));
+
+  // convert px to pc
+  var pc = {
+    x: (x / rect.width) * 100,
+    y: (y / rect.height) * 100
+  };
+
+  // convert pc to hsv
+  var hsv = spectrum.pc2hsv(pc);
+
+  // convert to other spectrums
+  var rgb = $.convert.hsv2rgb(hsv);
+  var hex = $.convert.rgb2hex(rgb);
+  var bw = $.convert.hsv2bw(hsv);
+
+  // save as current color 
+  color = {
+    hsv: hsv,
+    rgb: rgb,
+    hex: hex,
+    bw: bw
+  };
+
+  // position circle
+  $.circle.applyProperties({
+    center: {
+      x: x,
+      y: y
+    },
+    borderColor: bw
+  });
+
+  $.circle.show();
+
+  // broadcast change
+  $.trigger(&#39;change&#39;, color);
+}
+
+function parseColor(clr) {
+  var hsv, rgb, hex, bw;
+
+  if (_.isObject(clr)) {
+
+    if (clr.h) {
+      hsv = clr;
+      rgb = $.convert.hsv2rgb(hsv);
+      hex = $.convert.rgb2hex(rgb);
+
+    } else if (clr.r) {
+      rgb = clr;
+      hex = $.convert.rgb2hex(rgb);
+      hsv = $.convert.rgb2hsv(rgb);
+
+    } else {
+      color = clr;
+
+      return;
+    }
+
+  } else if (_.isString(clr)) {
+    hex = clr;
+    rgb = $.convert.hex2rgb(hex);
+
+    if (!rgb) {
+      return;
+    }
+
+    hsv = $.convert.rgb2hsv(rgb);
+
+  } else {
+    return;
+  }
+
+  bw = $.convert.hsv2bw(hsv);
+
+  color = {
+    hsv: hsv,
+    rgb: rgb,
+    hex: hex,
+    bw: bw
+  };
+}
+
+function setCircle() {
+
+  if (rect &amp;&amp; color) {
+
+    // convert hsv to pc
+    var pc = spectrum.hsv2pc(color.hsv);
+
+    // convert pc to px
+    var px = {
+      x: rect.width * (pc.x / 100),
+      y: rect.height * (pc.y / 100)
+    };
+
+    $.circle.applyProperties({
+      center: px,
+      borderColor: color.bw
+    });
+
+    $.circle.show();
+
+  } else {
+    $.circle.hide();
+  }
+}
+
+function getDefaultUnit() {
+
+  if (!unit) {
+
+    var defaultUnit = Ti.App.Properties.getString(&#39;ti.ui.defaultunit&#39;);
+
+    var units = {
+      &#39;dp&#39;: Ti.UI.UNIT_DIP,
+      &#39;dip&#39;: Ti.UI.UNIT_DIP,
+      &#39;in&#39;: Ti.UI.UNIT_IN,
+      &#39;cm&#39;: Ti.UI.UNIT_CM,
+      &#39;mm&#39;: Ti.UI.UNIT_MM,
+      &#39;px&#39;: Ti.UI.UNIT_PX
+    };
+
+    if (!units[defaultUnit]) {
+      throw &#39;Unknown ti.ui.defaultunit: &#39; + defaultUnit;
+    }
+
+    unit = units[defaultUnit];
+  }
+
+  return unit;
+}</pre>
+</body>
+</html>

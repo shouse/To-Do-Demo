@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Controller-TodoList'>/**
+</span> * This is the controller file for &quot;TodoList&quot;.
+ *
+ * @class Controller.TodoList
+ * @author Steven House
+ * @email steven.m.house@gmail.com
+ */
+
+// Include logging utility
+var log = Alloy.Globals.log;
+log.info(&#39;[TodoList] : Opened Page&#39;);
+
+
+var todo = Alloy.Collections.instance(&quot;ToDo&quot;);
+todo.fetch();
+
+var moment = require(&#39;moment&#39;);
+
+init();
+addEventListeners();
+
+<span id='Controller-TodoList-method-init'>/**
+</span> * Start the controller running
+ * @method init
+ * @return
+ */
+function init() {
+    //log.debug();
+    setupNav();
+
+    log.debug(&#39;[TodoList] : Initializing&#39;);
+    // If there is no existing todo records, get standard set
+    if (todo.length &gt; 0) {
+        todoSuccess();
+    } else {
+        getTasks();
+    }
+
+
+
+    if (Alloy.isTablet) {
+        //Alloy.Globals.Menu.setSideContent(&#39;TodoListHistory&#39;);
+    }
+
+}
+
+<span id='Controller-TodoList-method-setupNav'>/**
+</span> * Setup the Nav Bar
+ * @method setupNav
+ */
+function setupNav() {
+    Alloy.Globals.Menu.setTitle(&quot;ToDo List&quot;);
+    Alloy.Globals.Menu.setColor(&quot;#aaa&quot;);
+
+    // Add menu
+    Alloy.Globals.Menu.setButton({
+        button: &#39;l1&#39;,
+        image : &quot;/images/Propelics.Logo.100x100.png&quot;,
+        success: function() {
+            log.debug(&#39;[TodoList] : Redirecting to HomePage&#39;);
+            Alloy.Globals.Menu.showInfoBar({title: &quot;Check out this drawer with nothing in it&quot;});
+            Alloy.Globals.Menu.toggleLeftSlider();
+        }
+    });
+
+    Alloy.Globals.Menu.setButton({
+        button: &#39;r2&#39;,
+        image: &quot;/images/action/ic_search_white_48dp.png&quot;,
+        success: function() {
+            if ($.search.height == 0) {
+                $.search.height = 44;
+            } else {
+                $.search.height = 0;
+            }
+
+        }
+    });
+
+    Alloy.Globals.Menu.setButton({
+        button: &#39;r1&#39;,
+        image: &quot;/images/action/ic_add_white_48dp.png&quot;,
+        success: function() {
+            Alloy.Globals.Menu.setMainContent(&#39;TodoListNewEdit&#39;);
+        }
+    });
+
+    Alloy.Globals.Menu.showButton(&#39;r1&#39;);
+    Alloy.Globals.Menu.showButton(&#39;r2&#39;);
+    Alloy.Globals.Menu.showButton(&#39;l1&#39;);
+}
+
+<span id='Controller-TodoList-method-addEventListeners'>/**
+</span> * Add event listeners for the ListView.
+ * &#39;itemclick&#39; - open detail window
+ * &#39;swipe left&#39; - Set Reminder
+ * &#39;swipe right&#39; - Mark as Done
+ * @method addEventListeners
+ * @return
+ */
+function addEventListeners() {
+
+     // Filter: ALL
+     //$.viewFilterAll.addEventListener(&#39;click&#39;, function(e){
+     $.labelFilterAll.addEventListener(&#39;click&#39;, function(e) {
+         //$.search.height = &#39;0dp&#39;;
+         filter(e.source.id);
+     });
+
+     // Filter: DONE
+     $.labelFilterDone.addEventListener(&#39;click&#39;, function(e) {
+        //$.search.height = &#39;0dp&#39;;
+        filter(e.source.id);
+     });
+
+    // Item Clicked
+    $.listViewTodo.addEventListener(&#39;itemclick&#39;, function(e) {
+        log.warn(e.sectionIndex);
+        log.warn(e.itemId);
+        log.warn(e.itemIndex);
+        if (Alloy.isTablet) {
+            Alloy.Globals.Menu.setSideContent(&#39;TodoListDetail&#39;, {todo_id: e.itemId});
+        } else {
+            // Open our ToDo List Detail controller
+            //var todoDetail = Alloy.createController(&#39;TodoListDetail&#39;, {todo_id: e.itemId}).getView();
+            //Alloy.Globals.navWindow.open(todoDetail);
+            Alloy.Globals.Menu.setMainContent(&#39;TodoListDetail&#39;, {todo_id: e.itemId});
+        }
+    });
+}
+
+<span id='Controller-TodoList-method-filter'>/**
+</span> * Filter the results of the list view
+ * @method filter
+ * @param {} item
+ * @return
+ */
+function filter(item) {
+    switch (item) {
+        case &quot;viewFilterAll&quot;:
+        case &quot;labelFilterAll&quot;:
+            var sections = $.listViewTodo.getSections();
+            _.each(sections, function(section) {
+                $.listViewTodo.deleteSectionAt(0);
+            });
+            todoSuccess();
+            break;
+        case &quot;viewFilterDone&quot;:
+        case &quot;labelFilterDone&quot;:
+            var sections = $.listViewTodo.getSections();
+            _.each(sections, function(section) {
+                $.listViewTodo.deleteSectionAt(0);
+            });
+
+            var doneCollection = _.where(todo.toJSON(), {status: 1});
+            todoSuccess(doneCollection);
+            break;
+    }
+}
+
+<span id='Controller-TodoList-method-getTasks'>/**
+</span> * This checks if todo items have been loaded,
+ * then loads from data file or bypass reload
+ * @method getTasks
+ * @return
+ */
+function getTasks() {
+    // If there are no models in the collection, let&#39;s start out with some demo data
+    if (todo.length === 0) {
+        var todoJSON = require(&#39;data/ToDo&#39;).getTasks();
+        log.debug(&#39;[TodoList] : getTasks() : todo = &#39;, todoJSON);
+
+        //Alloy.Collections.ToDo.reset(todoJSON);
+        //Alloy.Collections.ToDo.reset(todoJSON);
+        _.each(todoJSON, function(item){
+            var todoModel = Alloy.createModel(&quot;ToDo&quot;, item);
+            todoModel.save();
+        });
+        todo.fetch();
+    }
+
+    todoSuccess();
+}
+
+<span id='Controller-TodoList-method-todoSuccess'>/**
+</span> * Add the todo records to the List View Section
+ * @method todoSuccess
+ * @param {} recordsToShow
+ * @return
+ */
+function todoSuccess(recordsToShow) {
+    var sortedCollection;
+
+    if (recordsToShow) {
+        sortedCollection = recordsToShow;
+    } else {
+        sortedCollection = _.sortBy(Alloy.Collections.ToDo.toJSON(),
+            function(item) {
+                // return item.intervalMileage;
+            });
+    }
+
+    log.debug(&#39;[TodoList] : todoSuccess() : sortedCollection&#39;, sortedCollection);
+
+    var data = [];
+
+    // Push data to the List View
+    _.each(sortedCollection, function(todoItem) {
+        var date = &quot;&quot;;
+        if (todoItem.dueDateDateTime) {
+            date = moment(todoItem.dueDateDateTime).format(&quot;MM DD&quot;);
+        }
+
+        data.push({
+            viewStatusColor: {
+                backgroundColor: todoItem.status ? &quot;green&quot; : &quot;&quot;
+            },
+            imageViewCheckmark: {
+                image: todoItem.status ? &quot;/images/navigation/ic_check_black_48dp.png&quot; : &quot;&quot;,
+                left: 10,
+                right:10
+            },
+            itemTitle: {
+                text: todoItem.name,
+                font: {
+                    fontSize: &#39;18sp&#39;
+                },
+                left: 5
+            },
+            itemContent: {
+                text: todoItem.content
+            },
+            labelDueDate: {
+                text: date
+            },
+            properties: {
+                itemId: todoItem.todo_id,
+                searchableText: todoItem.name,
+                backgroundColor: &#39;#fff&#39;,
+                height: 90
+            }
+        });
+    });
+
+    var listSection = Titanium.UI.createListSection({
+        // properties
+        items: data,
+        //headerView : listSectionHeaderView
+        headerTitle: &quot;To-do List&quot;
+    });
+
+    $.listViewTodo.appendSection(listSection);
+}
+
+<span id='Controller-TodoList-method-deleteItem'>/**
+</span> * Delete an item
+ * @param e
+ */
+function deleteItem(e){
+    var section = e.section;
+    var todo_id = e.itemId;
+    var itemIndex = e.itemIndex;
+    log.warn(&quot;deleteItem: &quot; + JSON.stringify(e, null, 4));
+    var opts = {
+        options: [&#39;Yep!&#39;, &#39;Changed my mind&#39;],
+        selectedIndex: 0,
+        destructive: 0,
+        title: &quot;Do You Want to DELETE This Item?&quot;
+    };
+
+
+     var dialog = Ti.UI.createOptionDialog(opts);
+     dialog.show();
+     dialog.addEventListener(&#39;click&#39;, function(e) {
+         if (e.index == 0) {
+             var todoItem = _.first(todo.where({ todo_id: todo_id }));
+             todo.remove(todoItem);
+             todoItem.destroy();
+             todo.fetch();
+             section.deleteItemsAt(itemIndex, 1);
+             Alloy.Globals.Menu.showInfoBar({title: &quot;Deleted Task!&quot;});
+             return;
+         } else {
+             Alloy.Globals.Menu.showInfoBar({title: &quot;Not Deleted!&quot;});
+         }
+     });
+}
+</pre>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Widget-Logger-LogDetail'>/**
+</span> * This is the controller file for &quot;LogDetail&quot;
+ *
+ * @class Widget.Logger.LogDetail
+ * @author Steven House ,steven.m.house@gmail.com.
+ */
+
+_ = require(&#39;alloy/underscore&#39;)._;
+var moment = require(&#39;moment&#39;);
+
+// Include logging utility
+var log = Alloy.Globals.log;
+
+// Get the message for the log
+var args = arguments[0] || {};
+var message = args.message;
+
+var logs = log.getLogs();
+var currentLog = logs.findWhere({
+    message: message
+}).toJSON();
+
+init();
+addEventListeners();
+
+<span id='Widget-Logger-LogDetail-method-init'>/**
+</span> * Start the controller running
+ * @method init
+ * @return
+ */
+function init() {
+    var colors = {
+        E: &#39;#EE0000&#39;,
+        W: &#39;#E48743&#39;,
+        I: &#39;#EEEEEE&#39;,
+        D: &#39;#00DD00&#39;
+    };
+    $.viewLogType.backgroundColor = colors[currentLog.level] || &#39;#FFF&#39;;
+    $.labelLogType.text = currentLog.level;
+    $.labelDescription.text = currentLog.message;
+    $.labelDate.text = moment(currentLog.time).format(
+        &#39;MMMM Do YYYY, h:mm:ss a&#39;);
+
+    $.labelDetail.text = JSON.stringify(currentLog.data, null, 4);
+}
+
+<span id='Widget-Logger-LogDetail-method-cleanup'>/**
+</span> * Any cleanup the controller needs
+ * @method cleanup
+ * @return
+ */
+$.viewMain.cleanup = function() {
+    log.info(&#39;[LogDetail] : Cleanup&#39;);
+    $.destroy();
+    $.off();
+};
+
+<span id='Widget-Logger-LogDetail-method-addEventListeners'>/**
+</span> * Add event listeners for the ListView.
+ * @method addEventListeners
+ * @return
+ */
+function addEventListeners() {
+
+}
+</pre>
+</body>
+</html>

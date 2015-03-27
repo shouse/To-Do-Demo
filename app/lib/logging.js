@@ -1,5 +1,5 @@
 /**
- * @class Logging
+ * @class Util.Logging
  * This class is a framework for handling logging
  * @author Steven House <steven.m.house@gmail.com>
  *

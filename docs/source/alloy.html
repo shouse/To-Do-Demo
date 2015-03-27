@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">// The contents of this file will be executed before any of
+// your view controllers are ever executed, including the index.
+// You have access to all functionality on the `Alloy` namespace.
+
+// Logging utility and expose it to the global namespace
+var LogObject = require(&#39;logging&#39;);
+var log = new LogObject.Logger();
+log.init();
+
+Alloy.Globals.log = log;
+
+// Cross-Platform Navigation Controller and expose it to the global namespace
+var navArgs = { splitWindow: true };
+var NavObject = require(&#39;NavController&#39;);
+var nav = new NavObject.NavController();
+nav.init(navArgs);
+Alloy.Globals.nav = nav;
+
+// Map
+// Alloy.Globals.Map = require(&#39;ti.map&#39;);
+
+// Facebook module, which can be referenced by Alloy.Globals.Facebook
+// Alloy.Globals.Facebook = require(&#39;facebook&#39;);
+
+// Global notification widget
+//Alloy.Globals.toast = Alloy.createWidget(&#39;nl.fokkezb.toast&#39;, &#39;global&#39;, { // defaults });
+
+// Logger Add exception handling - &#39;Red Screen of Death&#39;
+// var Logger = require(&quot;yy.logcatcher&quot;);
+//var exceptions = require(&#39;logging/exceptions&#39;);
+//Logger.addEventListener(&#39;error&#39;, function(e) {
+    //exceptions.parseException(e);
+//});
+
+// Network status
+Ti.Network.addEventListener(&#39;change&#39;, function(e) {
+    Alloy.Globals.networkIsOnline = e.online;
+    Alloy.Globals.networkType = e.networkType;
+});
+
+<span id='global-method-isOnline'>/**
+</span> * Find out if Titanium device is online.  Doing it this way because of false positives using Ti.Network.online
+ * @method isOnline
+ */
+Alloy.Globals.isOnline = function isOnline() {
+    var onlineStatus = false;
+    if (Titanium.Network.networkType === Titanium.Network.NETWORK_NONE) {
+        onlineStatus = false;
+        Ti.API.info(&quot;Network Status: online&quot;);
+    } else {
+        onlineStatus = true;
+        Ti.API.info(&quot;Network Status: offline&quot;);
+    }
+
+    return onlineStatus;
+};
+
+
+// Let&#39;s create a random color scheme for the app based on Propellics base colors
+// @link http://www.colorcombos.com/combotester.html?rnd=0&amp;color0=172800&amp;color1=1a1c20&amp;color2=604800&amp;color3=cccccc&amp;color4=373c45&amp;color5=eb5d36&amp;color6=f0f0f0&amp;color7=fb734e&amp;color8=ffffff&amp;color9=e1e1e1&amp;color10=bfbfbf
+Alloy.Globals.Colors = [
+    { name: &quot;orange&quot;, color: &quot;#eb5d36&quot; },
+    { name: &quot;green&quot;, color: &quot;#172800&quot; },
+    { name: &quot;darkBlue&quot;, color: &quot;#1a1c20&quot; },
+    { name: &quot;brown&quot;, color: &quot;#604800&quot; },
+    { name: &quot;gray&quot;, color: &quot;#cccccc&quot; },
+    { name: &quot;mediumBlue&quot;, color: &quot;#373c45&quot; }
+];
+
+</pre>
+</body>
+</html>

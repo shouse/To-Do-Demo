@@ -1,20 +1,23 @@
-/*
- SocialShare : Titanium Module for cross-platform sharing of text and images over social networks
+/**
+ * SocialShare : Titanium Module for cross-platform sharing of text and images over social networks
+ * This module requires dl.napp.social for iOS which you can get from https://github.com/viezel/TiSocial.Framework
+ * iOS:
+ * The native sharing Action Sheet is displayed and offers options for sharing with Facebook and Twitter (if the native apps are installed),
+ * plus AirDrop, Text Message, Email and other built-in iOS mechanisms.
+ *
+ * Android:
+ * For Android it uses the Native Sharing Intent, which brings up a list of installed apps to choose from.
+ *
+ * @Class Uitl.SocialShare
+ **/
 
- This module requires dl.napp.social for iOS which you can get from https://github.com/viezel/TiSocial.Framework
-
- iOS:
- The native sharing Action Sheet is displayed and offers options for sharing with Facebook and Twitter (if the native apps are installed),
- plus AirDrop, Text Message, Email and other built-in iOS mechanisms.
-
- Android:
- For Android it uses the Native Sharing Intent, which brings up a list of installed apps to choose from.
-
- Arguments:
-
- image 				: Given as nativePath
- status 				: The text status to share
- androidDialogTitle 	: The title of the Andorid share window
+/**
+ * Main method to share
+ * @method share
+ * @param {Object} args
+ *                 args.image           : Given as nativePath
+ *                 status 	            : The text status to share
+ *                 androidDialogTitle 	: The title of the Android share window
  */
 function share(args) {
     if (OS_ANDROID) {

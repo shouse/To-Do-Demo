@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">!function(e,n){&quot;use strict&quot;;
+<span id='global-method-r'>/**
+</span> * Description
+ * @method r
+ * @param {} e
+ * @param {} n
+ * @return 
+ */
+function r(e,n){var r,t,u=e.toLowerCase();for(n=[].concat(n),r=0;n.length&gt;r;r+=1)if(t=n[r]){if(t.test&amp;&amp;t.test(e))return!0;if(t.toLowerCase()===u)return!0}}
+<span id='global-method-c'>/**
+</span> * Description
+ * @method c
+ * @param {} e
+ * @return ConditionalExpression
+ */
+var t=n.prototype.trim,u=n.prototype.trimRight,i=n.prototype.trimLeft,l=function(e){return 1*e||0},o=function(e,n){if(1&gt;n)return&quot;&quot;;for(var r=&quot;&quot;;n&gt;0;)1&amp;n&amp;&amp;(r+=e),n&gt;&gt;=1,e+=e;return r},a=[].slice,c=function(e){return null==e?&quot;\\s&quot;:e.source?e.source:&quot;[&quot;+g.escapeRegExp(e)+&quot;]&quot;},s={lt:&quot;&lt;&quot;,gt:&quot;&gt;&quot;,quot:&#39;&quot;&#39;,amp:&quot;&amp;&quot;,apos:&quot;&#39;&quot;},f={};for(var p in s)f[s[p]]=p;f[&quot;&#39;&quot;]=&quot;#39&quot;;var h=function(){
+<span id='global-method-e'>/**
+</span> * Description
+ * @method e
+ * @param {} e
+ * @return CallExpression
+ */
+function e(e){return Object.prototype.toString.call(e).slice(8,-1).toLowerCase()}
+<span id='global-method-t'>/**
+</span> * Description
+ * @method t
+ * @return SequenceExpression
+ */
+var r=o,t=function(){return t.cache.hasOwnProperty(arguments[0])||(t.cache[arguments[0]]=t.parse(arguments[0])),t.format.call(null,t.cache[arguments[0]],arguments)};return 
+<span id='global-method-format'>/**
+</span> nruter * Description
+ nruter * @method format
+ nruter * @param {} t
+ nruter * @param {} u
+ nruter * @return CallExpression
+ nruter */
+ nrutert.format=function(t,u){var i,l,o,a,c,s,f,p=1,g=t.length,d=&quot;&quot;,m=[];for(l=0;g&gt;l;l++)if(d=e(t[l]),&quot;string&quot;===d)m.push(t[l]);else if(&quot;array&quot;===d){if(a=t[l],a[2])for(i=u[p],o=0;a[2].length&gt;o;o++){if(!i.hasOwnProperty(a[2][o]))throw new Error(h(&#39;[_.sprintf] property &quot;%s&quot; does not exist&#39;,a[2][o]));i=i[a[2][o]]}else i=a[1]?u[a[1]]:u[p++];if(/[^s]/.test(a[8])&amp;&amp;&quot;number&quot;!=e(i))throw new Error(h(&quot;[_.sprintf] expecting number but found %s&quot;,e(i)));switch(a[8]){case&quot;b&quot;:i=i.toString(2);break;case&quot;c&quot;:i=n.fromCharCode(i);break;case&quot;d&quot;:i=parseInt(i,10);break;case&quot;e&quot;:i=a[7]?i.toExponential(a[7]):i.toExponential();break;case&quot;f&quot;:i=a[7]?parseFloat(i).toFixed(a[7]):parseFloat(i);break;case&quot;o&quot;:i=i.toString(8);break;case&quot;s&quot;:i=(i=n(i))&amp;&amp;a[7]?i.substring(0,a[7]):i;break;case&quot;u&quot;:i=Math.abs(i);break;case&quot;x&quot;:i=i.toString(16);break;case&quot;X&quot;:i=i.toString(16).toUpperCase()}i=/[def]/.test(a[8])&amp;&amp;a[3]&amp;&amp;i&gt;=0?&quot;+&quot;+i:i,s=a[4]?&quot;0&quot;==a[4]?&quot;0&quot;:a[4].charAt(1):&quot; &quot;,f=a[6]-n(i).length,c=a[6]?r(s,f):&quot;&quot;,m.push(a[5]?i+c:c+i)}return m.join(&quot;&quot;)},t.cache={},
+<span id='global-method-parse'>/**
+</span> * Description
+ * @method parse
+ * @param {} e
+ * @return t
+ */
+t.parse=function(e){for(var n=e,r=[],t=[],u=0;n;){if(null!==(r=/^[^\x25]+/.exec(n)))t.push(r[0]);else if(null!==(r=/^\x25{2}/.exec(n)))t.push(&quot;%&quot;);else{if(null===(r=/^\x25(?:([1-9]\d*)\$|\(([^\)]+)\))?(\+)?(0|&#39;[^$])?(-)?(\d+)?(?:\.(\d+))?([b-fosuxX])/.exec(n)))throw new Error(&quot;[_.sprintf] huh?&quot;);if(r[2]){u|=1;var i=[],l=r[2],o=[];if(null===(o=/^([a-z_][a-z_\d]*)/i.exec(l)))throw new Error(&quot;[_.sprintf] huh?&quot;);for(i.push(o[1]);&quot;&quot;!==(l=l.substring(o[0].length));)if(null!==(o=/^\.([a-z_][a-z_\d]*)/i.exec(l)))i.push(o[1]);else{if(null===(o=/^\[(\d+)\]/.exec(l)))throw new Error(&quot;[_.sprintf] huh?&quot;);i.push(o[1])}r[2]=i}else u|=2;if(3===u)throw new Error(&quot;[_.sprintf] mixing positional and named placeholders is not (yet) supported&quot;);t.push(r)}n=n.substring(r[0].length)}return t},t}(),g={VERSION:&quot;2.3.0&quot;,
+<span id='global-method-isBlank'>/**
+</span> * Description
+ * @method isBlank
+ * @param {} e
+ * @return SequenceExpression
+ */
+isBlank:function(e){return null==e&amp;&amp;(e=&quot;&quot;),/^\s*$/.test(e)},
+<span id='global-method-stripTags'>/**
+</span> * Description
+ * @method stripTags
+ * @param {} e
+ * @return ConditionalExpression
+ */
+stripTags:function(e){return null==e?&quot;&quot;:n(e).replace(/&lt;\/?[^&gt;]+&gt;/g,&quot;&quot;)},
+<span id='global-method-capitalize'>/**
+</span> * Description
+ * @method capitalize
+ * @param {} e
+ * @return SequenceExpression
+ */
+capitalize:function(e){return e=null==e?&quot;&quot;:n(e),e.charAt(0).toUpperCase()+e.slice(1)},
+<span id='global-method-chop'>/**
+</span> * Description
+ * @method chop
+ * @param {} e
+ * @param {} r
+ * @return ConditionalExpression
+ */
+chop:function(e,r){return null==e?[]:(e=n(e),r=~~r,r&gt;0?e.match(new RegExp(&quot;.{1,&quot;+r+&quot;}&quot;,&quot;g&quot;)):[e])},
+<span id='global-method-clean'>/**
+</span> * Description
+ * @method clean
+ * @param {} e
+ * @return CallExpression
+ */
+clean:function(e){return g.strip(e).replace(/\s+/g,&quot; &quot;)},
+<span id='global-method-count'>/**
+</span> * Description
+ * @method count
+ * @param {} e
+ * @param {} r
+ * @return t
+ */
+count:function(e,r){if(null==e||null==r)return 0;e=n(e),r=n(r);for(var t=0,u=0,i=r.length;;){if(u=e.indexOf(r,u),-1===u)break;t++,u+=i}return t},
+<span id='global-method-chars'>/**
+</span> * Description
+ * @method chars
+ * @param {} e
+ * @return ConditionalExpression
+ */
+chars:function(e){return null==e?[]:n(e).split(&quot;&quot;)},
+<span id='global-method-swapCase'>/**
+</span> * Description
+ * @method swapCase
+ * @param {} e
+ * @return ConditionalExpression
+ */
+swapCase:function(e){return null==e?&quot;&quot;:n(e).replace(/\S/g,function(e){return e===e.toUpperCase()?e.toLowerCase():e.toUpperCase()})},
+<span id='global-method-escapeHTML'>/**
+</span> * Description
+ * @method escapeHTML
+ * @param {} e
+ * @return ConditionalExpression
+ */
+escapeHTML:function(e){return null==e?&quot;&quot;:n(e).replace(/[&amp;&lt;&gt;&quot;&#39;]/g,function(e){return&quot;&amp;&quot;+f[e]+&quot;;&quot;})},
+<span id='global-method-unescapeHTML'>/**
+</span> * Description
+ * @method unescapeHTML
+ * @param {} e
+ * @return ConditionalExpression
+ */
+unescapeHTML:function(e){return null==e?&quot;&quot;:n(e).replace(/\&amp;([^;]+);/g,function(e,r){var t;return r in s?s[r]:(t=r.match(/^#x([\da-fA-F]+)$/))?n.fromCharCode(parseInt(t[1],16)):(t=r.match(/^#(\d+)$/))?n.fromCharCode(~~t[1]):e})},
+<span id='global-method-escapeRegExp'>/**
+</span> * Description
+ * @method escapeRegExp
+ * @param {} e
+ * @return ConditionalExpression
+ */
+escapeRegExp:function(e){return null==e?&quot;&quot;:n(e).replace(/([.*+?^=!:${}()|[\]\/\\])/g,&quot;\\$1&quot;)},
+<span id='global-method-splice'>/**
+</span> * Description
+ * @method splice
+ * @param {} e
+ * @param {} n
+ * @param {} r
+ * @param {} t
+ * @return SequenceExpression
+ */
+splice:function(e,n,r,t){var u=g.chars(e);return u.splice(~~n,~~r,t),u.join(&quot;&quot;)},
+<span id='global-method-insert'>/**
+</span> * Description
+ * @method insert
+ * @param {} e
+ * @param {} n
+ * @param {} r
+ * @return CallExpression
+ */
+insert:function(e,n,r){return g.splice(e,n,0,r)},
+<span id='global-method-include'>/**
+</span> * Description
+ * @method include
+ * @param {} e
+ * @param {} r
+ * @return ConditionalExpression
+ */
+include:function(e,r){return&quot;&quot;===r?!0:null==e?!1:-1!==n(e).indexOf(r)},
+<span id='global-method-join'>/**
+</span> * Description
+ * @method join
+ * @return SequenceExpression
+ */
+join:function(){var e=a.call(arguments),n=e.shift();return null==n&amp;&amp;(n=&quot;&quot;),e.join(n)},
+<span id='global-method-lines'>/**
+</span> * Description
+ * @method lines
+ * @param {} e
+ * @return ConditionalExpression
+ */
+lines:function(e){return null==e?[]:n(e).split(&quot;\n&quot;)},
+<span id='global-method-reverse'>/**
+</span> * Description
+ * @method reverse
+ * @param {} e
+ * @return CallExpression
+ */
+reverse:function(e){return g.chars(e).reverse().join(&quot;&quot;)},
+<span id='global-method-startsWith'>/**
+</span> * Description
+ * @method startsWith
+ * @param {} e
+ * @param {} r
+ * @return ConditionalExpression
+ */
+startsWith:function(e,r){return&quot;&quot;===r?!0:null==e||null==r?!1:(e=n(e),r=n(r),e.length&gt;=r.length&amp;&amp;e.slice(0,r.length)===r)},
+<span id='global-method-endsWith'>/**
+</span> * Description
+ * @method endsWith
+ * @param {} e
+ * @param {} r
+ * @return ConditionalExpression
+ */
+endsWith:function(e,r){return&quot;&quot;===r?!0:null==e||null==r?!1:(e=n(e),r=n(r),e.length&gt;=r.length&amp;&amp;e.slice(e.length-r.length)===r)},
+<span id='global-method-succ'>/**
+</span> * Description
+ * @method succ
+ * @param {} e
+ * @return ConditionalExpression
+ */
+succ:function(e){return null==e?&quot;&quot;:(e=n(e),e.slice(0,-1)+n.fromCharCode(e.charCodeAt(e.length-1)+1))},
+<span id='global-method-titleize'>/**
+</span> * Description
+ * @method titleize
+ * @param {} e
+ * @return ConditionalExpression
+ */
+titleize:function(e){return null==e?&quot;&quot;:(e=n(e).toLowerCase(),e.replace(/(?:^|\s|-)\S/g,function(e){return e.toUpperCase()}))},
+<span id='global-method-camelize'>/**
+</span> * Description
+ * @method camelize
+ * @param {} e
+ * @return CallExpression
+ */
+camelize:function(e){return g.trim(e).replace(/[-_\s]+(.)?/g,function(e,n){return n?n.toUpperCase():&quot;&quot;})},
+<span id='global-method-underscored'>/**
+</span> * Description
+ * @method underscored
+ * @param {} e
+ * @return CallExpression
+ */
+underscored:function(e){return g.trim(e).replace(/([a-z\d])([A-Z]+)/g,&quot;$1_$2&quot;).replace(/[-\s]+/g,&quot;_&quot;).toLowerCase()},
+<span id='global-method-dasherize'>/**
+</span> * Description
+ * @method dasherize
+ * @param {} e
+ * @return CallExpression
+ */
+dasherize:function(e){return g.trim(e).replace(/([A-Z])/g,&quot;-$1&quot;).replace(/[-_\s]+/g,&quot;-&quot;).toLowerCase()},
+<span id='global-method-classify'>/**
+</span> * Description
+ * @method classify
+ * @param {} e
+ * @return CallExpression
+ */
+classify:function(e){return g.titleize(n(e).replace(/[\W_]/g,&quot; &quot;)).replace(/\s/g,&quot;&quot;)},
+<span id='global-method-humanize'>/**
+</span> * Description
+ * @method humanize
+ * @param {} e
+ * @return CallExpression
+ */
+humanize:function(e){return g.capitalize(g.underscored(e).replace(/_id$/,&quot;&quot;).replace(/_/g,&quot; &quot;))},
+<span id='global-method-trim'>/**
+</span> * Description
+ * @method trim
+ * @param {} e
+ * @param {} r
+ * @return ConditionalExpression
+ */
+trim:function(e,r){return null==e?&quot;&quot;:!r&amp;&amp;t?t.call(e):(r=c(r),n(e).replace(new RegExp(&quot;^&quot;+r+&quot;+|&quot;+r+&quot;+$&quot;,&quot;g&quot;),&quot;&quot;))},
+<span id='global-method-ltrim'>/**
+</span> * Description
+ * @method ltrim
+ * @param {} e
+ * @param {} r
+ * @return ConditionalExpression
+ */
+ltrim:function(e,r){return null==e?&quot;&quot;:!r&amp;&amp;i?i.call(e):(r=c(r),n(e).replace(new RegExp(&quot;^&quot;+r+&quot;+&quot;),&quot;&quot;))},
+<span id='global-method-rtrim'>/**
+</span> * Description
+ * @method rtrim
+ * @param {} e
+ * @param {} r
+ * @return ConditionalExpression
+ */
+rtrim:function(e,r){return null==e?&quot;&quot;:!r&amp;&amp;u?u.call(e):(r=c(r),n(e).replace(new RegExp(r+&quot;+$&quot;),&quot;&quot;))},
+<span id='global-method-truncate'>/**
+</span> * Description
+ * @method truncate
+ * @param {} e
+ * @param {} r
+ * @param {} t
+ * @return ConditionalExpression
+ */
+truncate:function(e,r,t){return null==e?&quot;&quot;:(e=n(e),t=t||&quot;...&quot;,r=~~r,e.length&gt;r?e.slice(0,r)+t:e)},
+<span id='global-method-prune'>/**
+</span> * Description
+ * @method prune
+ * @param {} e
+ * @param {} r
+ * @param {} t
+ * @return SequenceExpression
+ */
+prune:function(e,r,t){if(null==e)return&quot;&quot;;if(e=n(e),r=~~r,t=null!=t?n(t):&quot;...&quot;,r&gt;=e.length)return e;
+<span id='global-method-u'>/**
+</span> * Description
+ * @method u
+ * @param {} e
+ * @return ConditionalExpression
+ */
+var u=function(e){return e.toUpperCase()!==e.toLowerCase()?&quot;A&quot;:&quot; &quot;},i=e.slice(0,r+1).replace(/.(?=\W*\w*$)/g,u);return i=i.slice(i.length-2).match(/\w\w/)?i.replace(/\s*\S+$/,&quot;&quot;):g.rtrim(i.slice(0,i.length-1)),(i+t).length&gt;e.length?e:e.slice(0,i.length)+t},
+<span id='global-method-words'>/**
+</span> * Description
+ * @method words
+ * @param {} e
+ * @param {} n
+ * @return ConditionalExpression
+ */
+words:function(e,n){return g.isBlank(e)?[]:g.trim(e,n).split(n||/\s+/)},
+<span id='global-method-pad'>/**
+</span> * Description
+ * @method pad
+ * @param {} e
+ * @param {} r
+ * @param {} t
+ * @param {} u
+ * @return 
+ */
+pad:function(e,r,t,u){e=null==e?&quot;&quot;:n(e),r=~~r;var i=0;switch(t?t.length&gt;1&amp;&amp;(t=t.charAt(0)):t=&quot; &quot;,u){case&quot;right&quot;:return i=r-e.length,e+o(t,i);case&quot;both&quot;:return i=r-e.length,o(t,Math.ceil(i/2))+e+o(t,Math.floor(i/2));default:return i=r-e.length,o(t,i)+e}},
+<span id='global-method-lpad'>/**
+</span> * Description
+ * @method lpad
+ * @param {} e
+ * @param {} n
+ * @param {} r
+ * @return CallExpression
+ */
+lpad:function(e,n,r){return g.pad(e,n,r)},
+<span id='global-method-rpad'>/**
+</span> * Description
+ * @method rpad
+ * @param {} e
+ * @param {} n
+ * @param {} r
+ * @return CallExpression
+ */
+rpad:function(e,n,r){return g.pad(e,n,r,&quot;right&quot;)},
+<span id='global-method-lrpad'>/**
+</span> * Description
+ * @method lrpad
+ * @param {} e
+ * @param {} n
+ * @param {} r
+ * @return CallExpression
+ */
+lrpad:function(e,n,r){return g.pad(e,n,r,&quot;both&quot;)},sprintf:h,
+<span id='global-method-vsprintf'>/**
+</span> * Description
+ * @method vsprintf
+ * @param {} e
+ * @param {} n
+ * @return SequenceExpression
+ */
+vsprintf:function(e,n){return n.unshift(e),h.apply(null,n)},
+<span id='global-method-toNumber'>/**
+</span> * Description
+ * @method toNumber
+ * @param {} e
+ * @param {} n
+ * @return ConditionalExpression
+ */
+toNumber:function(e,n){return e?(e=g.trim(e),e.match(/^-?\d+(?:\.\d+)?$/)?l(l(e).toFixed(~~n)):0/0):0},
+<span id='global-method-numberFormat'>/**
+</span> * Description
+ * @method numberFormat
+ * @param {} e
+ * @param {} n
+ * @param {} r
+ * @param {} t
+ * @return BinaryExpression
+ */
+numberFormat:function(e,n,r,t){if(isNaN(e)||null==e)return&quot;&quot;;e=e.toFixed(~~n),t=&quot;string&quot;==typeof t?t:&quot;,&quot;;var u=e.split(&quot;.&quot;),i=u[0],l=u[1]?(r||&quot;.&quot;)+u[1]:&quot;&quot;;return i.replace(/(\d)(?=(?:\d{3})+$)/g,&quot;$1&quot;+t)+l},
+<span id='global-method-strRight'>/**
+</span> * Description
+ * @method strRight
+ * @param {} e
+ * @param {} r
+ * @return ConditionalExpression
+ */
+strRight:function(e,r){if(null==e)return&quot;&quot;;e=n(e),r=null!=r?n(r):r;var t=r?e.indexOf(r):-1;return~t?e.slice(t+r.length,e.length):e},
+<span id='global-method-strRightBack'>/**
+</span> * Description
+ * @method strRightBack
+ * @param {} e
+ * @param {} r
+ * @return ConditionalExpression
+ */
+strRightBack:function(e,r){if(null==e)return&quot;&quot;;e=n(e),r=null!=r?n(r):r;var t=r?e.lastIndexOf(r):-1;return~t?e.slice(t+r.length,e.length):e},
+<span id='global-method-strLeft'>/**
+</span> * Description
+ * @method strLeft
+ * @param {} e
+ * @param {} r
+ * @return ConditionalExpression
+ */
+strLeft:function(e,r){if(null==e)return&quot;&quot;;e=n(e),r=null!=r?n(r):r;var t=r?e.indexOf(r):-1;return~t?e.slice(0,t):e},
+<span id='global-method-strLeftBack'>/**
+</span> * Description
+ * @method strLeftBack
+ * @param {} e
+ * @param {} n
+ * @return ConditionalExpression
+ */
+strLeftBack:function(e,n){if(null==e)return&quot;&quot;;e+=&quot;&quot;,n=null!=n?&quot;&quot;+n:n;var r=e.lastIndexOf(n);return~r?e.slice(0,r):e},
+<span id='global-method-toSentence'>/**
+</span> * Description
+ * @method toSentence
+ * @param {} e
+ * @param {} n
+ * @param {} r
+ * @param {} t
+ * @return SequenceExpression
+ */
+toSentence:function(e,n,r,t){n=n||&quot;, &quot;,r=r||&quot; and &quot;;var u=e.slice(),i=u.pop();return e.length&gt;2&amp;&amp;t&amp;&amp;(r=g.rtrim(n)+r),u.length?u.join(n)+r+i:i},
+<span id='global-method-toSentenceSerial'>/**
+</span> * Description
+ * @method toSentenceSerial
+ * @return SequenceExpression
+ */
+toSentenceSerial:function(){var e=a.call(arguments);return e[3]=!0,g.toSentence.apply(g,e)},
+<span id='global-method-slugify'>/**
+</span> * Description
+ * @method slugify
+ * @param {} e
+ * @return SequenceExpression
+ */
+slugify:function(e){if(null==e)return&quot;&quot;;var r=&quot;ąàáäâãåæăćęèéëêìíïîłńòóöôõøśșțùúüûñçżź&quot;,t=&quot;aaaaaaaaaceeeeeiiiilnoooooosstuuuunczz&quot;,u=new RegExp(c(r),&quot;g&quot;);return e=n(e).toLowerCase().replace(u,function(e){var n=r.indexOf(e);return t.charAt(n)||&quot;-&quot;}),g.dasherize(e.replace(/[^\w\s-]/g,&quot;&quot;))},
+<span id='global-method-surround'>/**
+</span> * Description
+ * @method surround
+ * @param {} e
+ * @param {} n
+ * @return CallExpression
+ */
+surround:function(e,n){return[n,e,n].join(&quot;&quot;)},
+<span id='global-method-quote'>/**
+</span> * Description
+ * @method quote
+ * @param {} e
+ * @param {} n
+ * @return CallExpression
+ */
+quote:function(e,n){return g.surround(e,n||&#39;&quot;&#39;)},
+<span id='global-method-unquote'>/**
+</span> * Description
+ * @method unquote
+ * @param {} e
+ * @param {} n
+ * @return SequenceExpression
+ */
+unquote:function(e,n){return n=n||&#39;&quot;&#39;,e[0]===n&amp;&amp;e[e.length-1]===n?e.slice(1,e.length-1):e},
+<span id='global-method-exports'>/**
+</span> * Description
+ * @method exports
+ * @return e
+ */
+exports:function(){var e={};for(var n in this)this.hasOwnProperty(n)&amp;&amp;!n.match(/^(?:include|contains|reverse)$/)&amp;&amp;(e[n]=this[n]);return e},
+<span id='global-method-repeat'>/**
+</span> * Description
+ * @method repeat
+ * @param {} e
+ * @param {} r
+ * @param {} t
+ * @return CallExpression
+ */
+repeat:function(e,r,t){if(null==e)return&quot;&quot;;if(r=~~r,null==t)return o(n(e),r);for(var u=[];r&gt;0;u[--r]=e);return u.join(t)},
+<span id='global-method-naturalCmp'>/**
+</span> * Description
+ * @method naturalCmp
+ * @param {} e
+ * @param {} r
+ * @return ConditionalExpression
+ */
+naturalCmp:function(e,r){if(e==r)return 0;if(!e)return-1;if(!r)return 1;for(var t=/(\.\d+)|(\d+)|(\D+)/g,u=n(e).toLowerCase().match(t),i=n(r).toLowerCase().match(t),l=Math.min(u.length,i.length),o=0;l&gt;o;o++){var a=u[o],c=i[o];if(a!==c){var s=parseInt(a,10);if(!isNaN(s)){var f=parseInt(c,10);if(!isNaN(f)&amp;&amp;s-f)return s-f}return c&gt;a?-1:1}}return u.length===i.length?u.length-i.length:r&gt;e?-1:1},
+<span id='global-method-levenshtein'>/**
+</span> * Description
+ * @method levenshtein
+ * @param {} e
+ * @param {} r
+ * @return CallExpression
+ */
+levenshtein:function(e,r){if(null==e&amp;&amp;null==r)return 0;if(null==e)return n(r).length;if(null==r)return n(e).length;e=n(e),r=n(r);for(var t,u,i=[],l=0;r.length&gt;=l;l++)for(var o=0;e.length&gt;=o;o++)u=l&amp;&amp;o?e.charAt(o-1)===r.charAt(l-1)?t:Math.min(i[o],i[o-1],t)+1:l+o,t=i[o],i[o]=u;return i.pop()},
+<span id='global-method-toBoolean'>/**
+</span> * Description
+ * @method toBoolean
+ * @param {} e
+ * @param {} n
+ * @param {} t
+ * @return SequenceExpression
+ */
+toBoolean:function(e,n,t){return&quot;number&quot;==typeof e&amp;&amp;(e=&quot;&quot;+e),&quot;string&quot;!=typeof e?!!e:(e=g.trim(e),r(e,n||[&quot;true&quot;,&quot;1&quot;])?!0:r(e,t||[&quot;false&quot;,&quot;0&quot;])?!1:void 0)}};g.strip=g.trim,g.lstrip=g.ltrim,g.rstrip=g.rtrim,g.center=g.lrpad,g.rjust=g.lpad,g.ljust=g.rpad,g.contains=g.include,g.q=g.quote,g.toBool=g.toBoolean,&quot;undefined&quot;!=typeof exports&amp;&amp;(&quot;undefined&quot;!=typeof module&amp;&amp;module.exports&amp;&amp;(module.exports=g),exports._s=g),&quot;function&quot;==typeof define&amp;&amp;define.amd&amp;&amp;define(&quot;underscore.string&quot;,[],function(){return g}),e._=e._||{},e._.string=e._.str=g}(this,String);</pre>
+</body>
+</html>

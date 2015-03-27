@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Widgets-nlFokkezbColor-lib-hsvg'>/**
+</span> * HSV + Grays color spectrum
+ *
+ * @class Widgets.nlFokkezbColor.lib.hsvg
+ * @xtype spectrum
+ */
+
+<span id='Widgets-nlFokkezbColor-lib-hsvg-property-image'>/**
+</span> * @inheritDoc Widgets.nlFokkezbColor.lib.ghsv#image
+ */
+exports.image = &#39;images/hsvg.png&#39;;
+
+<span id='Widgets-nlFokkezbColor-lib-hsvg-method-pc2hsv'>/**
+</span> * @inheritDoc Widgets.nlFokkezbColor.lib.ghsv#pc2hsv
+ */
+exports.pc2hsv = function pc2hsv(pc) {
+  var third = 100 / 3;
+
+  return {
+    h: Math.round((pc.x / 100) * 359),
+    s: (pc.y &lt; third) ? 100 : Math.max(0, Math.round(100 - (((pc.y - third) * 100) / third))),
+    v: (pc.y &lt; third) ? Math.round((pc.y * 100) / third) : ((pc.y &gt; (third * 2)) ? Math.round(100 - (((pc.y - (2 * third)) * 100) / third)) : 100)
+  };
+};
+
+<span id='Widgets-nlFokkezbColor-lib-hsvg-method-hsv2pc'>/**
+</span> * @inheritDoc Widgets.nlFokkezbColor.lib.ghsv#hsv2pc
+ */
+exports.hsv2pc = function hsv2pc(hsv) {
+  var y3p;
+
+  if (hsv.s &gt; 0) {
+
+    if (hsv.b &lt; 100) {
+      y3p = hsv.b;
+
+    } else {
+      y3p = 200 - hsv.s;
+    }
+
+  } else {
+    y3p = 300 - hsv.b;
+  }
+
+  return {
+    x: Math.round((hsv.h * 100) / 359),
+    y: Math.round((y3p * 100) / 300)
+  };
+};</pre>
+</body>
+</html>

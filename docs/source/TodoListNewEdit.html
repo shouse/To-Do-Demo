@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Controller-TodoList'>/**
+</span> * This is the controller file for &quot;TodoListNew&quot;.
+ *
+ * @class Controller.TodoList
+ * @author Steven House
+ * @email steven.m.house@gmail.com
+ */
+
+// Include logging utility
+var log = Alloy.Globals.log;
+log.info(&#39;[TodoList] : Opened Page&#39;);
+
+var args = arguments[0] || {};
+var todo_id = args.todo_id || false;
+
+var todo = Alloy.Collections.instance(&quot;ToDo&quot;);
+var todoItem;
+
+init();
+addEventListeners();
+
+<span id='Controller-TodoList-method-init'>/**
+</span> * Start the controller running
+ * @method init
+ * @return
+ */
+function init() {
+    log.debug(&#39;[TodoListNewEdit] : Initializing&#39;);
+    setupNav();
+
+    if (todo_id) {
+        editItem();
+    }
+
+    if (Alloy.isTablet) {
+        //Alloy.Globals.Menu.setSideContent(&#39;TodoListHistory&#39;);
+    }
+
+}
+
+<span id='Controller-TodoList-method-setupNav'>/**
+</span> * Setup the Nav Bar
+ * @method setupNav
+ */
+function setupNav() {
+    Alloy.Globals.Menu.setTitle(&quot;New Task&quot;);
+
+    // Add menu
+    Alloy.Globals.Menu.setButton({
+        button: &#39;l1&#39;,
+        image : &quot;/images/navigation/ic_cancel_white_48dp.png&quot;,
+        success: function() {
+            log.debug(&#39;[Maintain] : User Selected Cancel&#39;);
+            // open alert dialog
+            var opts = {
+                options: [&#39;Yes&#39;, &#39;Oops!&#39;],
+                selectedIndex: 0,
+                destructive: 0,
+                title: &#39;Do You Really Want to Cancel??&#39;
+            };
+
+            var dialog = Ti.UI.createOptionDialog(opts);
+            dialog.show();
+            dialog.addEventListener(&#39;click&#39;, function(e) {
+                if (e.index == 0) {
+                    Alloy.Globals.Menu.setMainContent(&#39;TodoList&#39;);
+                }
+            });
+        }
+    });
+
+    Alloy.Globals.Menu.setButton({
+        button: &#39;r1&#39;,
+        image: &quot;/images/navigation/ic_check_white_48dp.png&quot;,
+        success: addNewItem
+    });
+
+    Alloy.Globals.Menu.showButton(&#39;r1&#39;);
+    Alloy.Globals.Menu.hideButton(&#39;r2&#39;);
+    Alloy.Globals.Menu.showButton(&#39;l1&#39;);
+}
+
+<span id='Controller-TodoList-method-addEventListeners'>/**
+</span> * Add event listeners for the form
+ * @method addEventListeners
+ */
+function addEventListeners() {
+
+}
+
+<span id='Controller-TodoList-method-addNewItem'>/**
+</span> * Add a new custom item to the todo list
+ * @method addNewItem
+ */
+function addNewItem() {
+    log.debug(&#39;[TodoList] : addNewItem&#39;);
+
+    var formValues = getFormValues();
+    var id;
+    // Edit or create new
+    if (todo_id) {
+        todoItem.set(formValues);
+        todoItem.save();
+        id = todo_id;
+    } else {
+        var newModel = Alloy.createModel(&quot;ToDo&quot;, formValues);
+        newModel.save();
+        id = newModel.get(&quot;todo_id&quot;);
+    }
+
+    // Make sure the collection is current
+    todo.fetch();
+
+    //alert(&quot;Saved this model: &quot; + JSON.stringify(newModel, null, 4));
+
+    Alloy.Globals.Menu.setMainContent(&#39;TodoListDetail&#39;, {todo_id: id});
+
+};
+
+<span id='Controller-TodoList-method-addNewItem'>/**
+</span> * Add a new custom item to the todo list
+ * @method addNewItem
+ */
+function editItem() {
+    todoItem = _.first(todo.where({ todo_id: todo_id }));
+    log.debug(&#39;[TodoListNewEdit] : Editing todo Item&#39;, todoItem);
+
+    // Set the title to Edit
+    Alloy.Globals.Menu.setTitle(&quot;Edit Task&quot;);
+
+    $.textFieldName.value = todoItem.get(&#39;name&#39;);
+    $.textFieldContent.value = todoItem.get(&#39;content&#39;);
+
+};
+
+<span id='Controller-TodoList-method-getFormValues'>/**
+</span> * Get the form values
+ * @method getFormValues
+ */
+function getFormValues() {
+
+    if ($.textFieldName.value.length == 0) {
+        alert(&quot;Name is required&quot;);
+        return;
+    }
+    var formValues = {
+        name: $.textFieldName.value,
+        content: $.textFieldContent.value ? $.textFieldContent.value : &#39;&#39;
+    };
+
+    return formValues;
+}
+</pre>
+</body>
+</html>

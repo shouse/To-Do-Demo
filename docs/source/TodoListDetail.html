@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Controller-TodoListDetail'>/**
+</span> * This is the controller file for &quot;TodoDetail&quot;
+ *
+ * @class Controller.TodoListDetail
+ * @author Steven House
+ * @email steven.m.house@gmail.com
+ */
+
+// Include logging utility
+var log = Alloy.Globals.log;
+log.info(&quot;Opened TodoListDetails&quot;);
+
+var args = arguments[0] || {};
+var todo_id = args.todo_id || &quot;&quot;;
+
+var todo = Alloy.Collections.instance(&quot;ToDo&quot;);
+
+
+
+var todoItem = _.first(todo.where({ todo_id: parseInt(todo_id) }));
+
+var galleryExists = false;
+var checkBox;
+var moment = require(&#39;moment&#39;);
+
+init();
+
+<span id='Controller-TodoListDetail-method-init'>/**
+</span> * Start the controller running
+ * @method init
+ * @return
+ */
+function init() {
+    setupNav();
+    addEventListeners();
+    addCheckbox();
+
+    $.labelTitle.text = todoItem.get(&quot;name&quot;).toUpperCase();
+
+    if (todoItem.get(&quot;content&quot;) &amp;&amp; todoItem.get(&quot;content&quot;).length &gt; 0) {
+        $.labelContent.text = todoItem.get(&quot;content&quot;);
+        $.viewContentContainer.height = Ti.UI.SIZE;
+    } else {
+        $.viewContentContainer.height = 0;
+    }
+
+    if (hasDueDate()) {
+        $.labelDueDate.text = &quot;Due &quot; + moment(todoItem.get(&#39;dueDateDateTime&#39;)).fromNow();
+    }
+
+    /*
+     if (hasReminder()) {
+     $.viewAptTime.height = 44;
+     $.viewScheduleApt.height = 0;
+     $.addClass($.viewScheduleApt, &#39;bgDarkGreen&#39;);
+
+     var reminderDate = todoItem.get(&#39;reminderDateTime&#39;);
+
+     var dateText = moment.utc(reminderDate).fromNow();
+     $.labelReminder.text = dateText;
+     // + reminderDate;
+     }
+     */
+
+}
+
+<span id='Controller-TodoListDetail-method-setupNav'>/**
+</span> * Setup the Nav Bar
+ * @method setupNav
+ */
+function setupNav() {
+    Alloy.Globals.Menu.setTitle(&quot;Detail View&quot;);
+    // Add menu
+    Alloy.Globals.Menu.setButton({
+        button: &#39;l1&#39;,
+        image : &quot;/images/navigation/ic_chevron_left_white_48dp.png&quot;,
+        success: function() {
+            log.debug(&#39;[Maintain] : Redirecting to HomePage&#39;);
+            Alloy.Globals.Menu.setMainContent(&#39;TodoList&#39;);
+        }
+    });
+
+    // Add menu
+    Alloy.Globals.Menu.setButton({
+        button: &#39;r1&#39;,
+        image : &quot;/images/action/ic_mode_edit_white_48dp.png&quot;,
+        success: function() {
+            log.debug(&#39;[Maintain] : Redirecting to Edit Page&#39;);
+            Alloy.Globals.Menu.setMainContent(&#39;TodoListNewEdit&#39;, {todo_id: todoItem.get(&#39;todo_id&#39;)});
+        }
+    });
+
+    Alloy.Globals.Menu.showButton(&#39;l1&#39;);
+    Alloy.Globals.Menu.showButton(&#39;r1&#39;);
+    Alloy.Globals.Menu.hideButton(&#39;r2&#39;);
+}
+
+<span id='Controller-TodoListDetail-method-addEventListeners'>/**
+</span> * Add event listeners for the ListView.
+ * @method addEventListeners
+ * @return
+ */
+function addEventListeners() {
+    // Set A Due Date
+    $.viewDueDate.addEventListener(&#39;click&#39;, setDueDate);
+
+    // Capture a photo
+    $.viewPhoto.addEventListener(&#39;click&#39;, captureImage);
+
+    // Share the task
+    $.viewShare.addEventListener(&#39;click&#39;, shareTask);
+
+    // Share the task
+    $.viewGallery.addEventListener(&#39;click&#39;, function(){
+        Alloy.Globals.Menu.setMainContent(&#39;TodoListGallery&#39;, {todo_id: todoItem.get(&quot;todo_id&quot;)});
+    });
+}
+
+<span id='Controller-TodoListDetail-method-checkboxStuff'>/**
+</span> * Add a checkbox
+ * @method checkboxStuff
+ */
+function addCheckbox() {
+    checkbox = Alloy.createWidget(&quot;sh.checkbox&quot;, {value: todoItem.get(&quot;status&quot;)});
+    //checkbox.value = false;
+
+    // Create a handler for the change event.
+    checkbox.on(&#39;change&#39;, function(e) {
+        //toggleStatus(checkbox.value);
+        toggleStatus();
+    });
+    // Add the checkbox to the view.
+    $.viewCheckboxContainer.add(checkbox.getView());
+}
+
+<span id='Controller-TodoListDetail-method-done'>/**
+</span> * Handles the done click event listener
+ * @method done
+ * @return
+ */
+function toggleStatus() {
+    log.warn(&quot;[Task Details] toggling status to &quot; + !todoItem.get(&quot;status&quot;));
+    if (todo.get(&quot;status&quot;) == 0){
+        todoItem.set({
+            status: 1,
+            completedDateTime: new Date().toISOString(),
+            lastModifiedDateTime: new Date().toISOString()
+        });
+        Alloy.Globals.Menu.showInfoBar({title: &quot;Keep Up The Good Work!&quot;});
+    } else {
+        todoItem.set({
+            status: 0,
+            completedDateTime: undefined,
+            lastModifiedDateTime: new Date().toISOString()
+        });
+    }
+
+    todoItem.save();
+    todo.fetch();
+}
+
+<span id='Controller-TodoListDetail-method-isDone'>/**
+</span> * See if is Done
+ * @method isDone
+ */
+function isDone() {
+    return todoItem.get(&#39;status&#39;);
+}
+
+<span id='Controller-TodoListDetail-method-hasDueDate'>/**
+</span> * Checks if item has dueDate and changes UI based on this
+ * @method hasDueDate
+ */
+function hasDueDate() {
+    return todoItem.get(&#39;dueDateDateTime&#39;);
+}
+
+<span id='Controller-TodoListDetail-method-hasDueDate'>/**
+</span> * Checks if item has dueDate and changes UI based on this
+ * @method hasDueDate
+ */
+function hasReminder() {
+    return todoItem.get(&#39;reminderDateTime&#39;);
+}
+
+<span id='Controller-TodoListDetail-method-hasPhoto'>/**
+</span> * Checks if item has photos and changes UI based on this
+ * @method hasPhoto
+ */
+function hasPhoto() {
+    return todoItem.get(&#39;hasPhoto&#39;);
+}
+
+<span id='Controller-TodoListDetail-method-setReminder'>/**
+</span> * Invoke the calendar module to set a date
+ * @method setReminder
+ * @return
+ */
+function setDueDate() {
+    log.debug(&#39;[TodoDetail] : setDueDate&#39;);
+
+    if (Ti.Platform.osname === &#39;android&#39;) {
+        var now = new Date();
+        var month = now.getUTCMonth() + 1;
+        var day = now.getUTCDate();
+        var year = now.getUTCFullYear();
+
+        var Dialogs = require(&quot;yy.tidialogs&quot;);
+        // Create the dialog
+
+        // value property is priority
+        var picker = Dialogs.createDatePicker({
+            okButtonTitle: &#39;Set&#39;,         // &lt;-- optional, default &quot;Done&quot;
+            cancelButtonTitle: &#39;Cancel&#39;,  // &lt;-- optional, default &quot;Cancel&quot;
+            value: new Date(),            // &lt;-- optional
+            day: day,                     // &lt;-- optional
+            month: month,                 // &lt;-- optional - java/javascript month, i.e. August
+            year: year                    // &lt;-- optional
+        });
+
+        // Add the click listener
+        picker.addEventListener(&#39;click&#39;,function(e){
+            if (!e.cancel) {
+                saveDate(e.value, &quot;Due Date&quot;);
+            } else {
+                // Android Cancel Date
+            }
+        });
+
+        // Cancel listener
+        picker.addEventListener(&#39;cancel&#39;, function() {
+            Ti.API.info(&quot;dialog was cancelled&quot;);
+        });
+
+        // open it
+        picker.show();
+    }
+    // iOS will use different date picker
+    else {
+        $.viewRow.height = 0;
+
+        var calendar = require(&#39;ti.sq&#39;);
+
+        var now = new Date();
+        var month = now.getUTCMonth() + 1;
+        var day = now.getUTCDate();
+        var year = now.getUTCFullYear();
+
+        var minYear = year - 1;
+        var maxYear = year + 1;
+
+        var calValue = {
+            month: month,
+            day: day,
+            year: year
+        };
+        var calMin = {
+            month: month,
+            day: day,
+            year: minYear
+        };
+        var calMax = {
+            month: month,
+            day: day,
+            year: maxYear
+        };
+
+        var calendarView = calendar.createView({
+            height: Ti.UI.FILL,
+            width: Ti.UI.FILL,
+            top: 0,
+            left: 10,
+            right: 10,
+            //bottom: 65,
+            pagingEnabled: true,
+            value: {
+                month: month,
+                day: day,
+                year: year
+            },
+            min: {
+                month: month,
+                day: 1,
+                year: year
+            },
+            max: {
+                month: month,
+                day: day,
+                year: maxYear
+            }
+        });
+
+        $.viewMain.add(calendarView);
+
+        calendarView.addEventListener(&#39;dateChanged&#39;, function(d) {
+            var opts = {
+                options: [&#39;Yep!&#39;, &#39;Changed my mind&#39;],
+                selectedIndex: 0,
+                destructive: 0,
+                title: &#39;Set Due Date for &#39; + calendarView.value.month +
+                &#39;/&#39; + calendarView.value.day + &#39;/&#39; +
+                calendarView.value.year + &#39; ?&#39;
+            };
+
+            var dialog = Ti.UI.createOptionDialog(opts);
+            dialog.show();
+            dialog.addEventListener(&#39;click&#39;, function(e) {
+                if (e.index == 0) {
+                    saveDate(d.dateValue, &quot;Due Date&quot;);
+                } else {
+                    Alloy.Globals.Menu.showInfoBar(&quot;Due Date NOT Set&quot;);
+                }
+
+                $.viewMain.remove(calendarView);
+            });
+
+            $.viewRow.height = Ti.UI.FILL;
+
+        });
+    }
+
+}
+
+<span id='Controller-TodoListDetail-method-setReminder'>/**
+</span> * Invoke the calendar module to set a date
+ * @method setReminder
+ * @return
+ */
+function setReminder() {
+    log.debug(&#39;[TodoDetail] : setReminder&#39;);
+
+    if (Ti.Platform.osname === &#39;android&#39;) {
+        var now = new Date();
+        var month = now.getUTCMonth() + 1;
+        var day = now.getUTCDate();
+        var year = now.getUTCFullYear();
+
+        var Dialogs = require(&quot;yy.tidialogs&quot;);
+        // Create the dialog
+
+        // value property is priority
+        var picker = Dialogs.createDatePicker({
+            okButtonTitle: &#39;Set&#39;,         // &lt;-- optional, default &quot;Done&quot;
+            cancelButtonTitle: &#39;Cancel&#39;,  // &lt;-- optional, default &quot;Cancel&quot;
+            value: new Date(),            // &lt;-- optional
+            day: day,                     // &lt;-- optional
+            month: month,                 // &lt;-- optional - java/javascript month, i.e. August
+            year: year                    // &lt;-- optional
+        });
+
+        // Add the click listener
+        picker.addEventListener(&#39;click&#39;,function(e){
+            if (!e.cancel) {
+                saveDate(e.value, &quot;Reminder&quot;);
+            } else {
+                // Android Cancel Date
+            }
+        });
+
+        // Cancel listener
+        picker.addEventListener(&#39;cancel&#39;, function() {
+            log.info(&quot;dialog was cancelled&quot;);
+        });
+
+        // open it
+        picker.show();
+    }
+    // iOS will use different date picker
+    else {
+        $.viewRow.height = 0;
+
+        var calendar = require(&#39;ti.sq&#39;);
+
+        var now = new Date();
+        var month = now.getUTCMonth() + 1;
+        var day = now.getUTCDate();
+        var year = now.getUTCFullYear();
+
+        var minYear = year - 1;
+        var maxYear = year + 1;
+
+        var calValue = {
+            month: month,
+            day: day,
+            year: year
+        };
+        var calMin = {
+            month: month,
+            day: day,
+            year: minYear
+        };
+        var calMax = {
+            month: month,
+            day: day,
+            year: maxYear
+        };
+
+        var calendarView = calendar.createView({
+            height: Ti.UI.FILL,
+            width: Ti.UI.FILL,
+            top: 0,
+            left: 10,
+            right: 10,
+            //bottom: 65,
+            pagingEnabled: true,
+            value: {
+                month: month,
+                day: day,
+                year: year
+            },
+            min: {
+                month: month,
+                day: 1,
+                year: year
+            },
+            max: {
+                month: month,
+                day: day,
+                year: maxYear
+            }
+        });
+
+        $.viewMain.add(calendarView);
+
+        calendarView.addEventListener(&#39;dateChanged&#39;, function(d) {
+            var opts = {
+                options: [&#39;Yep!&#39;, &#39;Changed my mind&#39;],
+                selectedIndex: 0,
+                destructive: 0,
+                title: &#39;Set Reminder for &#39; + calendarView.value.month +
+                &#39;/&#39; + calendarView.value.day + &#39;/&#39; +
+                calendarView.value.year + &#39; ?&#39;
+            };
+
+            var dialog = Ti.UI.createOptionDialog(opts);
+            dialog.show();
+            dialog.addEventListener(&#39;click&#39;, function(e) {
+                if (e.index == 0) {
+                    saveDate(d.dateValue, &quot;Reminder&quot;);
+                } else {
+                    Allog.Globals.Menu.showInfoBar(&quot;Reminder NOT Set&quot;);
+                }
+
+                $.viewMain.remove(calendarView);
+            });
+
+            $.viewRow.height = Ti.UI.FILL;
+
+        });
+    }
+
+}
+
+<span id='Controller-TodoListDetail-method-saveDate'>/**
+</span> * @method saveDate
+ */
+function saveDate(d, type) {
+    log.debug(&quot;[TodoDetail] Set a &quot; + type +  &quot; for  : dateChanged = &quot;, d);
+    log.event({
+        type: &#39;todo&#39;,
+        action: &#39;set a &#39; + type + &#39; for&#39;,
+        description: todoItem.get(&#39;name&#39;) + &quot; &quot; + moment(d).fromNow(),
+        eventId: todoItem.get(&#39;name&#39;)
+    });
+
+    todoItem.set({ dueDateDateTime: d });
+    todoItem.save();
+    todo.fetch();
+
+    $.labelDueDate.text = &quot;Due &quot; + moment(d).fromNow();
+    //Alloy.Globals.toast.show(&quot;Reminder set!&quot;);
+    Alloy.Globals.Menu.showInfoBar({title: type + &quot; set &quot; + moment(d).fromNow() + &quot; from now&quot;});
+}
+
+<span id='Controller-TodoListDetail-method-captureImage'>/**
+</span> * This invokes the camera
+ * @method captureImage
+ * @return
+ */
+function captureImage() {
+    // open alert dialog
+    var opts = {
+        options: [&#39;Take a Photo&#39;, &#39;Gallery&#39;],
+        selectedIndex: 0,
+        destructive: 0,
+        title: &#39;Where do you want to find picture?&#39;
+    };
+
+    var dialog = Ti.UI.createOptionDialog(opts);
+    dialog.show();
+    dialog.addEventListener(&#39;click&#39;, function(e) {
+        if (e.index == 0) {
+            log.debug(&#39;[TodoDetail] : captureImage&#39;);
+            var camera = require(&#39;Camera&#39;);
+            camera.captureImage({success: savePhoto});
+        } else {
+            log.debug(&#39;[TodoDetail] : captureImage&#39;);
+            require(&#39;getUserGallery&#39;).fromGallery({success: savePhoto});
+        }
+
+        //$.viewMain.remove(calendarView);
+    });
+
+}
+
+<span id='Controller-TodoListDetail-method-shareTask'>/**
+</span> * Share a task with native share capability
+ * @shareTask
+ */
+function shareTask() {
+    require(&#39;com.alcoapps.socialshare&#39;).share({
+        status                  : &quot;I&#39;d like to share my To-Do task with you!\n\n&quot; + todoItem.get(&#39;name&#39;),
+        //image                   : fileToShare.nativePath,
+        androidDialogTitle      : &#39;Sharing is caring!!!&#39;
+    });
+}
+
+<span id='Controller-TodoListDetail-method-showItemGallery'>/**
+</span> * Show Item Gallery
+ * @method showItemGallery
+ */
+function showItemGallery() {
+
+}
+
+<span id='Controller-TodoListDetail-method-savePhoto'>/**
+</span> * Save a photo to the SD card
+ * @method savePhoto
+ */
+function savePhoto(image) {
+    if (image.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
+
+        log.event({
+            type: &#39;todo&#39;,
+            action: &#39;captured&#39;,
+            description: &#39;an image for&#39; + todoItem.get(&#39;name&#39;),
+            eventId: todoItem.get(&#39;name&#39;)
+        });
+
+        log.debug(&#39;[TodoDetail] : captureImage : Camera Success, image = &#39;, JSON.stringify(image, null, 4));
+
+        // This part should be skipped to the existing function
+        var imageDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, &#39;todo&#39;);
+        if (!imageDir.exists()) {
+            imageDir.createDirectory();
+        }
+
+        // Add +1 to the existing photoCount
+        var photoCount = todoItem.get(&#39;photoCount&#39;) + 1;
+
+        var file = Ti.Filesystem.getFile(imageDir.resolve(), todo_id + photoCount + &#39;.png&#39;);
+
+        log.debug(&quot;[TodoDetail] : Saving image to = &quot;, imageDir.resolve() + todo_id + photoCount + &#39;.png&#39;);
+
+        // Write to storage
+        file.write(image.media);
+
+        todoItem.set({
+            hasPhoto: true,
+            photoCount: photoCount
+        });
+        todoItem.save();
+
+        log.debug(&#39;[TodoDetail] : Saved image to this location : &#39;, file.nativePath);
+
+    } else {
+        alert(&#39;We are only supporting images at the moment.&#39;);
+
+        todoItem.set({
+            hasVideo: true
+        });
+        todoItem.save();
+    }
+
+    todo.fetch();
+}
+</pre>
+</body>
+</html>

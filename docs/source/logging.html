@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Util-Logging'>/**
+</span> * @class Util.Logging
+ * This class is a framework for handling logging
+ * @author Steven House &lt;steven.m.house@gmail.com&gt;
+ *
+ * @param {Object} args - this is the argument object to instantiate the class
+ */
+
+var _ = require(&quot;alloy/underscore&quot;)._;
+var Alloy = require(&quot;alloy&quot;);
+var Backbone = require(&quot;alloy/backbone&quot;);
+// Import Underscore.string to separate object, because there are conflict functions (include, reverse, contains)
+_.str = require(&#39;underscore.string.min&#39;);
+// @mixin Mix in non-conflict functions to Underscore namespace if you want
+_.mixin(_.str.exports());
+// All functions, include conflict, will be available through _.str object
+// _.str.include(&#39;Underscore.string&#39;, &#39;string&#39;);
+// Add a mixin for underscore to compact objects, removing all falsy properties
+_.mixin({
+<span id='Util-Logging-method-compactObject'>    /**
+</span>     * Description
+     * @method compactObject
+     * @param {} obj
+     * @return obj
+     */
+    compactObject: function compactObject(obj) {
+        _.each(obj, function(value, key) {
+            if (!value) {
+                delete obj[key];
+            }
+        });
+        return obj;
+    }
+});
+
+<span id='Util-Logging-method-Logger'>/**
+</span> * Description
+ * @method Logger
+ * @param {} args
+ * @return
+ */
+exports.Logger = function(args) {
+    Ti.API.info(&#39;[LOGGER] :: Loaded&#39;);
+
+    // Saving context to &#39;_self&#39; variable
+    _self = this;
+
+    //--------------  PUBLIC PROPERTIES --------------//
+    // can be direcly accessed by the user
+    _self.version = 0.1;
+
+    // Backbone stuff
+    //_self.logCollection;
+    var logCollection;
+    var crittercism;
+
+    //--------------  PRIVATE PROPERTIES - --------------//
+    // can be manipulated by public and private functions
+    var config = require(&#39;alloy&#39;).CFG.logger;
+    var LOG_LEVEL = {
+        &quot;OFF&quot;: 0,
+        &quot;ALL&quot;: 1,
+        &quot;TRACE&quot;: 2,
+        &quot;DEBUG&quot;: 3,
+        &quot;INFO&quot;: 4,
+        &quot;WARN&quot;: 5,
+        &quot;ERROR&quot;: 6,
+        &quot;EVENT&quot;: 7,
+        &quot;O&quot;: 0,
+        &quot;A&quot;: 1,
+        &quot;T&quot;: 2,
+        &quot;D&quot;: 3,
+        &quot;I&quot;: 4,
+        &quot;W&quot;: 5,
+        &quot;E&quot;: 6,
+        &quot;V&quot;: 7
+    };
+
+    var logDirName = Titanium.Filesystem.applicationDataDirectory;
+    var logFileName = &quot;log-&quot; + new Date().getTime() + &quot;.txt&quot;;
+    var logFile = Ti.Filesystem.getFile(logDirName, logFileName);
+    deleteOldLogFiles();
+
+    var collection = Backbone.Collection.extend({
+<span id='Util-Logging-method-comparator'>        /**
+</span>         * Order by title
+         * @method comparator
+         * @param {} model
+         * @return CallExpression
+         */
+        comparator: function(model) {
+            return model.get(&#39;title&#39;);
+        }
+    });
+
+    //@TODO extend the model here????
+    var model = Backbone.Model.extend({
+        adapter: {
+            type: &quot;properties&quot;
+        }
+    });
+
+    //-------------- PUBLIC METHODS --------------//
+
+<span id='Util-Logging-method-init'>    /**
+</span>     * Initialize the logging framework
+     * @method init
+     * @return
+     */
+    _self.init = function() {
+        //_self.logCollection = new collection();
+        logCollection = new collection();
+        // Setup Crittercism
+        if (Ti.Platform.osname !== &#39;android&#39;) {
+            //crittercism();
+        }
+        // currentLogFile = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, &#39;logs.txt&#39;);
+    };
+
+<span id='Util-Logging-method-reset'>    /**
+</span>     * Reset the log collection
+     * @method reset
+     * @return
+     */
+    _self.reset = function() {
+        //_self.logCollection.reset();
+        logCollection.reset();
+    };
+
+<span id='Util-Logging-method-setFile'>    /**
+</span>     * Set the related file to be included in the logs
+     * @method setFile
+     */
+    _self.setSource = function($) {
+        var prefix = ($.__widgetId ? &#39;widgets/&#39; + $.__widgetId + &#39;/&#39; :&#39;&#39;) + &#39;controllers/&#39; + $.__controllerPath;
+    };
+
+<span id='Util-Logging-method-setFile'>    /**
+</span>     * Set the related file to be included in the logs
+     * @method setFile
+     */
+    _self.getSource = function($) {
+        // Current format of log files is this =&gt; &quot;[Source] : Message&quot;
+        // @TODO parse the source
+
+        var re = /(^\[)/;
+        //http://stackoverflow.com/questions/2403122/regular-expression-to-extract-text-between-square-brackets
+        var re2 = /^\[(.*?)\]/;
+    };
+
+<span id='Util-Logging-method-debug'>    /**
+</span>     * Debug level handling
+     * @method debug
+     * @param {} message
+     * @return
+     */
+    _self.debug = function(message, data) {
+        data = data || &#39;&#39;;
+        Ti.API.debug(&quot;[LOGGER] :: &quot; + message + data);
+        log(&#39;D&#39;, message, data);
+    };
+
+<span id='Util-Logging-method-info'>    /**
+</span>     * Info level handling
+     * @method info
+     * @param {} message
+     * @return
+     */
+    _self.info = function(message, data) {
+        data = data || &#39;&#39;;
+        Ti.API.info(&quot;[LOGGER] :: &quot; + message + JSON.stringify(data, null,
+            4));
+        log(&#39;I&#39;, message, data);
+    };
+
+<span id='Util-Logging-method-warn'>    /**
+</span>     * Warning level handling
+     * @method warn
+     * @param {} message
+     * @return
+     */
+    _self.warn = function(message, data) {
+        data = data || &#39;&#39;;
+        Ti.API.warn(&quot;[LOGGER] :: &quot; + message + JSON.stringify(data, null,
+            4));
+        log(&#39;W&#39;, message, data);
+    };
+
+<span id='Util-Logging-method-error'>    /**
+</span>     * Error level handling
+     * @method error
+     * @param {} message
+     * @return
+     */
+    _self.error = function(message, data) {
+        data = data || &#39;&#39;;
+        Ti.API.error(&quot;[LOGGER] :: &quot; + message + JSON.stringify(data, null,
+            4));
+
+        // If FOUNDATION has loaded (it should have) get breadcrumbs for error
+        if (!_.isUndefined(Alloy.Globals.Menu)) {
+            data.breadcrumbs = Alloy.Globals.Menu.getBreadcrumbs();
+        }
+
+        log(&#39;E&#39;, message, data);
+        Alloy.Globals.Menu.showInfoBar({title: &#39;ERROR: &#39; + message});
+
+        if (Ti.Platform.osname !== &#39;android&#39;) {
+            var clickFunction = function() {
+                var widgetLogger = Alloy.createWidget(
+                    &quot;com.sivci.logger&quot;);
+                widgetLogger.show({
+                    title: &quot;Logs&quot;
+                });
+            };
+            notify(&quot;ERROR&quot;, message, null, clickFunction);
+        }
+
+        /*
+        // Notifier doesn&#39;t work with android w/o providing a view to add to
+        if (Ti.Platform.osname === &#39;android&#39;) {
+            return;
+        }
+
+        var Notifier = Alloy.createWidget(
+            &#39;com.caffeinalab.titanium.notifications&#39;);
+        // Show the widget, and override defaults
+        Notifier.show({
+            message: &quot;Error: &quot; + message,
+            icon: &#39;/appicon.png&#39;,
+            pushForce: 10,
+            duration: 5000,
+            click: function() {
+                var widgetLogger = Alloy.createWidget(
+                    &quot;com.sivci.logger&quot;);
+                widgetLogger.show({
+                    title: &quot;Logs&quot;
+                });
+            }
+        });
+        */
+    };
+
+<span id='Util-Logging-method-event'>    /**
+</span>     * Event handling / Analytics
+     * @method event
+     * @param {Object} args An object containing level, message, type, data, and remote
+     * @return
+     */
+    _self.event = function(args) {
+        Ti.API.info(&quot;[LOGGER] :: log.event called with args: &quot; + JSON.stringify(args, null, 4));
+
+        args = args || {};
+
+        var level = args.level ? args.level : &#39;V&#39;;
+        var message = args.message ? args.message : &#39;&#39;;
+        var type = args.type ? args.type : &#39;event&#39;;
+        var eventId = args.eventId ? args.eventId : false;
+
+        var remote = args.remote ? args.remote : false;
+        var feature = (args.feature !== undefined) ? args.feature : false;
+
+        // These are the constructors for the overall message..
+        // Message could equal:
+        var noun = args.noun ? args.noun : &quot;&quot;;
+        var action = args.action ? args.action : &quot;&quot;;
+        var type = args.type ? args.type : &quot;&quot;;
+        var image = args.image ? args.image : &quot;&quot;;
+        var description = args.description ? args.description : &quot;&quot;;
+
+        if (message === &#39;&#39;) {
+            message = noun + &quot; &quot; + action + &quot; &quot; + description + &quot;.&quot;;
+        }
+
+        var data = {
+            message: message,
+            noun: noun,
+            action: action,
+            type: type,
+            image: image,
+            description: description
+        };
+
+        // If remote is configured then remote it...
+        if (remote === true) {
+            acs({
+                level: level,
+                message: message,
+                type: type
+            });
+        }
+
+        // Level defaults to &quot;V&quot;
+        log(level, message, data);
+
+        if (feature) {
+          Ti.Analytics.featureEvent(message);
+        }
+
+    };
+
+<span id='Util-Logging-method-backtrace'>    /**
+</span>     * This class returns the last [number] of [type] logs
+     * @method backtrace
+     * @param {} level
+     * @param {} number
+     * @return
+     */
+    _self.backtrace = function(level, number) {
+        number = number ? number : &quot;all&quot;;
+        level = level ? level : &quot;ALL&quot;;
+
+        _self.debug(&quot;[LOGGER] Getting Backtrace for last &quot; + number +
+            &quot; &quot; + level + &quot; logs&quot;);
+        // Get [number] of [logs]
+
+        if (number === &quot;all&quot;) {
+            //return _self.logCollection.where({level: level});
+            return logCollection.where({
+                level: level
+            });
+        } else {
+            //return _.first(_self.logCollection.where({level: level}), number);
+            return _.first(logCollection.where({
+                level: level
+            }), number);
+        }
+    };
+
+<span id='Util-Logging-method-queryRemote'>    /**
+</span>     * This retrieves remote logs from the ACS cloud
+     * @method queryRemote
+     * @param {} args
+     * @return
+     */
+    _self.queryRemote = function(args) {
+        args = args || {};
+        var success = args.success || function() {};
+        var error = args.error || function() {
+            Ti.API.error(&quot;logging.js: queryRemote error resp: &quot; +
+                JSON.stringify(resp, null, 4));
+        };
+
+        var acsWS = require(&#39;ti.cloud.objects&#39;);
+        var queryObj = {
+            perPage: _.isUndefined(args.perPage) ? 1000 : args.perPage,
+            objectType: &#39;cloudLog&#39;,
+<span id='Util-Logging-method-success'>            /**
+</span>             * Description
+             * @method success
+             * @param {} resp
+             * @return
+             */
+            success: function(resp) {
+                success(resp);
+            },
+<span id='Util-Logging-method-error'>            /**
+</span>             * Description
+             * @method error
+             * @param {} resp
+             * @return
+             */
+            error: function(resp) {
+                error(resp);
+            }
+        };
+        acsWS.queryObject(queryObj);
+    };
+
+<span id='Util-Logging-method-getLogs'>    /**
+</span>     * Return the log collection
+     * @method getLogs
+     * @return logCollection
+     */
+    _self.getLogs = function() {
+        return logCollection;
+    };
+
+    //-------------- PRIVATE METHODS --------------//
+
+<span id='Util-Logging-method-log'>    /**
+</span>     * This processes log.debug(), log.info(), log.warn(), and log.error() by creating a backbone model
+     * then checking the configuration to decide to persist to file and/or persist to a remote location
+     * @method log
+     * @param {} level
+     * @param {} message
+     * @param {} data
+     * @return
+     */
+    function log(level, message, data) {
+        var logTime = new Date();
+        // create a backbone log model
+        var logModel = createModel(level, message, data, logTime);
+
+        // @TODO add logLevel.global setting handling to override
+
+        // If level of invoked function is equal to or greater than the config&#39;s file/global settings, write to file
+        if (LOG_LEVEL[level] &gt;= LOG_LEVEL[config.fileLevel]) {
+            //writeLogToFile(level, message, data, logTime);
+            writeLogToFile(logModel);
+        }
+        // Same as above but for remote
+        if (LOG_LEVEL[level] &gt;= LOG_LEVEL[Alloy.CFG.logger.remoteLevel] &amp;&amp;
+            Alloy.CFG.logger.enabled === true) {
+            writeToRemote(level, message, data, logTime);
+        }
+    }
+
+<span id='Util-Logging-method-createModel'>    /**
+</span>     * Handle Backbone Model creation here.
+     * @method createModel
+     * @param {} level
+     * @param {} message
+     * @param {} data
+     * @param {} time
+     * @return {Object} log A model of a log
+     */
+    function createModel(level, message, data, time) {
+        data = data ? data : {};
+        //var breadcrumbs = _.isUndefined(Alloy.Globals.Menu) ? &#39;&#39; : Alloy.Globals.Menu.getBreadcrumbs();
+        // Create a new backbone model and add it to the collection
+        var log = new model({
+            level: level,
+            message: message,
+            data: data,
+            time: time //,
+                //breadcrumbs: breadcrumbs
+        });
+        //log.save();
+        //_self.logCollection.add(log);
+        logCollection.add(log);
+
+        return log;
+    }
+
+<span id='Util-Logging-method-writeLogToFile'>    /**
+</span>     * Write log message to file
+     * @method writeLogToFile
+     * @param {} level
+     * @param {} message
+     * @return
+     */
+    //function writeLogToFile(level, message, data, time) {
+    function writeLogToFile(log) {
+        //var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, &#39;log.txt&#39;);
+        // Second paramater of write() specifies appending not overwriting
+        //logFile.write(level + &#39;|&#39; + message + &#39;|&#39; data + &#39;|&#39; + time &#39;###&#39;, true);
+        var stringifiedLog = JSON.stringify(log);
+        var encodedLog = Ti.Utils.base64encode(stringifiedLog);
+        logFile.write(encodedLog + &#39;[logEnd]&#39;, true);
+    }
+
+<span id='Util-Logging-method-readLogFile'>    /**
+</span>     * Returns log file string
+     * @method readLogFile
+     * @return MemberExpression
+     */
+    function readLogFile(file) {
+        file = file ? file : logFile;
+        return file.read().text;
+    }
+
+<span id='Util-Logging-method-formatLogFile'>    /**
+</span>     * Returns an array of log models
+     * @method formatLogFile
+     * @return logArray
+     */
+    function formatLogFile() {
+        var logText = readLogFile();
+        var logTmp = logText.split(&#39;[logEnd]&#39;);
+        var logArray = [];
+        _.each(logTmp, function(aLog) {
+            var decodedLog = Ti.Utils.base64decode(aLog);
+            logArray.push(JSON.parse(decodedLog));
+        });
+
+        return logArray;
+    }
+
+<span id='Util-Logging-method-deleteOldLogFiles'>    /**
+</span>     * Deletes the old log files
+     * @method deleteOldLogFiles
+     * @param {} numFilesToKeep
+     * @return
+     */
+    function deleteOldLogFiles(numFilesToKeep) {
+        numFilesToKeep = numFilesToKeep || 5;
+
+        // Get a list of the log files to delete.
+        var logDir = Ti.Filesystem.getFile(logDirName);
+        logFiles = _.initial(_.filter(logDir.getDirectoryListing(),
+            function(filename) {
+                return filename.indexOf(&quot;log-&quot;) == 0;
+            }).sort(), numFilesToKeep);
+
+        // Delete each of the log files in the list.
+        _.each(logFiles, function(filename) {
+            var file = Ti.Filesystem.getFile(logDirName,
+                filename);
+            var deleted = file.deleteFile();
+            Ti.API.info(&quot;[LOGGER] :: Log file &quot; + file.name + (
+                deleted ? &quot; deleted.&quot; : &quot; not deleted.&quot;
+            ));
+        });
+    }
+
+<span id='Util-Logging-method-deleteOldLogFiles'>    /**
+</span>     * Trigger a notificaiton on screen
+     * @method deleteOldLogFiles
+     * @param {Number} fileIndex
+     */
+    function notify(level, message, icon, click) {
+        click = click ? click : function() {};
+        var Notifier = Alloy.createWidget(
+            &#39;com.caffeinalab.titanium.notifications&#39;);
+        // Show the widget, and override defaults
+        Notifier.show({
+            message: level + &quot;: &quot; + message,
+            icon: icon ? icon : &#39;/appicon.png&#39;,
+            pushForce: 10,
+            duration: 5000,
+            click: click
+        });
+    }
+
+<span id='Util-Logging-method-deleteOldLogFiles'>    /**
+</span>     * Get an old log file
+     * @method deleteOldLogFiles
+     * @param {Number} fileIndex
+     * @return
+     */
+    function getOldLogFiles(numFilesToGet) {
+        // Get the MOST recent
+        numFilesToGet = numFilesToGet || 1;
+
+        // Generate a list of the log files to get
+        var logDir = Ti.Filesystem.getFile(logDirName);
+        logFiles = _.initial(_.filter(logDir.getDirectoryListing(),
+            function(filename) {
+                return filename.indexOf(&quot;log-&quot;) == 0;
+            }).sort(), numFilesToGet);
+
+        // Get each of the log files in the list.
+        var numFilesFound = 0;
+        var fileTextArray = [];
+        _.each(logFiles, function(filename) {
+            numFilesFound++;
+            var file = Ti.Filesystem.getFile(logDirName,
+                filename);
+            var fileText = file.read().text();
+            // Add the text to the array
+            fileTextArray.push({
+                fileName: filename,
+                fileText: fileText
+            });
+            log.info(&quot;Retrieved &quot; + file.name);
+        });
+
+        return {
+            length: numFilesFound,
+            fileTextArray: fileTextArray
+        };
+    }
+
+<span id='Util-Logging-method-writeToRemote'>    /**
+</span>     * Send log / queue to remote
+     * @method writeToRemote
+     * @param {} level
+     * @param {} message
+     * @param {} data
+     * @return
+     */
+    function writeToRemote(level, message, data) {
+        remoteProvider = Alloy.CFG.logger.remoteProvider;
+        Ti.API.info(&#39;[lLOGGER] :: Writing log to remote provider: &#39; +
+            remoteProvider);
+        switch (remoteProvider) {
+            case &quot;acs&quot;:
+                //acs(level, message, data);
+                break;
+                // This will be where to change to interface with our own backend
+            case &quot;custom&quot;:
+                break;
+            default:
+                alert(&quot;You have to edit config.json to supply your remote provider.&quot;);
+                break;
+        }
+
+    }
+
+<span id='Util-Logging-method-sendEmail'>    /**
+</span>     * Send log / queue to remote
+     * @method sendEmail
+     * @return
+     */
+    function sendEmail(args) {
+        Ti.API.info(&quot;[lLOGGER] :: log.event called with args: &quot; + JSON.stringify(
+            args));
+        var to = args.to ? args.to : false;
+        var from = args.from ? args.from : &quot;support@thefleetapp.com&quot;
+        // need to implement this
+        var sendgrid = require(&#39;/utils/tisendgrid&#39;)(&#39;stevenmhouse&#39;, &#39;St3v3nHou$e&#39;);
+        sendgrid.send({
+            to: &#39;steven.m.house@gmail.com&#39;,
+            from: &#39;steven@thefleetapp.com&#39;,
+            subject: &#39;Hello!&#39;,
+            text: &#39;Hello again!&#39;
+        }, function (e) {
+            if (e) {
+                console.log(e); // Email wasn&#39;t sent
+                alert(&quot;It didn&#39;t work!  e = &quot; + JSON.stringify(e, null, 4));
+            }
+        });
+    }
+
+<span id='Util-Logging-method-acs'>    /**
+</span>     * Persist log to remote server
+     * @method acs
+     * @param {} args
+     * @return
+     */
+    function acs(args) {
+        args = args ? args : {};
+        var level = args.level ? args.level : &#39;V&#39;;
+        var message = args.message ? args.message : &#39;&#39;;
+        var type = args.type ? args.type : &#39;general&#39;;
+        var data = args.data ? args.data : {};
+
+        var acsWS = require(&#39;ti.cloud.objects&#39;);
+        var obj = {
+            objectType: type,
+            objectFields: {
+                level: level,
+                message: message,
+                appInfo: {
+                    appName: Ti.App.name,
+                    appVer: Ti.App.version,
+                    osname: Ti.Platform.osname,
+                    sessionId: Ti.App.getSessionId()
+                }
+            },
+
+            success: function(resp) {
+                _self.info(
+                    &#39;[LOGGER] : Created a Cloud Log on ACS&#39;,
+                    resp);
+            },
+
+            error: function(resp) {
+                _self.warn(
+                    &#39;[LOGGER] : Cloud Log ERROR on ACS&#39;,
+                    resp);
+            }
+        };
+
+        acsWS.createObject(obj);
+    }
+
+<span id='Util-Logging-method-customRemote'>    /**
+</span>     * Persist log to custom remote backend
+     * @method customRemote
+     * @param {Object} args
+     * @return
+     */
+    function customRemote(args) {
+
+    }
+
+<span id='Util-Logging-method-customRemote'>    /**
+</span>     * If crittercism is setup, initialize it
+     * @method customRemote
+     * @param {Object} args
+     * @return
+     */
+    function crittercism() {
+
+      if (Alloy.CFG.logger.crittercism) {
+        //crittercism = require(&#39;/logging/crittercism&#39;);
+
+        Ti.App.addEventListener(&#39;login&#39;, setupCrittercism);
+      }
+    }
+
+<span id='Util-Logging-method-setupCrittercism'>    /**
+</span>     * Setup Crittercism after user login
+     * @method setupCrittercism
+     */
+    function setupCrittercism() {
+      Ti.App.removeEventListener(&#39;login&#39;, setupCrittercism);
+      var username = Alloy.Globals.userInfo.realName;
+      crittercism.setUsername(username);
+
+      var tags = Alloy.Globals.userInfo;
+      crittercism.setMetaData(tags);
+    }
+
+};
+</pre>
+</body>
+</html>

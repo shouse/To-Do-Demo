@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Util-Camera'>/**
+</span> * This handles the camera and related functions.  It handles video as well
+ * @class Util.Camera
+ * @author Steven House &lt;steven.m.house@gmail.com&gt;
+ *
+ * This goal of this library is to provide a pretty comprehensive and reusable utility library
+ * for dealing with the camera for photos and videos and persisting them to the filesystem
+ *
+ * @TODO Make it work :D  It&#39;s close to fully functional but it still needs to have a few bugs run out
+ * @TODO  Submit a pull request!
+ */
+
+// Access Global Logging Utility
+var log = Alloy.Globals.log;
+log.info(&#39;[VideoRecorder] : Opened Page&#39;);
+
+init();
+<span id='Util-Camera-method-init'>/**
+</span> * Initialize the Bluetooth library.  Ensure it&#39;s only Android that&#39;s calling
+ * @method init
+ */
+function init() {
+    log.debug(&#39;[VideoRecorder] : init&#39;);
+}
+
+<span id='Util-Camera-property-videoUri'>/**
+</span> * We&#39;ll use the following variable to keep track of the result of our recording action.
+ */
+var videoUri = null;
+
+<span id='Util-Camera-method-promptGalleryOrCamera'>/**
+</span> * Ask user if they want supply media from gallery or camera
+ * @method promptGalleryOrCamera
+ */
+exports.promptGalleryOrCamera = function(args) {
+
+    var defaultOptions = {
+        options: [&#39;Take a Photo&#39;, &#39;Gallery&#39;],
+        selectedIndex: 0,
+        destructive: 0,
+        title: &#39;Take a Photo?&#39;
+    };
+
+    var dialogOptions = args.dialogOptions ? args.dialogOptions : defaultOptions;
+
+    var photoArgs = args.photoArgs ? args.photoArgs : {};
+    var imageName = args.imageName ? args.imageName : &#39;photo-&#39;;
+    var directory = args.directory ? args.directory : &#39;&#39;
+    var success = args.success ? args.success : function() {
+        save(image, imageName, directory);
+    };
+
+
+    // open alert dialog
+    var dialog = Ti.UI.createOptionDialog(dialogOptions);
+    dialog.show();
+    dialog.addEventListener(&#39;click&#39;, function(e) {
+        if (e.index == 0) {
+            log.debug(&#39;[TodoDetail] : captureImage&#39;);
+            exports.captureImage(save);
+        } else {
+            log.debug(&#39;[TodoDetail] : captureImage&#39;);
+            exports.fromGallery(save);
+        }
+    });
+};
+
+<span id='Util-Camera-method-fromGallery'>/**
+</span> * Get images from Gallery
+ * @method fromGallery
+ */
+exports.fromGallery = function(args) {
+    alert(&quot;args: &quot; + JSON.stringify(args, null, 4));
+    var success = args.success ? args.success : function(){};
+    var error = args.error ? args.cancel : function(){};
+    var cancel = args.cancel ? args.cancel : function(){};
+    Ti.Media.openPhotoGallery({
+        success:function(event) {
+            log.debug(&#39;Media Type from Gallerys: &#39;+ event.mediaType);
+            if(event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
+                success(event);
+            }
+        },
+        error:function(err) {
+            error(err);
+        },
+        cancel: cancel,
+        mediaTypes:[Ti.Media.MEDIA_TYPE_PHOTO]
+    });
+};
+
+<span id='Util-Camera-method-recordVideoAndroid'>/**
+</span> * This records video in Android by opening up an intent
+ */
+exports.recordVideoAndroid = function() {
+    // http://developer.android.com/reference/android/provider/MediaStore.html
+    var intent = Titanium.Android.createIntent({ action: &#39;android.media.action.VIDEO_CAPTURE&#39; });
+    Titanium.Android.currentActivity.startActivityForResult(intent, function(e) {
+        if (e.error) {
+            Ti.UI.createNotification({
+                duration: Ti.UI.NOTIFICATION_DURATION_LONG,
+                message: &#39;Error: &#39; + e.error
+            }).show();
+        } else {
+            if (e.resultCode === Titanium.Android.RESULT_OK) {
+                videoUri = e.intent.data;
+                Ti.UI.createNotification({
+                    duration: Ti.UI.NOTIFICATION_DURATION_LONG,
+                    message: &#39;Video captured; now share or save it!&#39;
+                }).show();
+                // note that this isn&#39;t a physical file! it&#39;s a URI in to the MediaStore.
+                shareButton.visible = true;
+                saveButton.visible = true;
+            } else {
+                Ti.UI.createNotification({
+                    duration: Ti.UI.NOTIFICATION_DURATION_LONG,
+                    message: &#39;Canceled/Error? Result code: &#39; + e.resultCode
+                }).show();
+            }
+        }
+    });
+};
+
+
+<span id='Util-Camera-method-saveVideoAndroid'>/**
+</span> * When they click this, we&#39;ll save the video to the SDCard and tell the user where to find it.
+ */
+exports.saveVideoAndroid = function() {
+    var source = Ti.Filesystem.getFile(videoUri);
+    var target = Ti.Filesystem.getFile(&#39;appdata://sample.3gp&#39;);
+    // note: source.exists() will return false, because this is a URI into the MediaStore.
+    // BUT we can still call &quot;copy&quot; to save the data to an actual file
+    source.copy(target.nativePath);
+
+    Ti.UI.createNotification({
+        duration: Ti.UI.NOTIFICATION_DURATION_LONG,
+        message: &#39;Saved to: &#39; + target.nativePath
+    }).show();
+};
+
+<span id='Util-Camera-method-captureVideo'>/**
+</span> * Capture video
+ * @param args
+ */
+exports.captureVideo = function(args) {
+    Ti.Media.showCamera({
+        mediaTypes: [Titanium.Media.MEDIA_TYPE_VIDEO],
+        success: function(e) {
+            var tempFile = Ti.Filesystem.getFile(Ti.Filesystem.tempDirectory, new Date().getTime() +&#39;-&#39;+ _.random(0,1000) +&#39;.mov&#39;);
+            tempFile.write(e.media);
+
+            exports.compressVideo(tempFile.resolve());
+        }
+    });
+};
+
+<span id='Util-Camera-method-compressVideo'>/**
+</span> *
+ * @param pathToVideoFile
+ */
+exports.compressVideo = function (pathToVideoFile) {
+    var trimmer = require(&#39;ti.ios.trim&#39;);
+    trimmer.trimVideo({
+        input: pathToVideoFile,
+        quality: 1, // use 1 for high compression or 2 for medium compression
+        success: function(e) {
+            Ti.API.info(&#39;SUCCESS:&#39;);
+            Ti.API.info(&#39;path to the compressed file: &#39;+ e.videoURL);
+        },
+        error: function(e) {
+            Ti.API.error(&#39;ERROR:&#39;);
+            Ti.API.info(JSON.stringify(e));
+        }
+    });
+};
+
+<span id='Util-Camera-method-captureImage'>/**
+</span> * This invokes the camera
+ * @param {args}
+ * @method captureImage
+ * @return
+ */
+exports.captureImage = function(args){
+    log.debug(&#39;[VideoRecorder] : captureImage&#39;, args);
+
+    var success = args.success ? args.success : function() {
+        save(args)
+    };
+    var error = args.cancel ? args.cancel : function(err){
+        if (err.code == Titanium.Media.NO_CAMERA) {
+            alert(&#39;It appears you do not have support for the camera.&#39;);
+            log.warn(&#39;[VideoRecorder] Image capture is not supported on your device.&#39;);
+        } else {
+            alert(&#39;Unexpected error: &#39; + err.code);
+            log.warn(&#39;[VideoRecorder] Unexpected Camera error: &#39;, err.code);
+        }
+    };
+    var cancel = args.cancel ? args.cancel : function(){
+        log.debug(&#39;[VideoRecorder] : captureImage : User Cancelled&#39;);
+    };
+
+    if (Titanium.Media.isCameraSupported === false) {
+        log.warn(&#39;[VideoRecorder] : captureImage : Camera not supported&#39;);
+        alert(&#39;It appears you do not have support for the camera.&#39;);
+        return;
+    }
+
+    Titanium.Media.showCamera({
+        success: success,
+        error: error,
+        cancel: cancel,
+        allowEditing: true,
+        saveToPhotoGallery: true,
+        mediaTypes: [Ti.Media.MEDIA_TYPE_PHOTO, Ti.Media.MEDIA_TYPE_VIDEO],
+        videoMaximumDuration: 10000,
+        videoQuality: Ti.Media.QUALITY_HIGH
+    });
+}
+
+<span id='Util-Camera-method-savePhoto'>/**
+</span> * Save a photo to the SD card
+ * @param {Blob} image
+ * @param {String} imageName
+ * @param {String} directory
+ * @method savePhoto
+ */
+function save(image, imageName, directory) {
+    imageName = imageName ? imageName : &#39;photo-&#39;
+    directory = directory ? directory : &#39;photos-&#39;
+    if (image.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
+        log.debug(&#39;[VideoRecorder] : captureImage : Camera Success, image = &#39;, image);
+
+        // This part should be skipped to the existing function
+        var imageDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, directory);
+        if (!imageDir.exists()) {
+            imageDir.createDirectory();
+        }
+
+        var file = Ti.Filesystem.getFile(imageDir.resolve(), imageName + photoCount + &#39;.png&#39;);
+
+        log.debug(&quot;[VideoRecorder] : Saving image to = &quot;, imageDir.resolve() + new Date.now() + &#39;.png&#39;);
+
+        // Write to storage
+        file.write(image.media);
+
+        log.debug(&#39;[VideoRecorder] : Saved image to this location : &#39;, file.nativePath);
+    } else {
+        alert(&#39;We are only supporting images at the moment.&#39;);
+    }
+}
+</pre>
+</body>
+</html>

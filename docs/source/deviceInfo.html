@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Util-deviceInfo'>/**
+</span> * This function returns information about the mobile device to include:
+ * username, model, osname, version, network type, mac address, processor cournt,
+ * address, ostype, battery state, battery percent, and available memory
+ *
+ * @class Util.deviceInfo
+ * @author steven.m.house@gmail.com
+ * @ver 0.5
+ */
+ 
+<span id='Util-deviceInfo-method-getDeviceInfo'>/**
+</span> * @method getDeviceInfo
+ * @return deviceInfo
+ */
+exports.getDeviceInfo = function() {
+	
+	var batteryPercent = Titanium.Platform.batteryLevel;
+	
+	if (batteryPercent &gt; 1000) {
+		batteryPercent = batteryPercent / 1000;
+	}
+	
+	var deviceInfo = {
+		username : Titanium.Platform.username,
+		model : Titanium.Platform.model,
+		osname : Titanium.Platform.osname,
+		version : Titanium.Platform.version,
+		networkType : Ti.Network.getNetworkTypeName(),
+		macAddress : Titanium.Platform.macaddress,
+		processorCount : Titanium.Platform.processorCount,
+		address : Titanium.Platform.address,
+		ostype : Titanium.Platform.ostype,
+		batteryState : batteryStateToString(Titanium.Platform.batteryState),
+		batteryPercent : batteryPercent,
+		availMem : availableMemoryToString(Titanium.Platform.availableMemory)
+	};
+	
+	return deviceInfo;
+};
+
+
+
+
+<span id='Util-deviceInfo-method-availableMemoryToString'>/**
+</span> * Helper functions for device info
+ * @method availableMemoryToString
+ * @param {Object} ram
+ * @return ramString
+ */
+function availableMemoryToString(ram) {
+	var ramString = ram;
+
+	if (isNaN(ramString)) {
+		ramString = &#39;Unknown&#39;;
+	} else {
+		if (OS_ANDROID){
+			// For Android, convert bytes to MB&#39;s
+			ramString = ramString / 1024 / 1024;
+		}
+		ramString = parseInt(ramString);
+		ramString += &#39; MB&#39;;
+	}
+
+	return ramString;
+}
+
+<span id='Util-deviceInfo-method-batteryPercentToString'>/**
+</span> * Description
+ * @method batteryPercentToString
+ * @param {} percent
+ * @return percentString
+ */
+function batteryPercentToString(percent) {
+	var percentString = &#39;&#39;;
+
+	if (isNaN(percent)) {
+		percentString = &#39;Unknown&#39;;
+	} else {
+		percentString = Math.abs(percent) * 100;
+		percentString = parseInt(percentString);
+		percentString += &#39;%&#39;;
+	}
+
+	return percentString;
+}
+
+<span id='Util-deviceInfo-method-batteryStateToString'>/**
+</span> * Get text describing battery state
+ * // @TODO Get better battery life stats
+ * @method batteryStateToString
+ * @param {} state
+ * @return 
+ */
+function batteryStateToString(state) {
+	switch (state) {
+		case Titanium.Platform.BATTERY_STATE_UNKNOWN:
+			return &#39;Unknown&#39;;
+		case Titanium.Platform.BATTERY_STATE_FULL:
+			return &#39;Full&#39;;
+		case Titanium.Platform.BATTERY_STATE_UNPLUGGED:
+			return &#39;Unplugged&#39;;
+		case Titanium.Platform.BATTERY_STATE_CHARGING:
+			return &#39;Charging&#39;;
+		default:
+			return false;
+	}
+}
+
+<span id='Util-deviceInfo-method-getUserLocation'>/**
+</span> * Get the user location
+ * @method getUserLocation
+ * @return 
+ */
+function getUserLocation() { 
+	Titanium.API.info(&quot;Current Phone Locale is &quot; + Titanium.Platform.locale);
+	Titanium.API.info(&quot;OS name is &quot; + Titanium.Platform.osname);
+	Titanium.API.info(&quot;Runtime: &quot; + Titanium.Platform.runtime);
+	
+	if (Titanium.Platform.osname == &#39;iphone&#39; || Titanium.Platform.osname == &#39;ipad&#39;) {
+		Titanium.API.info(&quot;Data network: &quot; + Titanium.Platform.dataAddress);
+		Titanium.API.info(&quot;Netmask: &quot; + Titanium.Platform.netmask);
+	}
+
+}
+</pre>
+</body>
+</html>

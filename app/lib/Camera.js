@@ -1,9 +1,13 @@
 /**
  * This handles the camera and related functions.  It handles video as well
- * @class Util.VideoRecorder
+ * @class Util.Camera
  * @author Steven House <steven.m.house@gmail.com>
  *
- * This is the Video Recorder Library
+ * This goal of this library is to provide a pretty comprehensive and reusable utility library
+ * for dealing with the camera for photos and videos and persisting them to the filesystem
+ *
+ * @TODO Make it work :D  It's close to fully functional but it still needs to have a few bugs run out
+ * @TODO  Submit a pull request!
  */
 
 // Access Global Logging Utility

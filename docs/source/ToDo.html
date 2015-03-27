@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Lib-Data-ToDo'>/**
+</span> * This is the a library for retrieving sample ToDo tasks
+ *
+ * @class Lib.Data.ToDo
+ * @author Steven House
+ * @email steven.m.house@gmail.com
+ */
+
+//saveToCollection();
+
+<span id='Lib-Data-ToDo-method-getSymptoms'>/**
+</span> * Get all ToDo Sample items
+ * @method getSymptoms
+ * @return symptoms
+ */
+exports.getTasks = function() {
+    return tasks;
+}
+
+var tasks = [
+    { name: &quot;Get Hired with Propellics&quot;, content: &quot;Test 1&quot;, todo_id: 1},
+    { name: &quot;Make Cool Stuff!&quot;, content: &quot;Test 2&quot;, todo_id: 2}
+];
+</pre>
+</body>
+</html>

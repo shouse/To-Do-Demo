@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='global-property-'>/**
+</span> * SocialShare : Titanium Module for cross-platform sharing of text and images over social networks
+ * This module requires dl.napp.social for iOS which you can get from https://github.com/viezel/TiSocial.Framework
+ * iOS:
+ * The native sharing Action Sheet is displayed and offers options for sharing with Facebook and Twitter (if the native apps are installed),
+ * plus AirDrop, Text Message, Email and other built-in iOS mechanisms.
+ *
+ * Android:
+ * For Android it uses the Native Sharing Intent, which brings up a list of installed apps to choose from.
+ *
+ * @Class Uitl.SocialShare
+ **/
+
+<span id='global-method-share'>/**
+</span> * Main method to share
+ * @method share
+ * @param {Object} args
+ *                 args.image           : Given as nativePath
+ *                 status 	            : The text status to share
+ *                 androidDialogTitle 	: The title of the Android share window
+ */
+function share(args) {
+    if (OS_ANDROID) {
+        var intent = null;
+        var intentType = null;
+
+        intent = Ti.Android.createIntent({
+            action: Ti.Android.ACTION_SEND
+        });
+
+        // add text status
+        if (args.status) {
+            intent.putExtra(Ti.Android.EXTRA_TEXT, args.status);
+        }
+
+        // change type according to the content
+        if (args.image) {
+            intent.type = &quot;image/*&quot;;
+            intent.putExtraUri(Ti.Android.EXTRA_STREAM, args.image);
+        } else {
+            intent.type = &quot;text/plain&quot;;
+            intent.addCategory(Ti.Android.CATEGORY_DEFAULT);
+        }
+
+        // launch intent
+        Ti.Android.currentActivity.startActivity(Ti.Android.createIntentChooser(intent, args.androidDialogTitle));
+    } else {
+        var Social = require(&#39;dk.napp.social&#39;);
+
+        console.log(&quot;Facebook available: &quot; + Social.isFacebookSupported());
+        console.log(&quot;Twitter available: &quot; + Social.isTwitterSupported());
+
+        Social.addEventListener(&quot;complete&quot;, function (e) {
+            console.log(&quot;complete: &quot; + e.success);
+            console.log(e);
+
+            if (e.platform == &quot;activityView&quot; || e.platform == &quot;activityPopover&quot;) {
+                switch (e.activity) {
+                    case Social.ACTIVITY_TWITTER:
+                        console.log(&quot;User is shared on Twitter&quot;);
+                        break;
+
+                    case Social.ACTIVITY_CUSTOM:
+                        console.log(&quot;This is a customActivity: &quot; + e.activityName);
+                        break;
+                }
+            }
+        });
+
+        Social.addEventListener(&quot;error&quot;, function (e) {
+            console.log(&quot;error:&quot;);
+            console.log(e);
+        });
+
+        Social.addEventListener(&quot;cancelled&quot;, function (e) {
+            console.log(&quot;cancelled:&quot;);
+            console.log(e);
+        });
+
+        // do the actual sharing
+        var payload = {};
+        payload.text = args.status;
+        if (args.image) {
+            payload.image = args.image;
+        }
+        if (Social.isActivityViewSupported()) { //min iOS6 required
+            Social.activityView(payload);
+        } else {
+            alert(&#39;Sorry...your phone appears to be old-ish...sorry&#39;);
+        }
+        //
+    }
+}
+
+exports.share = share;</pre>
+</body>
+</html>

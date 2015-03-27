@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Controller-Map'>/**
+</span> * @description Helper functions for camera and gallery functionality
+ *
+ * @class Controller.Map
+ * @author Steven House
+ * @email steven.m.house@gmail.com
+ */
+
+// Include logging utility
+var log = Alloy.Globals.log;
+log.info(&#39;[Map]: Opened Page&#39;);
+
+<span id='Controller-Map-method-fromGallery'>/**
+</span> * Get images from Gallery
+ * @method fromGallery
+ */
+exports.fromGallery = function(args) {
+    alert(&quot;args: &quot; + JSON.stringify(args, null, 4));
+    var success = args.success ? args.success : function(){};
+    var error = args.error ? args.cancel : function(){};
+    var cancel = args.cancel ? args.cancel : function(){};
+    Ti.Media.openPhotoGallery({
+        success:function(event) {
+            log.debug(&#39;Media Type from Gallerys: &#39;+ event.mediaType);
+            if(event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
+                success(event);
+            }
+        },
+        error:function(err) {
+            error(err);
+        },
+        cancel: cancel,
+        mediaTypes:[Ti.Media.MEDIA_TYPE_PHOTO]
+    });
+};</pre>
+</body>
+</html>

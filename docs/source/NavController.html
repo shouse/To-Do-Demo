@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='NavController'>/**
+</span> * @class NavController
+ *
+ * This is an updated Navigation Controller for Appcelerator Titanium
+ * Its origon is first, from Forging Titanium Episode 2, then adapted by ___________ to
+ * coincide with current practice with CommonJS and the rest of the application.
+ *
+ * This current update is to align with best practices / requirements with Ti SDK 3.2.
+ * Specifically iOS had an API update that depricated Ti.UI.iPhone.createNavigationGroup();
+ * and replaced it with Ti.UI.iOS.createNavigationWindow();
+
+ * @see: http://docs.appcelerator.com/titanium/latest/#!/guide/iOS_7_Migration_Guide-section-37533766_iOS7MigrationGuide-Titanium.UI.iOS.NavigationWindow
+ */
+
+// Gather utilities for use
+_ = require(&quot;alloy/underscore&quot;)._;
+Alloy = require(&quot;alloy&quot;);
+Backbone = require(&quot;alloy/backbone&quot;);
+
+// Add Logging capability
+var log = Alloy.Globals.log;
+log.info(&quot;[NavController] : Opened NavController&quot;);
+
+<span id='NavController-method-NavController'>/**
+</span> * Class Declaration
+ * @TODO: Add SplitWindow capabilities here
+ * @method NavController
+ * @param {Object} args this is a set of arguments to be passed to the constructor
+ * @return
+ */
+exports.NavController = function(args) {
+    log.info(&#39;[NavController] : Initialized&#39;, args);
+
+    // Saving context to &#39;_self&#39; variable
+    _self = this;
+
+    //--------------  PUBLIC PROPERTIES --------------//
+    // can be direcly accessed by the user
+    _self.version = 0.1;
+
+    // Backbone stuff
+    _self.navCollection;
+    _self.navModel;
+
+    // Constructor arguments
+    var args = args || {};
+    var splitWindow = false;
+
+    // Class variables
+    // this.deviceInfo = [contain username, model, osname, version]
+    // + [networkType, macAddress, processorCount, address, ostype]
+    // + [batteryState, batteryPercent, availMem] at LAUNCH TIME
+    var deviceInfo = require(&#39;deviceInfo&#39;).getDeviceInfo();
+    var splitWindow;
+
+    // Stack to hold windows
+    var windowStack = [];
+    var currentWindow = null;
+    var currentStackPosition = null;
+    var windowHistory = [];
+
+    // iOS variables that will enable navigation
+    var rootWin = null;
+    var navWin = null;
+
+    // This could be used for a window open/close hook based system
+    var windowHooks = {};
+
+    // Initialize BACKBONE support!  Woohoo!
+    var collection = Backbone.Collection.extend({});
+
+    //@TODO extend the model here????
+    var model = Backbone.Model.extend({
+        adapter: {
+            type: &quot;properties&quot;
+        }
+    });
+
+    //-------------- PUBLIC METHODS --------------//
+    // Initialization if necessary
+<span id='NavController-method-init'>    /**
+</span>     * Description
+     * @method init
+     * @param {} args
+     * @return
+     */
+    _self.init = function(args) {
+        args = args || {};
+        splitWindow = args.splitWindow ? args.splitWindow : false;
+        _self.navCollection = new collection();
+    };
+
+<span id='NavController-method-open'>    /**
+</span>     * Function to open a window
+     * @method open
+     * @param {} win
+     * @return
+     */
+    _self.open = function(win) {
+        //log.warn(&#39;[NavController] : Opening &#39; + JSON.stringify(win, null, 4));
+
+        // Add in the Backbone magic
+        //createModel(win);
+
+        // Add the window to the stack of windows managed by the controller
+        windowStack.push(win);
+
+        // Grab a copy of the current nav controller for use in the callback
+        var that = this;
+
+        // Add Event Listener: CLOSE
+        win.addEventListener(&#39;close&#39;, function() {
+            log.info(&#39;[NavController] : Closed window&#39;);
+            that.windowStack.pop();
+        });
+
+        // If this is the FIRST window, need special treatement
+        if (windowStack.length === 1) {
+            if (Ti.Platform.osname === &#39;android&#39;) {
+                log.info(
+                    &quot;[NavController] : Opening FIRST Android window&quot;
+                );
+                openFirstWinAndroid(win);
+            } else {
+                openFirstWinIOS(win);
+            }
+        }
+        // All subsequent windows
+        else {
+            if (Ti.Platform.osname === &#39;android&#39;) {
+                log.info(&quot;OPENING another Android Window&quot;);
+                win.open();
+            } else {
+                var winTransition = Titanium.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT;
+                navWin.openWindow(win, {
+                    animated: true,
+                    fullscreen: true,
+                    transition: winTransition
+                });
+            }
+        }
+    };
+
+<span id='NavController-method-home'>    /**
+</span>     * Go back to the initial window of the NavigationController
+     * @method home
+     * @return
+     */
+    _self.home = function() {
+        log.info(&#39;[NavController] : OPENING home window&#39;);
+        // Store a copy of all the current windows on the stack
+        var windows = windowStack.concat([]);
+
+        // Because we are going back to HOME we need to close ALL other windows.
+        // Special attention
+        _.each(windows, function(win) {
+            (navWindow) ? navWin.close(win): win.close();
+        });
+
+        // Reset the window stack
+        // @TODO Understand this
+        windowStack = _.first(windowStack);
+    };
+
+<span id='NavController-method-close'>    /**
+</span>     * Close a window
+     * @method close
+     * @param {} win
+     * @return
+     */
+    _self.close = function(win) {
+        // Close it and remove from stack (handled by close listener)
+        // ANDROID
+        if (Ti.Platform.osname === &#39;android&#39;) {
+            win.close();
+        }
+        // iOS
+        else {
+            var win = Ti.UI.currentWindow;
+            navWin.closeWindow(win);
+            // @TODO Fire event here??
+        }
+    };
+
+    //-------------- PRIVATE METHODS --------------//
+<span id='NavController-method-createModel'>    /**
+</span>     * Handle Backbone Model creation here.
+     * @method createModel
+     * @param {} win
+     * @return
+     */
+    function createModel(win) {
+        // Create a new backbone model and add it to the collection
+        var nav = new model({
+            title: level,
+            args: message,
+            time: new Date()
+        });
+        //log.save();
+        _self.navCollection.add(nav);
+    }
+
+<span id='NavController-method-openFirstWinAndroid'>    /**
+</span>     * Opens first Android window
+     * @method openFirstWinAndroid
+     * @param {} win
+     * @return
+     */
+    function openFirstWinAndroid(win) {
+        win.exitOnClose = true;
+
+        /*
+		// Add Event Listener: OPEN
+		win.addEventListener(&#39;open&#39;, function(e) {
+			// Setup flurry sessions
+			//Flurry.onStartSession(Alloy.Globals.ThemeConfig.flurryAPIKey);
+
+			// Add listener to the activity
+			// @TODO WHAT IS THE ACTIVITY???
+			var activity = win.activity;
+
+			// Add Event Listener: PAUSE
+			activity.addEventListener(&#39;pause&#39;, function(e) {
+				log.info(&#39;[NavController] : APPLICATION PAUSED&#39;);
+				//Flurry.onEndSession();
+			});
+			// Add Event Listener: RESUME
+			activity.addEventListener(&#39;resume&#39;, function(e) {
+				log.info(&#39;[NavController] : APPLICATION RESUMED&#39;);
+				//Flurry.onStartSession(Alloy.Globals.ThemeConfig.flurryAPIKey);
+			});
+		});
+		*/
+
+        win.orientationModes = [Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT];
+
+        win.open();
+
+        // Add Event Listener: CLOSE
+        win.addEventListener(&#39;close&#39;, function() {
+            log.info(
+                &#39;[NavController] : - Leaving application, close&#39;
+            );
+        });
+
+        win.addEventListener(&#39;androidback&#39;, function(e) {
+            log.debug(
+                &quot;[NavController] : Android back hardware button pressed.&quot;
+            );
+            Alloy.Globals.Menu.goBack();
+        });
+
+        Alloy.Globals.mainWin = win;
+    }
+
+<span id='NavController-method-openFirstWinIOS'>    /**
+</span>     * Opens first iOS window
+     * @method openFirstWinIOS
+     * @param {} win
+     * @return
+     */
+    function openFirstWinIOS(win) {
+        log.info(&#39;[NavController] : Opening first window&#39;, win);
+
+        /*
+		// NEW iOS
+		//rootWin = Ti.UI.createWindow();
+		navWin = Ti.UI.iOS.createNavigationWindow({
+			window : win
+		});
+
+		// Open the Navigation Group - This is the Navigation ROOT
+		navWin.open();
+		*/
+        win.open();
+
+    }
+
+};
+</pre>
+</body>
+</html>

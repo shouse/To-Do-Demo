@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='global-property-_'>/**
+</span> * This is the main controller for the logger widget
+ * @Class Widget.Logger
+ * @author Steven House ,steven.house@sprint.com.
+ *
+ */
+
+_ = require(&#39;alloy/underscore&#39;)._;
+var moment = require(&#39;moment&#39;);
+// Include logging utility
+var log = Alloy.Globals.log;
+
+addEventListeners();
+updateListView();
+
+<span id='global-method-addEventListeners'>/**
+</span> * Add event listeners;
+ */
+function addEventListeners() {
+    $.buttonFilterAll.addEventListener(&#39;click&#39;, function() {
+        updateListView();
+    });
+    $.buttonFilterDebug.addEventListener(&#39;click&#39;, function() {
+        updateListView(&#39;D&#39;);
+    });
+    $.buttonFilterInfo.addEventListener(&#39;click&#39;, function() {
+        updateListView(&#39;I&#39;);
+    });
+    $.buttonFilterWarn.addEventListener(&#39;click&#39;, function() {
+        updateListView(&#39;W&#39;);
+    });
+    $.buttonFilterError.addEventListener(&#39;click&#39;, function() {
+        updateListView(&#39;E&#39;);
+    });
+}
+
+<span id='global-method-listViewItemClick'>/**
+</span> * Show more info
+ * @method listViewItemClick
+ * @param {e} itemClicked
+ */
+function listViewItemClick(e) {
+    //alert(e.itemId);
+    // Open the detail page / pane for the log information
+    var detail = Widget.createController(&#39;LogDetail&#39;, {
+        message: e.itemId
+    }).getView();
+
+    if (Alloy.isTablet) {
+        $.viewContainerMain.width = &quot;50%&quot;;
+        $.viewDetailTablet.add(detail);
+    } else {
+        // @TODO Set the back botton
+        $.viewDetail.add(detail);
+        $.viewDetail.height = Ti.UI.FILL;
+    }
+}
+
+<span id='global-method-updateListView'>/**
+</span> * Display the SEs
+ * @method updateListView
+ */
+function updateListView(level) {
+    level = _.isUndefined(level) ? &#39;all&#39; : level;
+    levels = [&#39;D&#39;, &#39;I&#39;, &#39;W&#39;, &#39;E&#39;];
+
+    //var logs = log.logCollection.toJSON();
+    var logs = log.getLogs();
+    logs = logs.toJSON();
+
+    var logsToDisplay = _.filter(logs, function(log) {
+        return (level == &#39;all&#39;) || levels.indexOf(log.level) &gt;=
+            levels.indexOf(level);
+    });
+
+    logsToDisplay = _(logsToDisplay).sortBy(function(log) {
+        return log.time;
+    }).reverse();
+
+    var colors = {
+        E: &#39;#EE0000&#39;,
+        W: &#39;#E48743&#39;,
+        I: &#39;#EEEEEE&#39;,
+        D: &#39;#00DD00&#39;
+    };
+
+    // Create an array of ListDataItems.
+    var data = _.map(logsToDisplay, function(log) {
+        return {
+            template: &#39;templateMain&#39;,
+            labelLogType: {
+                text: log.level,
+                backgroundColor: colors[log.level] || &#39;#FFF&#39;
+            },
+            labelDescription: {
+                text: log.message
+            },
+            labelDate: {
+                text: moment(log.time).fromNow()
+            },
+            properties: {
+                searchableText: log.message,
+                itemId: log.message
+            }
+        };
+    });
+
+    // Create the ListSection to use from the array of ListDataItems.
+    var listSection = Titanium.UI.createListSection({
+        items: data
+    });
+
+    $.listView.sections = [listSection];
+}
+
+<span id='global-method-updateListViewRemote'>/**
+</span> * Display the Remote Logs
+ */
+function updateListViewRemote(logs) {
+    var level = &quot;E&quot;;
+    //level = _.isUndefined(level) ? &#39;all&#39; : level;
+    levels = [&#39;D&#39;, &#39;I&#39;, &#39;W&#39;, &#39;E&#39;];
+
+    //var logs = log.logCollection.toJSON();
+
+    var logsToDisplay = _.filter(logs, function(log) {
+        return (level == &#39;all&#39;) || levels.indexOf(log.level) &gt;=
+            levels.indexOf(level);
+    });
+
+    logsToDisplay = _(logsToDisplay).sortBy(function(log) {
+        return log.created_at;
+    }).reverse();
+
+    var colors = {
+        E: &#39;#EE0000&#39;,
+        W: &#39;#E48743&#39;,
+        I: &#39;#EEEEEE&#39;,
+        D: &#39;#00DD00&#39;
+    };
+
+    // Create an array of ListDataItems.
+    var data = _.map(logsToDisplay, function(log) {
+        return {
+            template: &#39;templateRemote&#39;,
+            labelLogType: {
+                text: log.level,
+                backgroundColor: colors[log.level] || &#39;#FFF&#39;
+            },
+            labelDescription: {
+                text: log.message
+            },
+            labelDate: {
+                //text: moment(log.created_at).format(
+                //&#39;MMMM Do YYYY, h:mm:ss a&#39;)
+
+                text: moment(log.created_at).fromNow()
+            },
+            labelExtra: {
+                text: log.appName + &quot; ver: &quot; + log.appVer +
+                    &quot;, ADID: &quot; + log.adid
+            },
+            properties: {
+                searchableText: log.message,
+                itemId: log.message
+            }
+        };
+    });
+
+    // Create the ListSection to use from the array of ListDataItems.
+    var listSection = Titanium.UI.createListSection({
+        items: data
+    });
+
+    $.listView.sections = [listSection];
+}
+
+<span id='global-method-deleteLogs'>/**
+</span> * Delete the local logs.
+ * @method deleteLogs
+ */
+function deleteLogs() {
+    // Delete the local logs.
+    log.reset();
+    // Update the view.
+    updateListView();
+    // Change the window title to reflect what is displayed.
+    $.labelTitle.text = &#39;Local Device Log&#39;;
+}
+
+<span id='global-method-toggleLocalRemote'>/**
+</span> * This toggles the display between local and remote logs.
+ * @method toggleLocalRemote
+ */
+function toggleLocalRemote() {
+    switch ($.labelTitle.text) {
+        case &#39;Local Device Log&#39;:
+            // Switch to remote logs.
+            log.queryRemote({
+                success: function(resp) {
+                    // Time to display logs
+                    updateListViewRemote(resp.cloudLog);
+                },
+                error: function(resp) {
+                    log.error(
+                        &#39;logging.js: queryRemote error resp: &#39; +
+                        JSON.stringify(resp, null, 4));
+                }
+            });
+
+            // Change the window title to reflect what is displayed.
+            $.labelTitle.text = &#39;Remote Device Log&#39;;
+            break;
+
+        case &#39;Remote Device Log&#39;:
+            // Switch to local logs.
+            updateListView();
+
+            // Change the window title to reflect what is displayed.
+            $.labelTitle.text = &#39;Local Device Log&#39;;
+            break;
+    }
+}
+
+<span id='global-method-show'>/**
+</span> * This invokes the Login window to slide up, covering the other display.
+ * It currently accepts args but doesn&#39;t do anything with them
+ * @method show
+ * @param {Object} args
+ */
+exports.show = function(args) {
+    args = args || {};
+    var title = &#39;Local Device Log&#39;;
+
+    if (OS_ANDROID) {
+        $.labelTitle.text = title;
+
+        $.win.orientationModes = [Ti.UI.PORTRAIT];
+        $.win.open({
+            modal: true,
+            navBarHidden: true,
+            animated: true,
+            activityEnterAnimation: Ti.App.Android.R.anim.slide_in_bot,
+            activityExitAnimation: Ti.App.Android.R.anim.slide_out_bot
+        });
+    } else {
+        $.win.title = title;
+
+        $.win.open({
+            modal: true,
+            navBarHidden: false,
+            animated: true,
+            modalStyle: Ti.UI.iPhone.MODAL_PRESENTATION_FULLSCREEN,
+            modalTransitionStyle: Ti.UI.iPhone.MODAL_TRANSITION_STYLE_COVER_VERTICAL
+        });
+    }
+
+    updateListView(&#39;I&#39;);
+};
+
+<span id='global-method-dismiss'>/**
+</span> * This dismisses the Logging window
+ * @method dismiss
+ */
+function dismiss() {
+    if (OS_ANDROID) {
+        $.win.close({
+            animated: true,
+            activityEnterAnimation: Ti.App.Android.R.anim.slide_in_bot,
+            activityExitAnimation: Ti.App.Android.R.anim.slide_out_bot
+        });
+    } else {
+        $.win.close({
+            animated: true
+        });
+    }
+}
+</pre>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Widgets-nlFokkezbColor-lib-hsv'>/**
+</span> * HSV color spectrum
+ *
+ * @class Widgets.nlFokkezbColor.lib.hsv
+ * @xtype spectrum
+ */
+
+<span id='Widgets-nlFokkezbColor-lib-hsv-property-image'>/**
+</span> * @inheritDoc Widgets.nlFokkezbColor.lib.ghsv#image
+ */
+exports.image = &#39;images/hsv.png&#39;;
+
+<span id='Widgets-nlFokkezbColor-lib-hsv-method-pc2hsv'>/**
+</span> * @inheritDoc Widgets.nlFokkezbColor.lib.ghsv#pc2hsv
+ */
+exports.pc2hsv = function pc2hsv(pc) {
+  return {
+    h: Math.round((pc.x / 100) * 359),
+    s: (pc.y &lt; 50) ? 100 : Math.round((100 - pc.y) * 2),
+    v: (pc.y &gt; 50) ? 100 : Math.round(pc.y * 2)
+  };
+};
+
+<span id='Widgets-nlFokkezbColor-lib-hsv-method-hsv2pc'>/**
+</span> * @inheritDoc Widgets.nlFokkezbColor.lib.ghsv#hsv2pc
+ */
+exports.hsv2pc = function hsv2pc(hsv) {
+  return {
+    x: Math.round((hsv.h * 100) / 359),
+    y: Math.round((hsv.s &lt; 100) ? (100 - (hsv.s / 2)) : (hsv.b / 2))
+  };
+};</pre>
+</body>
+</html>

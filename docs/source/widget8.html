@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='global-property-dimensions'>/**
+</span> * Checkbox with a label.
+ */
+var dimensions =  [ &quot;left&quot;, &quot;top&quot;, &quot;right&quot;, &quot;bottom&quot;, &quot;center&quot;, &quot;width&quot;, &quot;height&quot; ];
+
+// Allow parameters to be brought in through the parent tss file.
+var args = arguments[0] || {};
+
+_.extend($.label, _.chain(args).omit(&quot;value&quot;).omit(dimensions).value());
+_.extend($.container, _.pick(args, dimensions));
+
+// Listener for the click event.
+function checkboxClick(e) {
+	// Toggle the checkbox value.
+	$.value = !($.value);
+	// Fire the change event.
+	$.trigger(&#39;change&#39;, {value: $.value});
+}
+
+Object.defineProperty($, &quot;enabled&quot;, {
+	get: function() {
+		return $._enabled;
+	},
+	set: function(enabled) {
+		$._enabled = enabled;
+		$.checkbox.touchEnabled = $.label.touchEnabled = enabled;
+	}
+});
+
+Object.defineProperty($, &quot;visible&quot;, {
+	get: function() {
+		return $.container.visible;
+	},
+	set: function(visible) {
+		$.container.visible = visible;
+	}
+});
+
+Object.defineProperty($, &quot;value&quot;, {
+	get: function() {
+		return $._value;
+	},
+	set: function(value) {
+		$._value = value;
+		$.checkbox.image = value ? WPATH(&quot;checkmark-on.png&quot;) : WPATH(&quot;checkmark-off.png&quot;);
+	}
+});
+
+Object.defineProperty($, &quot;text&quot;, {
+	get: function() {
+		return $.label.text;
+	},
+	set: function(text) {
+		$.label.text = text;
+	}
+});
+
+// Default value to false (checkbox not checked).
+$.value = _.isUndefined(args.value) ? false : args.value;
+</pre>
+</body>
+</html>

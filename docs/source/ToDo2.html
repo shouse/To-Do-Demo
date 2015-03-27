@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">exports.definition = {
+
+	config : {
+		&quot;columns&quot; : {
+			&quot;todo_id&quot;	            : &quot;INTEGER PRIMARY KEY AUTOINCREMENT&quot;,
+			&quot;name&quot;                  : &quot;TEXT&quot;,
+            &quot;content&quot;			    : &quot;TEXT&quot;,
+			&quot;status&quot;			    : &quot;BOOLEAN&quot;,
+			&quot;createdDateTime&quot;       : &quot;TEXT&quot;,
+			&quot;lastModifiedDateTime&quot;	: &quot;TEXT&quot;,
+			&quot;reminderDateTime&quot;	    : &quot;TEXT&quot;,
+            &quot;dueDateDateTime&quot;	    : &quot;TEXT&quot;,
+			&quot;hasPhoto&quot;			    : &quot;BOOLEAN&quot;,
+			&quot;photoCount&quot;		    : &quot;INTEGER&quot;
+	    },
+		&quot;defaults&quot; : {
+			&quot;content&quot;               : &quot;test&quot;,
+            &quot;status&quot;                : false,
+			&quot;reminderDateTime&quot; 	    : false,
+            &quot;lastModifiedDateTime&quot;	: new Date(),
+			&quot;hasPhoto&quot;			    : false,
+			&quot;hasVideo&quot;			    : false,
+			&quot;photoCount&quot;		    : 0
+		},
+		&quot;adapter&quot; : {
+			&quot;idAttribute&quot;: &quot;todo_id&quot;,
+			&quot;type&quot; : &quot;sql&quot;,
+			&quot;collection_name&quot; : &quot;ToDo&quot;
+		}
+	},
+
+	extendModel : function(Model) {
+		_.extend(Model.prototype, {
+			// extended functions go here
+		});
+
+		return Model;
+	},
+
+	extendCollection : function(Collection) {
+		_.extend(Collection.prototype, {
+			/*
+			initialize : function() {
+				//this.bindAll(this);
+				_.bindAll(this);
+				this.setElement(this.at(0));
+			},
+			comparator : function(model) {
+				return model.get(&quot;id&quot;);
+			},
+			getElement : function() {
+				return this.currentElement;
+			},
+			setElement : function(model) {
+				this.currentElement = model;
+			},
+			next : function() {
+				this.setElement(this.at(this.indexOf(this.getElement()) + 1));
+				alert(&#39;next\n: &#39; + JSON.stringify(this));
+				return this;
+			},
+			prev : function() {
+				alert(&#39;prev&#39;);
+				this.setElement(this.at(this.indexOf(this.getElement()) - 1));
+				return this;
+			}
+			*/
+		});
+		// end extend
+
+		return Collection;
+	}
+};
+</pre>
+</body>
+</html>
