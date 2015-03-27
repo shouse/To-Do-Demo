@@ -14,7 +14,10 @@ var args = arguments[0] || {};
 var todo_id = args.todo_id || "";
 
 var todo = Alloy.Collections.instance("ToDo");
-var todoItem = _.first(todo.where({ todo_id: todo_id }));
+
+
+
+var todoItem = _.first(todo.where({ todo_id: parseInt(todo_id) }));
 
 var galleryExists = false;
 var checkBox;
