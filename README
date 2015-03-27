@@ -1,18 +1,81 @@
-Welcome to your Appcelerator Titanium Mobile Project
+# To-Do Demo
 
-This is a blank project.  Start by editing your application's app.js to 
-make your first mobile project using Titanium.
+By [Steven House](https://www.linkedin.com/profile/view?id=4522122).
+
+[![Code Climate](Code Climate Badge IMG URL goes here)](Code Climate URL goes here)
+
+## Description
+**To-Do-Demo** is a To-Do app for Titanium showcasing many best practices and some reusable components.
+
+## Installation
+Clone or download this and build using standard Titanium build practices.  The project is written using Alloy... because if you are still using Titanium classic you are just wrong.
+
+```console
+ti build -p ios -F iphone
+```
+OR
+
+```console
+ti build -p android -T device
+```
+
+## Usage
+
+Should be self-explanatory!  Ask about the usage of any of the components and I'll expand on that part.
+
+## Configuration
+The configuration at this moment is for the logger
+
+```javascript
+"logger": {
+  "enabled": true,         // Enabled or not?  Disable at runtime for more capabilities
+  "remoteProvider": "acs", // Want to store your logs to a remote provider?  Plugins needed and slight re-arch
+  "remoteLevel": "E",      // What threshold level should logs be sent?
+  "fileLevel": "D",        // What threshold level should logs be sent to filesytem? 
+  "crittercism": false,    // Use Crittercism?  Why not?  Configure crittercism integration here
+  "crittercismIOSAppId": "[YOUR-IOS-APP-ID]",
+  "crittercismAndroidAppId": "[YOUR-ANDROID-APP-ID]"
+}
+```
+
+## Information
+
+Screenshots of **To-Do-Demo** below:
+
+![Screenshot 1](http://placekitten.com/400/300)
+
+![Screenshot 2](http://placekitten.com/400/300)
 
 
+### Known Issues
+While this is a good codebase to model after, there's more than one way to accomplish a task.  Strive for modularity and feature encapsulation!  Read
+**WRITE CODE YOU CAN READ YOURSELF IN 6 MONTHS!**
 
-----------------------------------
-Stuff our legal folk make us say:
+If you discover any bugs, feel free to create an issue on GitHub fork and send me a pull request.  I'll be adding to this as I can.
 
-Appcelerator, Appcelerator Titanium and associated marks and logos are 
-trademarks of Appcelerator, Inc. 
+[Issues List](https://github.com/shouse/To-Do-Demo/issues).
 
-Titanium is Copyright (c) 2008-2013 by Appcelerator, Inc. All Rights Reserved.
+## Authors
 
-Titanium is licensed under the Apache Public License (Version 2). Please
-see the LICENSE file for the full license.
+* Steven House (https://github.com/shouse)
+* I'm using a lot of components from all over the net and I haven't always remembered where I pulled the bits and pieces. 
+* I'd like to give proper attribution so also feel free to create an issue for attribution 
+* I've learned from the legends and they are either authors of some of the sub components or directly influenced my Titanium knowledge and thus indirect authors
+* 
+* [Fokke Zandbergen] (https://github.com/FokkeZB)
+* [Olivier Morandi] (https://github.com/omorandi)
+* [Jeff Haynie] (https://github.com/jhaynie)
+* [Ben Bahrenburg] (https://github.com/benbahrenburg)
+* ... and many more.
 
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
+
+
+## License
+This project is licensed under the OSI approved Apache Public License (version 2). For details please see the license associated with each project.
