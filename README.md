@@ -55,8 +55,6 @@ Screenshots of **To-Do-Demo** below:
 
 ![Screenshot 5](https://raw.githubusercontent.com/shouse/To-Do-Demo/master/screenshots/screen-shot-5.png)
 
-<img src="https://raw.githubusercontent.com/shouse/To-Do-Demo/master/screenshots/screen-shot-1.png" alt="Drawing" style="width: 100px;"/>
-
 ### Known Issues
 While this is a good codebase to model after, there's more than one way to accomplish a task.
 I've made a few mistakes before, but... Strive for modularity and feature encapsulation!  Read
