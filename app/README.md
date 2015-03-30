@@ -1,5 +1,5 @@
 
-Main folder for [Titanium Alloy] MVC (http://en.wikipedia.org/wiki/Titanium_alloy)
+Main folder for ![Titanium Alloy](http://en.wikipedia.org/wiki/Titanium_alloy)MVC
 =========================================
 
 Here's how the Alloy directory is laid out.
