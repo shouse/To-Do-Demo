@@ -517,19 +517,20 @@ function captureImage() {
  * @shareTask
  */
 function shareTask() {
-    require('com.alcoapps.socialshare').share({
-        status                  : "I'd like to share my To-Do task with you!\n\n" + todoItem.get('name'),
-        //image                   : fileToShare.nativePath,
-        androidDialogTitle      : 'Sharing is caring!!!'
-    });
-}
-
-/**
- * Show Item Gallery
- * @method showItemGallery
- */
-function showItemGallery() {
-
+    var shareObj = {
+        status: "I'd like to share my To-Do task with you!\n\n" + todoItem.get('name') + "\n" +
+        todoItem.get('content')
+    };
+    if (hasDueDate()) {
+        shareObj.status += "\n\nDue " + moment(todoItem.get('dueDateDateTime')).fromNow();
+    }
+    if (todoItem.get("photoCount")) {
+        //shareObj.image = '';
+    }
+    if (OS_ANDROID) {
+        shareObj.androidDialogTitle = 'Share ' + todoItem.get('name');
+    }
+    require('com.alcoapps.socialshare').share(shareObj);
 }
 
 /**
