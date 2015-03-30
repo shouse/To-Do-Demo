@@ -29,14 +29,9 @@ function init() {
 
     setupNav();
 
-    if (!todoItem.get('photoCount') !== 0) {
+    if (todoItem.get('photoCount')) {
         createGallery();
         galleryExists = true;
-    } else {
-        $.tdg.height = 0;
-        $.tdb.visible = false;
-        $.labelBlank.removeClass("h-0");
-        $.labelBlank.addClass("h-100");
     }
 }
 
@@ -114,12 +109,11 @@ function getPictureView(photoCount, width, height) {
         log.warn('[TodoListGallery] : No saved pictures found.  Should not see this');
         return false;
     } else {
-        var image = file.read();
-        log.info('[TodoListGallery] : Retrieved saved picture : ',
-            image);
+        // iOS only?  var image = file.read();
+        log.info('[TodoListGallery] : Retrieved saved picture : ', file);
 
         var imageView = Ti.UI.createImageView({
-            image: image,
+            image: file,
             width: width,
             height: height,
             borderColor: "white"
@@ -211,14 +205,9 @@ function updateGallery() {
     log.debug("[Gallery] : Updating Gallery");
     // If gallery doesn't exist create it
     if (!galleryExists) {
-        if (!todoItem.get('photoCount') !== 0) {
+        if (todoItem.get('photoCount') !== 0) {
             createGallery();
             galleryExists = true;
-        } else {
-            $.tdg.height = 0;
-            $.tdb.visible = false;
-            $.labelBlank.removeClass("h-0");
-            $.labelBlank.addClass("h-100");
         }
         return
     }

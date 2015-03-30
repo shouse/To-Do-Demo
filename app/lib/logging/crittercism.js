@@ -3,7 +3,9 @@
  * @class Logging.crittercism
  */
 
-//var Crittercism = require('crittercism'); // Initialize the Crittercism module
+var Crittercism = require('crittercism'); // Initialize the Crittercism module
+
+log.warn("Crittercism:\n" + JSON.stringify(Crittercism, null, 4));
 
 // Start it up!
 var app_id;
@@ -18,7 +20,7 @@ function init() {
   if (Ti.Platform.osname == 'android'){
     app_id = Alloy.CFG.logger.crittercismIOSAppId;
   } else {
-    app_id = Alloy.CFG.logger.crittercismIOSAppId;
+    app_id = Alloy.CFG.logger.crittercismAndroidAppId;
   }
 
   // Initialize the library

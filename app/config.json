@@ -5,9 +5,9 @@
       "remoteProvider": "acs",
       "remoteLevel": "E",
       "fileLevel": "D",
-      "crittercism": false,
+      "crittercism": true,
       "crittercismIOSAppId": "55184773bdf36ccd74eae9d8",
-      "crittercismAndroidAppId": "drlASD5bxwrFXSHXpbWScR5d0MXHUEu9"
+      "crittercismAndroidAppId": "55184773bdf36ccd74eae9d8"
     }
   },
   "env:development": {},

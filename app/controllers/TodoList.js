@@ -203,7 +203,7 @@ function todoSuccess(recordsToShow) {
     if (recordsToShow) {
         sortedCollection = recordsToShow;
     } else {
-        sortedCollection = _.sortBy(Alloy.Collections.ToDo.toJSON(),
+        sortedCollection = _.sortBy(todo.toJSON(),
             function(item) {
                 // return item.intervalMileage;
             });
@@ -214,41 +214,42 @@ function todoSuccess(recordsToShow) {
     var data = [];
 
     // Push data to the List View
-    _.each(sortedCollection, function(todoItem) {
+    _.each(sortedCollection, function(item) {
         var date = "";
-        if (todoItem.dueDateDateTime) {
-            date = moment(todoItem.dueDateDateTime).format("MM DD");
+        if (item.dueDateDateTime) {
+            date = moment(item.dueDateDateTime).format("MM DD");
         }
 
         data.push({
             viewStatusColor: {
-                backgroundColor: todoItem.status ? "green" : ""
+                backgroundColor: item.status ? "green" : "white"
             },
             imageViewCheckmark: {
-                image: todoItem.status ? "/images/navigation/ic_check_black_48dp.png" : "",
+                image: item.status ? "/images/navigation/ic_check_black_48dp.png" : "",
                 left: 10,
                 right:10
             },
             itemTitle: {
-                text: todoItem.name,
+                text: item.name,
                 font: {
                     fontSize: '18sp'
                 },
                 left: 5
             },
             itemContent: {
-                text: todoItem.content
+                text: item.content
             },
             labelDueDate: {
                 text: date
             },
             properties: {
-                itemId: todoItem.todo_id,
-                searchableText: todoItem.name,
+                itemId: item.todo_id,
+                searchableText: item.name,
                 backgroundColor: '#fff',
                 height: 90
             }
         });
+
     });
 
     var listSection = Titanium.UI.createListSection({
@@ -267,7 +268,7 @@ function todoSuccess(recordsToShow) {
  */
 function deleteItem(e){
     var section = e.section;
-    var todo_id = e.itemId;
+    var todo_id = parseInt(e.itemId);
     var itemIndex = e.itemIndex;
     log.warn("deleteItem: " + JSON.stringify(e, null, 4));
     var opts = {

@@ -205,40 +205,17 @@ exports.Logger = function(args) {
         log('E', message, data);
         Alloy.Globals.Menu.showInfoBar({title: 'ERROR: ' + message});
 
-        if (Ti.Platform.osname !== 'android') {
-            var clickFunction = function() {
-                var widgetLogger = Alloy.createWidget(
-                    "com.sivci.logger");
-                widgetLogger.show({
-                    title: "Logs"
-                });
-            };
-            notify("ERROR", message, null, clickFunction);
-        }
 
-        /*
-        // Notifier doesn't work with android w/o providing a view to add to
-        if (Ti.Platform.osname === 'android') {
-            return;
-        }
+        var clickFunction = function() {
+            var widgetLogger = Alloy.createWidget(
+                "com.sivci.logger");
+            widgetLogger.show({
+                title: "Logs"
+            });
+        };
+            //notify("ERROR", message, null, clickFunction);
 
-        var Notifier = Alloy.createWidget(
-            'com.caffeinalab.titanium.notifications');
-        // Show the widget, and override defaults
-        Notifier.show({
-            message: "Error: " + message,
-            icon: '/appicon.png',
-            pushForce: 10,
-            duration: 5000,
-            click: function() {
-                var widgetLogger = Alloy.createWidget(
-                    "com.sivci.logger");
-                widgetLogger.show({
-                    title: "Logs"
-                });
-            }
-        });
-        */
+
     };
 
     /**
@@ -675,7 +652,7 @@ exports.Logger = function(args) {
     function crittercism() {
 
       if (Alloy.CFG.logger.crittercism) {
-        crittercism = require('/logging/crittercism');
+        //crittercism = require('logging/crittercism');
 
         Ti.App.addEventListener('login', setupCrittercism);
       }
