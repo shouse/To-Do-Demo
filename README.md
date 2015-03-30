@@ -1,4 +1,4 @@
-# To-Do Demo
+# To-Do Demo [![Appcelerator Titanium](http://www-static.appcelerator.com/badges/titanium-git-badge-sq.png)](http://appcelerator.com/titanium/) [![Appcelerator Alloy](http://www-static.appcelerator.com/badges/alloy-git-badge-sq.png)](http:/appcelerator.com/alloy/)
 
 By [Steven House](https://www.linkedin.com/profile/view?id=4522122).
 
