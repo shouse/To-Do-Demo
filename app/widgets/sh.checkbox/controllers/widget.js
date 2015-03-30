@@ -42,7 +42,7 @@ Object.defineProperty($, "value", {
 	},
 	set: function(value) {
 		$._value = value;
-		$.checkbox.image = value ? WPATH("checkmark-on.png") : WPATH("checkmark-off.png");
+		$.checkbox.image = value ? WPATH("ic_done_black_48dp.png") : "";
 	}
 });
 

@@ -1,6 +1,7 @@
 <Alloy>
-	<View id="container" class="w-size h-size lo-horizontal">
-		<ImageView id="checkbox" onClick="checkboxClick" class="w-size h-size"/>
-		<Label id="label" onClick="checkboxClick" class="w-size h-size l-0"/>
+
+	<View id="container" class="w-fill h-fill lo-horizontal" borderColor="black" borderWidth="3">
+		<ImageView id="checkbox" onClick="checkboxClick" class="w-fill h-fill"/>
+		<Label id="label" onClick="checkboxClick" class="w-fill h-fill l-0"/>
 	</View>
 </Alloy>
