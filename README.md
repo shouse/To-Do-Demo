@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/shouse/To-Do-Demo.png?label=ready&title=Ready)](https://waffle.io/shouse/To-Do-Demo)
 # To-Do Demo
 
 By [Steven House](https://www.linkedin.com/profile/view?id=4522122).
