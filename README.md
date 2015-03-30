@@ -6,7 +6,6 @@ By [Steven House](https://www.linkedin.com/profile/view?id=4522122).
 
 ## Description
 **To-Do-Demo** is a To-Do app for Titanium showcasing many best practices and some reusable components.
-**FOR ANDROID USE THE DEV BRANCH.  AFTER I VERIFY THE FIX DIDN'T MESS UP IOS I WILL MERGE TO MASTER**
 
 ## Installation
 Clone or download this and build using standard Titanium build practices.  The project is written using Alloy... because if you are still using Titanium classic you are just wrong.
@@ -57,13 +56,20 @@ Screenshots of **To-Do-Demo** below:
 ![Screenshot 5](https://raw.githubusercontent.com/shouse/To-Do-Demo/master/screenshots/screen-shot-5.png)
 
 ### Known Issues
-The checkbox on High Density Android devices is small and hard to click, but works.
-
-**WRITE CODE YOU CAN READ YOURSELF IN 6 MONTHS!**
+* The checkbox for Android on the Task Detail page is not vertically centered
 
 If you discover any bugs, feel free to create an issue on GitHub fork and send me a pull request.  I'll be adding to this as I can.
 
 [Issues List](https://github.com/shouse/To-Do-Demo/issues).
+
+### Enhancements to make the app
+* Make task deletable from the detail page and not just the List page
+* Allow swiping from task to task
+* Allow swiping from gallery photo detail to next
+* Allow user to DL predefined task lists for common tasks
+* Implement tagging for categorical sorting
+* List View: have sort-by enhancements
+* ... what else can you think of? 
 
 ## Authors
 
