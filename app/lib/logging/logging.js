@@ -576,12 +576,12 @@ exports.Logger = function(args) {
         var to = args.to ? args.to : false;
         var from = args.from ? args.from : "support@thefleetapp.com"
         // need to implement this
-        var sendgrid = require('/utils/tisendgrid')('stevenmhouse', 'St3v3nHou$e');
+        var sendgrid = require('/utils/tisendgrid')(args.username, args.password);
         sendgrid.send({
-            to: 'steven.m.house@gmail.com',
-            from: 'steven@thefleetapp.com',
-            subject: 'Hello!',
-            text: 'Hello again!'
+            to: args.to,
+            from: args.from,
+            subject: args.subject,
+            text: args.text
         }, function (e) {
             if (e) {
                 console.log(e); // Email wasn't sent
