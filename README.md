@@ -1,10 +1,9 @@
-[![Stories in Ready](https://badge.waffle.io/shouse/To-Do-Demo.png?label=ready&title=Ready)](https://waffle.io/shouse/To-Do-Demo)
 # To-Do Demo
 
 By [Steven House](https://www.linkedin.com/profile/view?id=4522122).
 
 [![Code Climate](https://codeclimate.com/github/shouse/To-Do-Demo/badges/gpa.svg)](https://codeclimate.com/github/shouse/To-Do-Demo)
-[![GitHub issues](https://img.shields.io/github/issues/badges/shields.svg)]()
+[![Stories in Ready](https://badge.waffle.io/shouse/To-Do-Demo.png?label=ready&title=Ready)](https://waffle.io/shouse/To-Do-Demo)
 
 ## Description
 **To-Do-Demo** is a To-Do app for Titanium showcasing many best practices and some reusable components.
