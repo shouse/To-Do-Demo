@@ -6,6 +6,7 @@ By [Steven House](https://www.linkedin.com/profile/view?id=4522122).
 
 ## Description
 **To-Do-Demo** is a To-Do app for Titanium showcasing many best practices and some reusable components.
+**FOR ANDROID USE THE DEV BRANCH.  AFTER I VERIFY THE FIX DIDN'T MESS UP IOS I WILL MERGE TO MASTER**
 
 ## Installation
 Clone or download this and build using standard Titanium build practices.  The project is written using Alloy... because if you are still using Titanium classic you are just wrong.
@@ -56,8 +57,7 @@ Screenshots of **To-Do-Demo** below:
 ![Screenshot 5](https://raw.githubusercontent.com/shouse/To-Do-Demo/master/screenshots/screen-shot-5.png)
 
 ### Known Issues
-While this is a good codebase to model after, there's more than one way to accomplish a task.
-I've made a few mistakes before, but... Strive for modularity and feature encapsulation!  Read
+The checkbox on High Density Android devices is small and hard to click, but works.
 
 **WRITE CODE YOU CAN READ YOURSELF IN 6 MONTHS!**
 
@@ -88,7 +88,6 @@ CodeStrong!
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
-
 
 ## License
 This project is licensed under the OSI approved Apache Public License (version 2). For details please see the license associated with each project.
