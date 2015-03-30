@@ -38,6 +38,9 @@
 		</plist>
 	</ios>
 	<android xmlns:android="http://schemas.android.com/apk/res/android">
+        <manifest>
+            <application android:theme="@style/Theme.Titanium"/>
+        </manifest>
 	</android>
 	<mobileweb>
 		<precache>
@@ -53,6 +56,8 @@
     <module platform="iphone" version="0.4">ti.sq</module>
     <module platform="ios" version="1.7.10">dk.napp.social</module>
     <module platform="android" version="0.3">yy.tidialogs</module>
+    <module platform="ios">crittercism</module>
+    <module platform="android">crittercism</module>
   </modules>
 	<deployment-targets>
 		<target device="android">true</target>

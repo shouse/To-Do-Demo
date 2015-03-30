@@ -19,12 +19,12 @@
                             <ImageView bindId="imageViewCheckmark" id="imageViewCheckmark" class="w-25 h-25"/>
 
                             <!-- Title / SubTitle -->
-                            <View class="h-size w-fill lo-vertical h-size">
+                            <View class="h-size w-fill lo-vertical h-size r-30">
                                 <Label bindId="itemTitle" id="itemTitle" class="w-fill h-45"/>
                                 <Label bindId="itemContent" id="itemContent" class="w-fill h-45"/>
                                 <!--<Label bindId="labelLastModified" id="labelLastModified" class="w-fill h-45"/>-->
                             </View>
-                            <Label bindId="labelDueDate" id="labelDueDate" class="w-size h-size" borderColor="red" borderWidth="4"/>
+                            <Label bindId="labelDueDate" id="labelDueDate" class="w-fill h-size" borderColor="red" borderWidth="4"/>
 
 
 

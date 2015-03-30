@@ -6,8 +6,6 @@
  * @email steven.m.house@gmail.com
  */
 
-//saveToCollection();
-
 /**
  * Get all ToDo Sample items
  * @method getSymptoms

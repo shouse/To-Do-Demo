@@ -3,7 +3,7 @@
 // You have access to all functionality on the `Alloy` namespace.
 
 // Logging utility and expose it to the global namespace
-var LogObject = require('logging');
+var LogObject = require('logging/logging');
 var log = new LogObject.Logger();
 log.init();
 

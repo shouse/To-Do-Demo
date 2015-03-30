@@ -15,8 +15,6 @@ var todo_id = args.todo_id || "";
 
 var todo = Alloy.Collections.instance("ToDo");
 
-
-
 var todoItem = _.first(todo.where({ todo_id: parseInt(todo_id) }));
 
 var galleryExists = false;
@@ -131,7 +129,7 @@ function addEventListeners() {
  * @method checkboxStuff
  */
 function addCheckbox() {
-    checkbox = Alloy.createWidget("sh.checkbox", {value: todoItem.get("status")});
+    checkbox = Alloy.createWidget("sh.checkbox", {height: 35, width: 35, value: todoItem.get("status")});
     //checkbox.value = false;
 
     // Create a handler for the change event.
@@ -150,7 +148,7 @@ function addCheckbox() {
  */
 function toggleStatus() {
     log.warn("[Task Details] toggling status to " + !todoItem.get("status"));
-    if (todo.get("status") == 0){
+    if (todoItem.get("status") == 0){
         todoItem.set({
             status: 1,
             completedDateTime: new Date().toISOString(),
@@ -167,6 +165,7 @@ function toggleStatus() {
 
     todoItem.save();
     todo.fetch();
+    log.warn("TODO: ", todo);
 }
 
 /**
@@ -518,19 +517,20 @@ function captureImage() {
  * @shareTask
  */
 function shareTask() {
-    require('com.alcoapps.socialshare').share({
-        status                  : "I'd like to share my To-Do task with you!\n\n" + todoItem.get('name'),
-        //image                   : fileToShare.nativePath,
-        androidDialogTitle      : 'Sharing is caring!!!'
-    });
-}
-
-/**
- * Show Item Gallery
- * @method showItemGallery
- */
-function showItemGallery() {
-
+    var shareObj = {
+        status: "I'd like to share my To-Do task with you!\n\n" + todoItem.get('name') + "\n" +
+        todoItem.get('content')
+    };
+    if (hasDueDate()) {
+        shareObj.status += "\n\nDue " + moment(todoItem.get('dueDateDateTime')).fromNow();
+    }
+    if (todoItem.get("photoCount")) {
+        //shareObj.image = '';
+    }
+    if (OS_ANDROID) {
+        shareObj.androidDialogTitle = 'Share ' + todoItem.get('name');
+    }
+    require('com.alcoapps.socialshare').share(shareObj);
 }
 
 /**
