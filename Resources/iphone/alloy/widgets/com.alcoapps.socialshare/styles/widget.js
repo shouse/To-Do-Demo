@@ -95,6 +95,19 @@ module.exports = [ {
     }
 }, {
     isApi: true,
+    priority: 1000.0045,
+    key: "Label",
+    style: {
+        color: "#000",
+        font: {
+            fontSize: 18,
+            fontWeight: "bold"
+        },
+        height: Ti.UI.SIZE,
+        width: Ti.UI.SIZE
+    }
+}, {
+    isApi: true,
     priority: 1000.0095,
     key: "h-wrap",
     style: {
@@ -106,19 +119,6 @@ module.exports = [ {
     key: "h-wrap-disable",
     style: {
         horizontalWrap: false
-    }
-}, {
-    isApi: true,
-    priority: 1000.0767,
-    key: "Label",
-    style: {
-        color: "#000",
-        font: {
-            fontSize: 18,
-            fontWeight: "bold"
-        },
-        height: Ti.UI.SIZE,
-        width: Ti.UI.SIZE
     }
 }, {
     isClass: true,

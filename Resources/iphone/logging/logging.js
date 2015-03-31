@@ -17,7 +17,7 @@ _.mixin({
     }
 });
 
-exports.Logger = function(args) {
+exports.Logger = function() {
     function log(level, message, data) {
         var logTime = new Date();
         var logModel = createModel(level, message, data, logTime);
@@ -41,12 +41,11 @@ exports.Logger = function(args) {
         logFile.write(encodedLog + "[logEnd]", true);
     }
     function websocketSetup() {
-        var wsURI = Alloy.CFG.logger.webSocketURI ? args.URI : false;
+        var wsURI = Alloy.CFG.logger.webSocketURI ? Alloy.CFG.logger.webSocketURI : false;
         if (!wsURI) {
             alert("Provide a websocket URI in config.json");
             return;
         }
-        uri = "ws://localhost:8765";
         tiws = require("net.iamyellow.tiws").createWS();
         tiws.addEventListener("open", function() {
             alert("opened");

@@ -454,6 +454,14 @@ module.exports = [ {
     }
 }, {
     isClass: true,
+    priority: 10000.006,
+    key: "input",
+    style: {
+        right: 0,
+        height: 40
+    }
+}, {
+    isClass: true,
     priority: 10000.0061,
     key: "n-col-push-7",
     style: {
@@ -5181,14 +5189,6 @@ module.exports = [ {
     key: "lo-composite",
     style: {
         layout: "composite"
-    }
-}, {
-    isClass: true,
-    priority: 10000.0782,
-    key: "input",
-    style: {
-        right: 0,
-        height: 40
     }
 }, {
     isClass: true,

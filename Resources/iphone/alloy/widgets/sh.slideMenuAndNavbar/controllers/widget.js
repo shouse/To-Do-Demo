@@ -171,11 +171,11 @@ function Controller() {
     });
     $.__views.viewContainer.add($.__views.topNavigationDrawer);
     $.__views.__alloyId65 = Ti.UI.createLabel({
+        color: "#333333",
         font: {
             fontFamily: "HelveticaNeue-Light",
             fontSize: "14dp"
         },
-        color: "white",
         id: "__alloyId65"
     });
     $.__views.topNavigationDrawer.add($.__views.__alloyId65);
@@ -359,11 +359,11 @@ function Controller() {
     $.__views.labelTitle = Ti.UI.createLabel(function() {
         var o = {};
         _.extend(o, {
+            color: "#333333",
             font: {
                 fontFamily: "HelveticaNeue-Light",
                 fontSize: "14dp"
             },
-            color: "white",
             width: Ti.UI.SIZE
         });
         Alloy.isHandheld && _.extend(o, {
@@ -533,12 +533,12 @@ function Controller() {
         });
         $.__views.viewInfoBar.add($.__views.imageViewInfoBarIcon);
         $.__views.labelInfoBarTitle = Ti.UI.createLabel({
+            color: "white",
             font: {
                 fontFamily: "HelveticaNeue-Light",
                 fontSize: "18dp",
                 fontWeight: "semibold"
             },
-            color: "white",
             textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
             width: Ti.UI.FILL,
             height: Ti.UI.FILL,

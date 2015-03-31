@@ -5468,14 +5468,7 @@ module.exports = [ {
     }
 }, {
     isId: true,
-    priority: 100000.0015,
-    key: "viewMain",
-    style: {
-        backgroundColor: "#f2eee9"
-    }
-}, {
-    isId: true,
-    priority: 100000.0724,
+    priority: 100000.0002,
     key: "winNavBar",
     style: {
         backgroundColor: "#efefef",
@@ -5483,7 +5476,7 @@ module.exports = [ {
     }
 }, {
     isId: true,
-    priority: 100000.0725,
+    priority: 100000.0003,
     key: "win",
     style: {
         backgroundColor: "#efefef",
@@ -5491,7 +5484,7 @@ module.exports = [ {
     }
 }, {
     isId: true,
-    priority: 100000.0726,
+    priority: 100000.0004,
     key: "viewNavBar",
     style: {
         top: "0dp",
@@ -5522,7 +5515,7 @@ module.exports = [ {
     }
 }, {
     isId: true,
-    priority: 100000.0727,
+    priority: 100000.0005,
     key: "buttonCancel",
     style: {
         height: "32dp",
@@ -5538,14 +5531,14 @@ module.exports = [ {
     }
 }, {
     isId: true,
-    priority: 100000.073,
+    priority: 100000.0008,
     key: "viewMain",
     style: {
         backgroundColor: "#fff"
     }
 }, {
     isId: true,
-    priority: 100000.0731,
+    priority: 100000.0009,
     key: "labelLogType",
     style: {
         borderColor: "#000",
@@ -5559,7 +5552,7 @@ module.exports = [ {
     }
 }, {
     isId: true,
-    priority: 100000.0732,
+    priority: 100000.001,
     key: "labelDescription",
     style: {
         color: "#000",
@@ -5571,7 +5564,7 @@ module.exports = [ {
     }
 }, {
     isId: true,
-    priority: 100000.0733,
+    priority: 100000.0011,
     key: "labelDate",
     style: {
         color: "#666",
@@ -5583,7 +5576,14 @@ module.exports = [ {
     }
 }, {
     isId: true,
-    priority: 100101.0729,
+    priority: 100000.0015,
+    key: "viewMain",
+    style: {
+        backgroundColor: "#f2eee9"
+    }
+}, {
+    isId: true,
+    priority: 100101.0007,
     key: "labelTitle",
     style: {
         text: "Local Device Log",

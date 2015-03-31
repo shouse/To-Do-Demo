@@ -440,10 +440,29 @@ module.exports = [ {
     }
 }, {
     isClass: true,
+    priority: 10000.0058,
+    key: "row",
+    style: {
+        hasChild: true
+    }
+}, {
+    isClass: true,
     priority: 10000.0059,
     key: "n-col-push-5",
     style: {
         left: "41.25%"
+    }
+}, {
+    isClass: true,
+    priority: 10000.0059,
+    key: "input",
+    style: {
+        width: Ti.UI.FILL,
+        height: 40,
+        color: "#999",
+        font: {
+            fontSize: 17
+        }
     }
 }, {
     isClass: true,
@@ -5181,25 +5200,6 @@ module.exports = [ {
     key: "lo-composite",
     style: {
         layout: "composite"
-    }
-}, {
-    isClass: true,
-    priority: 10000.078,
-    key: "row",
-    style: {
-        hasChild: true
-    }
-}, {
-    isClass: true,
-    priority: 10000.0781,
-    key: "input",
-    style: {
-        width: Ti.UI.FILL,
-        height: 40,
-        color: "#999",
-        font: {
-            fontSize: 17
-        }
     }
 }, {
     isClass: true,

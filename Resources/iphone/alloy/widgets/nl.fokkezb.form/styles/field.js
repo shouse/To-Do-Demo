@@ -385,12 +385,34 @@ module.exports = [ {
     }
 }, {
     isClass: true,
+    priority: 10000.0051,
+    key: "label",
+    style: {
+        width: 145,
+        height: Ti.UI.SIZE,
+        top: 19,
+        left: 15,
+        color: "#000"
+    }
+}, {
+    isClass: true,
     priority: 10000.0052,
     key: "n-col-10",
     style: {
         left: 0,
         height: Ti.UI.SIZE,
         width: "82.50%"
+    }
+}, {
+    isClass: true,
+    priority: 10000.0052,
+    key: "control",
+    style: {
+        height: Ti.UI.SIZE,
+        top: 10,
+        bottom: 10,
+        right: 15,
+        left: 15
     }
 }, {
     isClass: true,
@@ -403,12 +425,26 @@ module.exports = [ {
     }
 }, {
     isClass: true,
+    priority: 10000.0053,
+    key: "errorRow",
+    style: {
+        backgroundColor: "#ff948d"
+    }
+}, {
+    isClass: true,
     priority: 10000.0054,
     key: "n-col-12",
     style: {
         left: 0,
         height: Ti.UI.SIZE,
         width: "100%"
+    }
+}, {
+    isClass: true,
+    priority: 10000.0054,
+    key: "errorLabel",
+    style: {
+        color: "#fff"
     }
 }, {
     isClass: true,
@@ -5184,42 +5220,6 @@ module.exports = [ {
     }
 }, {
     isClass: true,
-    priority: 10000.0773,
-    key: "label",
-    style: {
-        width: 145,
-        height: Ti.UI.SIZE,
-        top: 19,
-        left: 15,
-        color: "#000"
-    }
-}, {
-    isClass: true,
-    priority: 10000.0774,
-    key: "control",
-    style: {
-        height: Ti.UI.SIZE,
-        top: 10,
-        bottom: 10,
-        right: 15,
-        left: 15
-    }
-}, {
-    isClass: true,
-    priority: 10000.0775,
-    key: "errorRow",
-    style: {
-        backgroundColor: "#ff948d"
-    }
-}, {
-    isClass: true,
-    priority: 10000.0776,
-    key: "errorLabel",
-    style: {
-        color: "#fff"
-    }
-}, {
-    isClass: true,
     queries: {
         formFactor: "isHandheld"
     },
@@ -5298,6 +5298,14 @@ module.exports = [ {
     key: "sb-style-translucent-black",
     style: {
         statusBarStyle: Titanium.UI.iPhone.StatusBar.TRANSLUCENT_BLACK
+    }
+}, {
+    isClass: true,
+    priority: 10101.005,
+    key: "row",
+    style: {
+        selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
+        layout: "horizontal"
     }
 }, {
     isClass: true,
@@ -5501,14 +5509,6 @@ module.exports = [ {
     key: "ai-plain",
     style: {
         style: Titanium.UI.iPhone.ActivityIndicatorStyle.PLAIN
-    }
-}, {
-    isClass: true,
-    priority: 10101.0772,
-    key: "row",
-    style: {
-        selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
-        layout: "horizontal"
     }
 }, {
     isId: true,

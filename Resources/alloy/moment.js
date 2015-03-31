@@ -1096,24 +1096,7 @@
         }; else if ("number" == typeof input) {
             duration = {};
             key ? duration[key] = input : duration.milliseconds = input;
-        } else if (!(match = aspNetTimeSpanJsonRegex.exec(input))) {
-            if (!!(match = isoDurationRegex.exec(input))) {
-                sign = "-" === match[1] ? -1 : 1;
-                parseIso = function(inp) {
-                    var res = inp && parseFloat(inp.replace(",", "."));
-                    return (isNaN(res) ? 0 : res) * sign;
-                };
-                duration = {
-                    y: parseIso(match[2]),
-                    M: parseIso(match[3]),
-                    d: parseIso(match[4]),
-                    h: parseIso(match[5]),
-                    m: parseIso(match[6]),
-                    s: parseIso(match[7]),
-                    w: parseIso(match[8])
-                };
-            }
-        } else {
+        } else if (match = aspNetTimeSpanJsonRegex.exec(input)) {
             sign = "-" === match[1] ? -1 : 1;
             duration = {
                 y: 0,
@@ -1122,6 +1105,21 @@
                 m: toInt(match[MINUTE]) * sign,
                 s: toInt(match[SECOND]) * sign,
                 ms: toInt(match[MILLISECOND]) * sign
+            };
+        } else if (!!(match = isoDurationRegex.exec(input))) {
+            sign = "-" === match[1] ? -1 : 1;
+            parseIso = function(inp) {
+                var res = inp && parseFloat(inp.replace(",", "."));
+                return (isNaN(res) ? 0 : res) * sign;
+            };
+            duration = {
+                y: parseIso(match[2]),
+                M: parseIso(match[3]),
+                d: parseIso(match[4]),
+                h: parseIso(match[5]),
+                m: parseIso(match[6]),
+                s: parseIso(match[7]),
+                w: parseIso(match[8])
             };
         }
         ret = new Duration(duration);

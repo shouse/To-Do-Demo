@@ -5475,14 +5475,14 @@ module.exports = [ {
     }
 }, {
     isId: true,
-    priority: 100000.0792,
+    priority: 100000.007,
     key: "checkbox",
     style: {
         image: WPATH("checkmark-on.png")
     }
 }, {
     isId: true,
-    priority: 100000.0793,
+    priority: 100000.0071,
     key: "label",
     style: {
         color: "#000",

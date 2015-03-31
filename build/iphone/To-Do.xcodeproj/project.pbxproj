@@ -30,13 +30,15 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		2412F467115C296300454E5B /* TiMediaVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2412F465115C296300454E5B /* TiMediaVideoPlayer.m */; };
 		242E8E3111BA39FD0046A0D0 /* libTiCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 242E8E3011BA39FD0046A0D0 /* libTiCore.a */; };
-		5720AB4E4B9E4405913104CB /* libcrittercism.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DB2FB6A9F654FF5830101E0 /* libcrittercism.a */; };
-		78832826C51B4AA4B3A7BDCD /* libdk.napp.social.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E2DD604C1B249BB9A4A1E80 /* libdk.napp.social.a */; };
-		596FA7F9A51D40BCBE73D8E9 /* libti.sq.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CF31F3CE37496D85BA9567 /* libti.sq.a */; };
+		D7F37927F3DC4917A9413128 /* libnet.iamyellow.tiws.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 488706FB188C4446BA7D9404 /* libnet.iamyellow.tiws.a */; };
+		E0BD34DA41EB4684834F283D /* libcrittercism.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A433176872E4ED99EDB417A /* libcrittercism.a */; };
+		5E9B5B9998BF4CDEB18A2AA4 /* libdk.napp.social.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC845A14F09E446BB941A751 /* libdk.napp.social.a */; };
+		4F9C5DEED7684673B6E1D093 /* libti.sq.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C629D90ACE5A4F8695BFAF09 /* libti.sq.a */; };
 		242E8E3211BA39FE0046A0D0 /* libTiCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 242E8E3011BA39FD0046A0D0 /* libTiCore.a */; };
-		E72196EDD64A4CD9A3806FF4 /* libcrittercism.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DB2FB6A9F654FF5830101E0 /* libcrittercism.a */; };
-		FF2B32EC554E4E39BC6B4875 /* libdk.napp.social.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E2DD604C1B249BB9A4A1E80 /* libdk.napp.social.a */; };
-		41685AAF336D4A708504F1F7 /* libti.sq.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CF31F3CE37496D85BA9567 /* libti.sq.a */; };
+		037468205CD94CFB847DC669 /* libnet.iamyellow.tiws.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 488706FB188C4446BA7D9404 /* libnet.iamyellow.tiws.a */; };
+		B480EB97967741358747A7E0 /* libcrittercism.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A433176872E4ED99EDB417A /* libcrittercism.a */; };
+		1E6D4F0F1BBB484887C2A8D8 /* libdk.napp.social.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC845A14F09E446BB941A751 /* libdk.napp.social.a */; };
+		41B26C9BE9084C19B16743B5 /* libti.sq.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C629D90ACE5A4F8695BFAF09 /* libti.sq.a */; };
 		242E967711BAD2F20046A0D0 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 242E967411BAD2F20046A0D0 /* AsyncSocket.m */; };
 		242E967811BAD2F20046A0D0 /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 242E967611BAD2F20046A0D0 /* AsyncUdpSocket.m */; };
 		242E967911BAD2F20046A0D0 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 242E967411BAD2F20046A0D0 /* AsyncSocket.m */; };
@@ -903,9 +905,10 @@
 		DABB37B412E8CB280026A6EA /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24EB0A57111E1BAE001DC2D1 /* libxml2.dylib */; };
 		DABB37B512E8CB280026A6EA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24597034118FF66300519F79 /* StoreKit.framework */; };
 		DABB37B612E8CB280026A6EA /* libTiCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 242E8E3011BA39FD0046A0D0 /* libTiCore.a */; };
-		D32B558FA34A407BA477C147 /* libcrittercism.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DB2FB6A9F654FF5830101E0 /* libcrittercism.a */; };
-		6CEAEBE01451457EB56153FD /* libdk.napp.social.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E2DD604C1B249BB9A4A1E80 /* libdk.napp.social.a */; };
-		B01E9CBD510C4756952BD250 /* libti.sq.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CF31F3CE37496D85BA9567 /* libti.sq.a */; };
+		7271FC47E17F4C158F56F8BC /* libnet.iamyellow.tiws.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 488706FB188C4446BA7D9404 /* libnet.iamyellow.tiws.a */; };
+		D2F12E8D7A634BC680D6C9FF /* libcrittercism.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A433176872E4ED99EDB417A /* libcrittercism.a */; };
+		15DB8571A4C74B1C8D3AA011 /* libdk.napp.social.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC845A14F09E446BB941A751 /* libdk.napp.social.a */; };
+		38E5B14219BD4665989ECEC3 /* libti.sq.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C629D90ACE5A4F8695BFAF09 /* libti.sq.a */; };
 		DABB37B712E8CB280026A6EA /* libtiverify.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D5C75811E6364F00F097E2 /* libtiverify.a */; };
 		DABDEB08128B5A8F00C85FEA /* AudioStreamerCUR.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9FF582128A1F3600457759 /* AudioStreamerCUR.m */; };
 		DABF3ECF134D210400836137 /* TiBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = DABF3ECE134D210400836137 /* TiBuffer.m */; };
@@ -955,9 +958,10 @@
 		241EAA21118AB3BB0081A5BE /* defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = defines.h; path = Classes/defines.h; sourceTree = SOURCE_ROOT; };
 		241EAEC5118E2BA90081A5BE /* project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = project.xcconfig; sourceTree = "<group>"; };
 		242E8E3011BA39FD0046A0D0 /* libTiCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTiCore.a; path = lib/libTiCore.a; sourceTree = SOURCE_ROOT; };
-		9DB2FB6A9F654FF5830101E0 /* libcrittercism.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrittercism.a; path = "/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/crittercism/1.0.1/libcrittercism.a"; sourceTree = "<absolute>"; };
-		3E2DD604C1B249BB9A4A1E80 /* libdk.napp.social.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdk.napp.social.a; path = "/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/dk.napp.social/1.7.10/libdk.napp.social.a"; sourceTree = "<absolute>"; };
-		C3CF31F3CE37496D85BA9567 /* libti.sq.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libti.sq.a; path = "/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/ti.sq/0.4/libti.sq.a"; sourceTree = "<absolute>"; };
+		488706FB188C4446BA7D9404 /* libnet.iamyellow.tiws.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libnet.iamyellow.tiws.a; path = "/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/net.iamyellow.tiws/0.5/libnet.iamyellow.tiws.a"; sourceTree = "<absolute>"; };
+		2A433176872E4ED99EDB417A /* libcrittercism.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrittercism.a; path = "/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/crittercism/1.0.1/libcrittercism.a"; sourceTree = "<absolute>"; };
+		BC845A14F09E446BB941A751 /* libdk.napp.social.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdk.napp.social.a; path = "/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/dk.napp.social/1.7.10/libdk.napp.social.a"; sourceTree = "<absolute>"; };
+		C629D90ACE5A4F8695BFAF09 /* libti.sq.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libti.sq.a; path = "/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/ti.sq/0.4/libti.sq.a"; sourceTree = "<absolute>"; };
 		242E95C811BAC8B40046A0D0 /* TiDebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TiDebugger.h; path = Classes/TiDebugger.h; sourceTree = SOURCE_ROOT; };
 		242E967311BAD2F20046A0D0 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AsyncSocket.h; path = Classes/AsyncSocket.h; sourceTree = SOURCE_ROOT; };
 		242E967411BAD2F20046A0D0 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AsyncSocket.m; path = Classes/AsyncSocket.m; sourceTree = SOURCE_ROOT; };
@@ -1590,9 +1594,10 @@
 				24EB0A58111E1BAE001DC2D1 /* libxml2.dylib in Frameworks */,
 				24597035118FF66300519F79 /* StoreKit.framework in Frameworks */,
 				242E8E3111BA39FD0046A0D0 /* libTiCore.a in Frameworks */,
-				5720AB4E4B9E4405913104CB /* libcrittercism.a in Frameworks */,
-				78832826C51B4AA4B3A7BDCD /* libdk.napp.social.a in Frameworks */,
-				596FA7F9A51D40BCBE73D8E9 /* libti.sq.a in Frameworks */,
+				D7F37927F3DC4917A9413128 /* libnet.iamyellow.tiws.a in Frameworks */,
+				E0BD34DA41EB4684834F283D /* libcrittercism.a in Frameworks */,
+				5E9B5B9998BF4CDEB18A2AA4 /* libdk.napp.social.a in Frameworks */,
+				4F9C5DEED7684673B6E1D093 /* libti.sq.a in Frameworks */,
 				B606EF60190B42FB00663EFC /* libAPSHTTPClient.a in Frameworks */,
 				242EA11611BD956F0046A0D0 /* ExternalAccessory.framework in Frameworks */,
 				24D5C75911E6364F00F097E2 /* libtiverify.a in Frameworks */,
@@ -1632,9 +1637,10 @@
 				24D8E4AB119B9D8A00F8CAA6 /* libxml2.dylib in Frameworks */,
 				24D8E4AC119B9D8A00F8CAA6 /* StoreKit.framework in Frameworks */,
 				242E8E3211BA39FE0046A0D0 /* libTiCore.a in Frameworks */,
-				E72196EDD64A4CD9A3806FF4 /* libcrittercism.a in Frameworks */,
-				FF2B32EC554E4E39BC6B4875 /* libdk.napp.social.a in Frameworks */,
-				41685AAF336D4A708504F1F7 /* libti.sq.a in Frameworks */,
+				037468205CD94CFB847DC669 /* libnet.iamyellow.tiws.a in Frameworks */,
+				B480EB97967741358747A7E0 /* libcrittercism.a in Frameworks */,
+				1E6D4F0F1BBB484887C2A8D8 /* libdk.napp.social.a in Frameworks */,
+				41B26C9BE9084C19B16743B5 /* libti.sq.a in Frameworks */,
 				24D5C75A11E6364F00F097E2 /* libtiverify.a in Frameworks */,
 				DAA4B2AF134E3DBD00AB6011 /* libti_ios_debugger.a in Frameworks */,
 				DADE76D613D65C6F0079FC75 /* libicucore.dylib in Frameworks */,
@@ -1674,9 +1680,10 @@
 				DABB37B412E8CB280026A6EA /* libxml2.dylib in Frameworks */,
 				DABB37B512E8CB280026A6EA /* StoreKit.framework in Frameworks */,
 				DABB37B612E8CB280026A6EA /* libTiCore.a in Frameworks */,
-				D32B558FA34A407BA477C147 /* libcrittercism.a in Frameworks */,
-				6CEAEBE01451457EB56153FD /* libdk.napp.social.a in Frameworks */,
-				B01E9CBD510C4756952BD250 /* libti.sq.a in Frameworks */,
+				7271FC47E17F4C158F56F8BC /* libnet.iamyellow.tiws.a in Frameworks */,
+				D2F12E8D7A634BC680D6C9FF /* libcrittercism.a in Frameworks */,
+				15DB8571A4C74B1C8D3AA011 /* libdk.napp.social.a in Frameworks */,
+				38E5B14219BD4665989ECEC3 /* libti.sq.a in Frameworks */,
 				DABB37B712E8CB280026A6EA /* libtiverify.a in Frameworks */,
 				DAA4B2B0134E3DBD00AB6011 /* libti_ios_debugger.a in Frameworks */,
 				DADE76D713D65C7D0079FC75 /* libicucore.dylib in Frameworks */,
@@ -2769,9 +2776,10 @@
 				DAA4B2AD134E3DBD00AB6011 /* libti_ios_debugger.a */,
 				24D5C75811E6364F00F097E2 /* libtiverify.a */,
 				242E8E3011BA39FD0046A0D0 /* libTiCore.a */,
-				9DB2FB6A9F654FF5830101E0 /* libcrittercism.a */,
-				3E2DD604C1B249BB9A4A1E80 /* libdk.napp.social.a */,
-				C3CF31F3CE37496D85BA9567 /* libti.sq.a */,
+				488706FB188C4446BA7D9404 /* libnet.iamyellow.tiws.a */,
+				2A433176872E4ED99EDB417A /* libcrittercism.a */,
+				BC845A14F09E446BB941A751 /* libdk.napp.social.a */,
+				C629D90ACE5A4F8695BFAF09 /* libti.sq.a */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
@@ -4098,6 +4106,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lib\"",
+                                        "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/net.iamyellow.tiws/0.5\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/crittercism/1.0.1\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/dk.napp.social/1.7.10\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/ti.sq/0.4\"",
@@ -4142,6 +4151,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lib\"",
+                                        "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/net.iamyellow.tiws/0.5\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/crittercism/1.0.1\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/dk.napp.social/1.7.10\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/ti.sq/0.4\"",
@@ -4178,6 +4188,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lib\"",
+                                        "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/net.iamyellow.tiws/0.5\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/crittercism/1.0.1\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/dk.napp.social/1.7.10\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/ti.sq/0.4\"",
@@ -4216,6 +4227,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lib\"",
+                                        "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/net.iamyellow.tiws/0.5\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/crittercism/1.0.1\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/dk.napp.social/1.7.10\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/ti.sq/0.4\"",
@@ -4379,6 +4391,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lib\"",
+                                        "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/net.iamyellow.tiws/0.5\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/crittercism/1.0.1\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/dk.napp.social/1.7.10\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/ti.sq/0.4\"",
@@ -4424,6 +4437,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lib\"",
+                                        "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/net.iamyellow.tiws/0.5\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/crittercism/1.0.1\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/dk.napp.social/1.7.10\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/ti.sq/0.4\"",
@@ -4464,6 +4478,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lib\"",
+                                        "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/net.iamyellow.tiws/0.5\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/crittercism/1.0.1\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/dk.napp.social/1.7.10\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/ti.sq/0.4\"",
@@ -4510,6 +4525,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lib\"",
+                                        "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/net.iamyellow.tiws/0.5\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/crittercism/1.0.1\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/dk.napp.social/1.7.10\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/ti.sq/0.4\"",
@@ -4554,6 +4570,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lib\"",
+                                        "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/net.iamyellow.tiws/0.5\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/crittercism/1.0.1\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/dk.napp.social/1.7.10\"",
                                         "\"/Users/ts949370/Documents/Apps2/To-Do-Demo/modules/iphone/ti.sq/0.4\"",

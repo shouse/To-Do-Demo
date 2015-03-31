@@ -95,6 +95,15 @@ module.exports = [ {
     }
 }, {
     isApi: true,
+    priority: 1000.0048,
+    key: "Window",
+    style: {
+        width: 320,
+        height: 320,
+        layout: "vertical"
+    }
+}, {
+    isApi: true,
     priority: 1000.0095,
     key: "h-wrap",
     style: {
@@ -106,15 +115,6 @@ module.exports = [ {
     key: "h-wrap-disable",
     style: {
         horizontalWrap: false
-    }
-}, {
-    isApi: true,
-    priority: 1000.077,
-    key: "Window",
-    style: {
-        width: 320,
-        height: 320,
-        layout: "vertical"
     }
 }, {
     isClass: true,
@@ -349,12 +349,35 @@ module.exports = [ {
     }
 }, {
     isClass: true,
+    priority: 10000.0046,
+    key: "row",
+    style: {
+        hasChild: true
+    }
+}, {
+    isClass: true,
     priority: 10000.0047,
     key: "n-col-5",
     style: {
         left: 0,
         height: Ti.UI.SIZE,
         width: "41.25%"
+    }
+}, {
+    isClass: true,
+    priority: 10000.0047,
+    key: "input",
+    style: {
+        left: 0,
+        width: 100,
+        height: 40,
+        color: "white",
+        font: {
+            fontSize: 17
+        },
+        borderWidth: 1,
+        borderColor: "#E3E3E5",
+        borderRadius: 5
     }
 }, {
     isClass: true,
@@ -373,6 +396,13 @@ module.exports = [ {
         left: 0,
         height: Ti.UI.SIZE,
         width: "57.75%"
+    }
+}, {
+    isClass: true,
+    priority: 10000.0049,
+    key: "toggleBtn",
+    style: {
+        title: L("nlFokkezbForm_toggleBtn", "Change palette")
     }
 }, {
     isClass: true,
@@ -5190,36 +5220,6 @@ module.exports = [ {
     key: "lo-composite",
     style: {
         layout: "composite"
-    }
-}, {
-    isClass: true,
-    priority: 10000.0768,
-    key: "row",
-    style: {
-        hasChild: true
-    }
-}, {
-    isClass: true,
-    priority: 10000.0769,
-    key: "input",
-    style: {
-        left: 0,
-        width: 100,
-        height: 40,
-        color: "white",
-        font: {
-            fontSize: 17
-        },
-        borderWidth: 1,
-        borderColor: "#E3E3E5",
-        borderRadius: 5
-    }
-}, {
-    isClass: true,
-    priority: 10000.0771,
-    key: "toggleBtn",
-    style: {
-        title: L("nlFokkezbForm_toggleBtn", "Change palette")
     }
 }, {
     isClass: true,

@@ -468,6 +468,20 @@ module.exports = [ {
     }
 }, {
     isClass: true,
+    priority: 10000.0062,
+    key: "input",
+    style: {
+        width: Ti.UI.FILL,
+        height: 132,
+        color: "#999",
+        font: {
+            fontSize: 17
+        },
+        paddingLeft: 0,
+        paddingRight: 0
+    }
+}, {
+    isClass: true,
     priority: 10000.0063,
     key: "n-col-push-9",
     style: {
@@ -5184,20 +5198,6 @@ module.exports = [ {
     }
 }, {
     isClass: true,
-    priority: 10000.0784,
-    key: "input",
-    style: {
-        width: Ti.UI.FILL,
-        height: 132,
-        color: "#999",
-        font: {
-            fontSize: 17
-        },
-        paddingLeft: 0,
-        paddingRight: 0
-    }
-}, {
-    isClass: true,
     queries: {
         formFactor: "isHandheld"
     },
@@ -5276,6 +5276,15 @@ module.exports = [ {
     key: "sb-style-translucent-black",
     style: {
         statusBarStyle: Titanium.UI.iPhone.StatusBar.TRANSLUCENT_BLACK
+    }
+}, {
+    isClass: true,
+    priority: 10101.0063,
+    key: "input",
+    style: {
+        left: -6,
+        paddingLeft: 0,
+        paddingRight: 0
     }
 }, {
     isClass: true,
@@ -5479,15 +5488,6 @@ module.exports = [ {
     key: "ai-plain",
     style: {
         style: Titanium.UI.iPhone.ActivityIndicatorStyle.PLAIN
-    }
-}, {
-    isClass: true,
-    priority: 10101.0785,
-    key: "input",
-    style: {
-        left: -6,
-        paddingLeft: 0,
-        paddingRight: 0
     }
 }, {
     isId: true,

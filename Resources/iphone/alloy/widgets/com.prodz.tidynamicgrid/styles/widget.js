@@ -5475,7 +5475,7 @@ module.exports = [ {
     }
 }, {
     isId: true,
-    priority: 100000.0789,
+    priority: 100000.0067,
     key: "tdgMain",
     style: {
         backgroundColor: "#fff",
@@ -5484,7 +5484,7 @@ module.exports = [ {
     }
 }, {
     isId: true,
-    priority: 100000.079,
+    priority: 100000.0068,
     key: "tdgWrapper",
     style: {
         width: Ti.UI.FILL,
@@ -5493,7 +5493,7 @@ module.exports = [ {
     }
 }, {
     isId: true,
-    priority: 100000.0791,
+    priority: 100000.0069,
     key: "tdgScrollView",
     style: {
         width: Ti.UI.FILL,

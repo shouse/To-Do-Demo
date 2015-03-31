@@ -58,6 +58,20 @@
 			nil
 		]];
 		
+		[modules addObject:[NSDictionary
+			dictionaryWithObjectsAndKeys:@"tiws",
+			@"name",
+			@"net.iamyellow.tiws",
+			@"moduleid",
+			@"0.5",
+			@"version",
+			@"1a88f1c1-43de-45da-b57d-04551924f734",
+			@"guid",
+			@"",
+			@"licensekey",
+			nil
+		]];
+		
 
 	return modules;
 }

@@ -6,6 +6,13 @@ function WPATH(s) {
 
 module.exports = [ {
     isApi: true,
+    priority: 1000.0012,
+    key: "Label",
+    style: {
+        color: "white"
+    }
+}, {
+    isApi: true,
     priority: 1000.0017,
     key: "Window",
     style: {
@@ -106,13 +113,6 @@ module.exports = [ {
     key: "h-wrap-disable",
     style: {
         horizontalWrap: false
-    }
-}, {
-    isApi: true,
-    priority: 1000.0734,
-    key: "Label",
-    style: {
-        color: "white"
     }
 }, {
     isClass: true,
@@ -5240,7 +5240,7 @@ module.exports = [ {
     queries: {
         formFactor: "isHandheld"
     },
-    priority: 10011.0761,
+    priority: 10011.0039,
     key: "viewMenuItem",
     style: {
         height: 50,
@@ -5251,7 +5251,7 @@ module.exports = [ {
     queries: {
         formFactor: "isTablet"
     },
-    priority: 10011.0762,
+    priority: 10011.004,
     key: "viewMenuItem",
     style: {
         height: 88
@@ -5503,7 +5503,7 @@ module.exports = [ {
     }
 }, {
     isId: true,
-    priority: 100000.0751,
+    priority: 100000.0029,
     key: "topNavigationDrawer",
     style: {
         top: 0,
@@ -5513,7 +5513,7 @@ module.exports = [ {
     }
 }, {
     isId: true,
-    priority: 100000.0754,
+    priority: 100000.0032,
     key: "viewMovable",
     style: {
         left: 0,
@@ -5521,7 +5521,7 @@ module.exports = [ {
     }
 }, {
     isId: true,
-    priority: 100000.0758,
+    priority: 100000.0036,
     key: "shadowview",
     style: {
         shadowColor: "black",
@@ -5533,7 +5533,7 @@ module.exports = [ {
     }
 }, {
     isId: true,
-    priority: 100000.0763,
+    priority: 100000.0041,
     key: "imageViewObserve",
     style: {
         image: "/images/brand/observe_bw.png",
@@ -5541,7 +5541,7 @@ module.exports = [ {
     }
 }, {
     isId: true,
-    priority: 100000.0764,
+    priority: 100000.0042,
     key: "imageViewMaintain",
     style: {
         image: "/images/brand/maintain_bw.png",
@@ -5549,7 +5549,7 @@ module.exports = [ {
     }
 }, {
     isId: true,
-    priority: 100000.0765,
+    priority: 100000.0043,
     key: "imageViewFix",
     style: {
         image: "/images/brand/fix_bw.png",
@@ -5557,7 +5557,7 @@ module.exports = [ {
     }
 }, {
     isId: true,
-    priority: 100000.0766,
+    priority: 100000.0044,
     key: "imageViewCompete",
     style: {
         image: "/images/brand/compete_bw.png",
@@ -5568,7 +5568,7 @@ module.exports = [ {
     queries: {
         formFactor: "isHandheld"
     },
-    priority: 100011.0735,
+    priority: 100011.0013,
     key: "imageViewTitle",
     style: {
         image: "/images/brand/thefleet_logotype.png"
@@ -5578,7 +5578,7 @@ module.exports = [ {
     queries: {
         formFactor: "isTablet"
     },
-    priority: 100011.0736,
+    priority: 100011.0014,
     key: "imageViewTitle",
     style: {
         image: "/images/brand/thefleet_logotype.png"
@@ -5588,7 +5588,7 @@ module.exports = [ {
     queries: {
         formFactor: "isHandheld"
     },
-    priority: 100011.0737,
+    priority: 100011.0015,
     key: "labelTitle",
     style: {
         height: Ti.UI.SIZE,
@@ -5604,7 +5604,7 @@ module.exports = [ {
     queries: {
         formFactor: "isTablet"
     },
-    priority: 100011.0738,
+    priority: 100011.0016,
     key: "labelTitle",
     style: {
         height: Ti.UI.SIZE,
@@ -5620,7 +5620,7 @@ module.exports = [ {
     queries: {
         formFactor: "isHandheld"
     },
-    priority: 100011.0739,
+    priority: 100011.0017,
     key: "buttonLeft",
     style: {
         image: "/images/navigation/ic_menu_white_48dp.png",
@@ -5634,7 +5634,7 @@ module.exports = [ {
     queries: {
         formFactor: "isTablet"
     },
-    priority: 100011.074,
+    priority: 100011.0018,
     key: "buttonLeft",
     style: {
         left: 0,
@@ -5647,7 +5647,7 @@ module.exports = [ {
     queries: {
         formFactor: "isHandheld"
     },
-    priority: 100011.0741,
+    priority: 100011.0019,
     key: "buttonLeft2",
     style: {
         left: 60,
@@ -5660,7 +5660,7 @@ module.exports = [ {
     queries: {
         formFactor: "isTablet"
     },
-    priority: 100011.0742,
+    priority: 100011.002,
     key: "buttonLeft2",
     style: {
         left: 90,
@@ -5673,7 +5673,7 @@ module.exports = [ {
     queries: {
         formFactor: "isHandheld"
     },
-    priority: 100011.0743,
+    priority: 100011.0021,
     key: "buttonRight",
     style: {
         right: 0,
@@ -5686,7 +5686,7 @@ module.exports = [ {
     queries: {
         formFactor: "isTablet"
     },
-    priority: 100011.0744,
+    priority: 100011.0022,
     key: "buttonRight",
     style: {
         right: 0,
@@ -5699,7 +5699,7 @@ module.exports = [ {
     queries: {
         formFactor: "isHandheld"
     },
-    priority: 100011.0745,
+    priority: 100011.0023,
     key: "buttonRight2",
     style: {
         top: 10,
@@ -5711,7 +5711,7 @@ module.exports = [ {
     queries: {
         formFactor: "isTablet"
     },
-    priority: 100011.0746,
+    priority: 100011.0024,
     key: "buttonRight2",
     style: {
         top: 10,
@@ -5723,7 +5723,7 @@ module.exports = [ {
     queries: {
         formFactor: "isHandheld"
     },
-    priority: 100011.0747,
+    priority: 100011.0025,
     key: "leftMenu",
     style: {
         top: 0,
@@ -5736,7 +5736,7 @@ module.exports = [ {
     queries: {
         formFactor: "isTablet"
     },
-    priority: 100011.0748,
+    priority: 100011.0026,
     key: "leftMenu",
     style: {
         top: 0,
@@ -5749,7 +5749,7 @@ module.exports = [ {
     queries: {
         formFactor: "isHandheld"
     },
-    priority: 100011.0749,
+    priority: 100011.0027,
     key: "rightMenu",
     style: {
         top: 0,
@@ -5763,7 +5763,7 @@ module.exports = [ {
     queries: {
         formFactor: "isTablet"
     },
-    priority: 100011.075,
+    priority: 100011.0028,
     key: "rightMenu",
     style: {
         top: 0,
@@ -5777,7 +5777,7 @@ module.exports = [ {
     queries: {
         formFactor: "isHandheld"
     },
-    priority: 100011.0752,
+    priority: 100011.003,
     key: "viewNav",
     style: {
         top: 0,
@@ -5790,7 +5790,7 @@ module.exports = [ {
     queries: {
         formFactor: "isTablet"
     },
-    priority: 100011.0753,
+    priority: 100011.0031,
     key: "viewNav",
     style: {
         top: 0,
@@ -5803,7 +5803,7 @@ module.exports = [ {
     queries: {
         formFactor: "isHandheld"
     },
-    priority: 100011.0755,
+    priority: 100011.0033,
     key: "viewContentArea",
     style: {
         top: 64
@@ -5813,7 +5813,7 @@ module.exports = [ {
     queries: {
         formFactor: "isTablet"
     },
-    priority: 100011.0756,
+    priority: 100011.0034,
     key: "viewContentArea",
     style: {
         top: 88
@@ -5823,7 +5823,7 @@ module.exports = [ {
     queries: {
         formFactor: "isTablet"
     },
-    priority: 100011.0757,
+    priority: 100011.0035,
     key: "viewSideContent",
     style: {
         width: "50%",
@@ -5835,7 +5835,7 @@ module.exports = [ {
     queries: {
         formFactor: "isHandheld"
     },
-    priority: 100011.0759,
+    priority: 100011.0037,
     key: "viewShadow",
     style: {
         top: 64
@@ -5845,7 +5845,7 @@ module.exports = [ {
     queries: {
         formFactor: "isTablet"
     },
-    priority: 100011.076,
+    priority: 100011.0038,
     key: "viewShadow",
     style: {
         top: 88

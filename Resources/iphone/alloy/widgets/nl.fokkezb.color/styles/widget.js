@@ -489,10 +489,30 @@ module.exports = [ {
     }
 }, {
     isClass: true,
+    priority: 10000.0065,
+    key: "image",
+    style: {
+        backgroundImage: WPATH("images/ghsv.png")
+    }
+}, {
+    isClass: true,
     priority: 10000.0066,
     key: "col",
     style: {
         top: "10dp"
+    }
+}, {
+    isClass: true,
+    priority: 10000.0066,
+    key: "circle",
+    style: {
+        width: 20,
+        height: 20,
+        borderWidth: 5,
+        borderColor: "black",
+        borderRadius: 10,
+        touchEnabled: false,
+        visible: false
     }
 }, {
     isClass: true,
@@ -5181,26 +5201,6 @@ module.exports = [ {
     key: "lo-composite",
     style: {
         layout: "composite"
-    }
-}, {
-    isClass: true,
-    priority: 10000.0787,
-    key: "image",
-    style: {
-        backgroundImage: WPATH("images/ghsv.png")
-    }
-}, {
-    isClass: true,
-    priority: 10000.0788,
-    key: "circle",
-    style: {
-        width: 20,
-        height: 20,
-        borderWidth: 5,
-        borderColor: "black",
-        borderRadius: 10,
-        touchEnabled: false,
-        visible: false
     }
 }, {
     isClass: true,

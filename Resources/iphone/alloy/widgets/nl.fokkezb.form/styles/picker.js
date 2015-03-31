@@ -95,6 +95,14 @@ module.exports = [ {
     }
 }, {
     isApi: true,
+    priority: 1000.0057,
+    key: "NavigationWindow",
+    style: {
+        width: 300,
+        height: 250
+    }
+}, {
+    isApi: true,
     priority: 1000.0095,
     key: "h-wrap",
     style: {
@@ -106,14 +114,6 @@ module.exports = [ {
     key: "h-wrap-disable",
     style: {
         horizontalWrap: false
-    }
-}, {
-    isApi: true,
-    priority: 1000.0779,
-    key: "NavigationWindow",
-    style: {
-        width: 300,
-        height: 250
     }
 }, {
     isClass: true,
@@ -427,10 +427,29 @@ module.exports = [ {
     }
 }, {
     isClass: true,
+    priority: 10000.0055,
+    key: "row",
+    style: {
+        hasChild: true
+    }
+}, {
+    isClass: true,
     priority: 10000.0056,
     key: "n-col-push-2",
     style: {
         left: "16.50%"
+    }
+}, {
+    isClass: true,
+    priority: 10000.0056,
+    key: "input",
+    style: {
+        width: Ti.UI.FILL,
+        height: 40,
+        color: "#999",
+        font: {
+            fontSize: 17
+        }
     }
 }, {
     isClass: true,
@@ -5189,25 +5208,6 @@ module.exports = [ {
     key: "lo-composite",
     style: {
         layout: "composite"
-    }
-}, {
-    isClass: true,
-    priority: 10000.0777,
-    key: "row",
-    style: {
-        hasChild: true
-    }
-}, {
-    isClass: true,
-    priority: 10000.0778,
-    key: "input",
-    style: {
-        width: Ti.UI.FILL,
-        height: 40,
-        color: "#999",
-        font: {
-            fontSize: 17
-        }
     }
 }, {
     isClass: true,

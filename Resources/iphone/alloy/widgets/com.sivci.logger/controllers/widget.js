@@ -413,7 +413,7 @@ function Controller() {
         }(),
         properties: {
             color: "#ffffff",
-            backgroundColor: "#fff",
+            backgroundColor: "#f2eee9",
             bindId: "viewMain",
             layout: "horizontal",
             width: Ti.UI.FILL,
@@ -567,7 +567,7 @@ function Controller() {
         }(),
         properties: {
             color: "#ffffff",
-            backgroundColor: "#fff",
+            backgroundColor: "#f2eee9",
             bindId: "viewMain",
             layout: "horizontal",
             width: Ti.UI.FILL,

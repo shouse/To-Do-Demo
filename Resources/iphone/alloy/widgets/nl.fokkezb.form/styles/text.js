@@ -461,6 +461,19 @@ module.exports = [ {
     }
 }, {
     isClass: true,
+    priority: 10000.0061,
+    key: "input",
+    style: {
+        width: Ti.UI.FILL,
+        borderStyle: Ti.UI.INPUT_BORDERSTYLE_NONE,
+        borderWidth: 0,
+        color: "#999",
+        font: {
+            fontSize: 17
+        }
+    }
+}, {
+    isClass: true,
     priority: 10000.0062,
     key: "n-col-push-8",
     style: {
@@ -5181,19 +5194,6 @@ module.exports = [ {
     key: "lo-composite",
     style: {
         layout: "composite"
-    }
-}, {
-    isClass: true,
-    priority: 10000.0783,
-    key: "input",
-    style: {
-        width: Ti.UI.FILL,
-        borderStyle: Ti.UI.INPUT_BORDERSTYLE_NONE,
-        borderWidth: 0,
-        color: "#999",
-        font: {
-            fontSize: 17
-        }
     }
 }, {
     isClass: true,

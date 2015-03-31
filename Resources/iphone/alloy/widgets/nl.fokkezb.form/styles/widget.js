@@ -5265,6 +5265,13 @@ module.exports = [ {
     }
 }, {
     isClass: true,
+    priority: 10101.0064,
+    key: "table",
+    style: {
+        style: Ti.UI.iPhone.TableViewStyle.GROUPED
+    }
+}, {
+    isClass: true,
     priority: 10101.0134,
     key: "btn-action",
     style: {
@@ -5465,13 +5472,6 @@ module.exports = [ {
     key: "ai-plain",
     style: {
         style: Titanium.UI.iPhone.ActivityIndicatorStyle.PLAIN
-    }
-}, {
-    isClass: true,
-    priority: 10101.0786,
-    key: "table",
-    style: {
-        style: Ti.UI.iPhone.TableViewStyle.GROUPED
     }
 }, {
     isId: true,

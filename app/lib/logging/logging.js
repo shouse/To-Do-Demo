@@ -475,13 +475,11 @@ exports.Logger = function(args) {
      */
 
     function websocketSetup() {
-        var wsURI = Alloy.CFG.logger.webSocketURI ? args.URI : false
+        var wsURI = Alloy.CFG.logger.webSocketURI ? Alloy.CFG.logger.webSocketURI : false
         if (!wsURI) {
             alert("Provide a websocket URI in config.json");
             return;
         }
-        //@TODO check config.json for socket setting
-        uri = 'ws://localhost:8765';
 
         tiws = require('net.iamyellow.tiws').createWS();
 
