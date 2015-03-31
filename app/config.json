@@ -9,7 +9,7 @@
       "crittercismIOSAppId": "55184773bdf36ccd74eae9d8",
       "crittercismAndroidAppId": "55184773bdf36ccd74eae9d8",
       "webSocket" : true,
-      "webSocketURI" : 'ws://localhost:8765'
+      "webSocketURI" : "ws://localhost:8765"
     }
   },
   "env:development": {},
