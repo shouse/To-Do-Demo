@@ -46,20 +46,10 @@ function init() {
         $.labelDueDate.text = "Due " + moment(todoItem.get('dueDateDateTime')).fromNow();
     }
 
-    /*
-     if (hasReminder()) {
-     $.viewAptTime.height = 44;
-     $.viewScheduleApt.height = 0;
-     $.addClass($.viewScheduleApt, 'bgDarkGreen');
-
-     var reminderDate = todoItem.get('reminderDateTime');
-
-     var dateText = moment.utc(reminderDate).fromNow();
-     $.labelReminder.text = dateText;
-     // + reminderDate;
-     }
-     */
-
+    if (hasReminder()) {
+        var reminderDate = todoItem.get('reminderDateTime');
+        $.labelReminder.text = "Reminder set: " + moment(reminderDate).fromNow();
+    }
 }
 
 /**
@@ -122,6 +112,33 @@ function addEventListeners() {
     $.viewGallery.addEventListener('click', function(){
         Alloy.Globals.Menu.setMainContent('TodoListGallery', {todo_id: todoItem.get("todo_id")});
     });
+
+    // Schedule a reminder
+    $.viewSetReminder.addEventListener('click', setReminder);
+
+    $.viewTags.addEventListener('click', setTags);
+}
+
+/**
+ * This sets the Local Notification for the reminder
+ * @method setLocalNotification
+ */
+function setLocalNotification() {
+    // @TODO normalize between iOS and Android
+    var dateString = todoItem.get('dueDateDateTime') ? " is due at " + moment(todoItem.get('dueDateDateTime')).format('l') : "";
+    var notifyArgs = {
+        alertBody: "Task Reminder: " + todoItem.get('name') + dateString,
+        badge: 1,
+        data: {
+            taskName : todoItem.get('name'),
+            taskDesc : todoItem.get('content'),
+            taskDue : todoItem.get('due'),
+            itemId : todoItem.get('todo_id')
+        }
+    };
+
+    var notify = require('localNotify');
+    notify.schedule(notifyArgs);
 }
 
 /**
@@ -169,6 +186,20 @@ function toggleStatus() {
 }
 
 /**
+ * @method setTags
+ */
+function setTags() {
+    alert('Not Implemented yet.');
+}
+
+/**
+ * @method getTags
+ */
+function getTags() {
+
+}
+
+/**
  * See if is Done
  * @method isDone
  */
@@ -202,7 +233,7 @@ function hasPhoto() {
 
 /**
  * Invoke the calendar module to set a date
- * @method setReminder
+ * @method setDueDate
  * @return
  */
 function setDueDate() {
@@ -446,6 +477,7 @@ function setReminder() {
             dialog.addEventListener('click', function(e) {
                 if (e.index == 0) {
                     saveDate(d.dateValue, "Reminder");
+                    setLocalNotification();
                 } else {
                     Allog.Globals.Menu.showInfoBar("Reminder NOT Set");
                 }
@@ -461,6 +493,7 @@ function setReminder() {
 }
 
 /**
+ * Save the date of a Due Date or Reminder
  * @method saveDate
  */
 function saveDate(d, type) {
@@ -472,11 +505,22 @@ function saveDate(d, type) {
         eventId: todoItem.get('name')
     });
 
-    todoItem.set({ dueDateDateTime: d });
+    if (type === "Reminder") {
+        todoItem.set({ reminderDateTime: moment(d).format() });
+    } else {
+        todoItem.set({ dueDateDateTime: moment(d).format() });
+    }
+
     todoItem.save();
     todo.fetch();
 
-    $.labelDueDate.text = "Due " + moment(d).fromNow();
+    if (type === "Reminder") {
+        $.labelReminder.text = "Reminder " + moment(d).fromNow();
+    } else {
+        $.labelDueDate.text = "Due " + moment(d).fromNow();
+    }
+
+
     //Alloy.Globals.toast.show("Reminder set!");
     Alloy.Globals.Menu.showInfoBar({title: type + " set " + moment(d).fromNow() + " from now"});
 }
