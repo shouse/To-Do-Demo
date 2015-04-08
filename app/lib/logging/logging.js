@@ -242,6 +242,7 @@ exports.Logger = function(args) {
         var eventId = args.eventId ? args.eventId : false;
 
         var remote = args.remote ? args.remote : false;
+        var analytics = args.analytics ? args.analytics : false;
 
         // This is for Titanium Analytics.  FALSE BY DEFAULT
         var feature = (args.feature !== undefined) ? args.feature : false;
