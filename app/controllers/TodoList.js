@@ -36,8 +36,6 @@ function init() {
         getTasks();
     }
 
-
-
     if (Alloy.isTablet) {
         //Alloy.Globals.Menu.setSideContent('TodoListHistory');
     }
@@ -124,9 +122,6 @@ function addEventListeners() {
 
     // Item Clicked
     $.listViewTodo.addEventListener('itemclick', function(e) {
-        log.warn(e.sectionIndex);
-        log.warn(e.itemId);
-        log.warn(e.itemIndex);
         if (Alloy.isTablet) {
             Alloy.Globals.Menu.setSideContent('TodoListDetail', {todo_id: e.itemId});
         } else {
@@ -260,6 +255,8 @@ function todoSuccess(recordsToShow) {
     });
 
     $.listViewTodo.appendSection(listSection);
+
+    filterByDate();
 }
 
 /**
@@ -294,4 +291,41 @@ function deleteItem(e){
              Alloy.Globals.Menu.showInfoBar({title: "Not Deleted!"});
          }
      });
+}
+
+/**
+ *
+ */
+function filterByDate() {
+
+    var tasksForToday = todo.filter(function(item){
+        if (item.get("dueDateDateTime") === null) return false;
+        return moment(item.get("dueDateDateTime", false)).isSame(new Date(), 'day');
+    });
+
+    var tasksForTomorrow = todo.filter(function(item){
+        if (item.get("dueDateDateTime") === null) return false;
+        return moment(item.get("dueDateDateTime", false)).subtract(1, 'd').isSame(new Date(), 'day');
+    });
+
+    // _.difference(
+
+    var tasksForThisWeek = todo.filter(function(item){
+        if (item.get("dueDateDateTime") === null) return false;
+        return moment(item.get("dueDateDateTime", false)).isSame(new Date(), 'week');
+    });
+
+    // The difference between the union of the top two
+    tasksForThisWeek = _.difference(tasksForThisWeek, _.union(tasksForToday, tasksForTomorrow));
+    var remainingTasks = [];
+
+    if (tasksForToday.length > 0) {
+        alert("Today's task length" + tasksForToday.length);
+    }
+    if (tasksForTomorrow.length > 0) {
+        alert("Tomorrow's task length" + tasksForTomorrow.length);
+    }
+    if (tasksForThisWeek.length > 0) {
+        alert("This week's task length" + tasksForThisWeek.length);
+    }
 }

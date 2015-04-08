@@ -1,6 +1,6 @@
 dependencies: \
-  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiUIButton.m \
-  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiUIButton.h \
+  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiUISwitch.m \
+  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiUISwitch.h \
   /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiUIView.h \
   /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiProxy.h \
   /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiBase.h \
@@ -30,17 +30,6 @@ dependencies: \
   /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiBlob.h \
   /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/LayoutConstraint.h \
   /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiGradient.h \
-  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiUIButtonProxy.h \
   /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiViewProxy.h \
   /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiRect.h \
-  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiViewTemplate.h \
-  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiUINavBarButton.h \
-  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiToolbarButton.h \
-  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiToolbar.h \
-  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/ImageLoader.h \
-  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/APSHTTPClient/APSHTTPClient.h \
-  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/APSHTTPClient/APSHTTPRequest.h \
-  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/APSHTTPClient/APSHTTPResponse.h \
-  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/APSHTTPClient/APSHTTPPostForm.h \
-  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/APSHTTPClient/APSHTTPHelper.h \
-  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiButtonUtil.h
+  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiViewTemplate.h
