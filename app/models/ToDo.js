@@ -23,7 +23,8 @@ exports.definition = {
             "lastModifiedDateTime"	: moment().format(),
 			"hasPhoto"			    : false,
 			"hasVideo"			    : false,
-			"photoCount"		    : 0
+			"photoCount"		    : 0,
+            "categories"            : ''
 		},
 		"adapter" : {
 			"idAttribute": "todo_id",

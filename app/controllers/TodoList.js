@@ -31,7 +31,7 @@ function init() {
     log.debug('[TodoList] : Initializing');
     // If there is no existing todo records, get standard set
     if (todo.length > 0) {
-        todoSuccess();
+        filterByDate();
     } else {
         getTasks();
     }
@@ -147,7 +147,7 @@ function filter(item) {
             _.each(sections, function(section) {
                 $.listViewTodo.deleteSectionAt(0);
             });
-            todoSuccess();
+            filterByDate();
             break;
         case "viewFilterDone":
         case "labelFilterDone":
@@ -157,7 +157,7 @@ function filter(item) {
             });
 
             var doneCollection = _.where(todo.toJSON(), {status: 1});
-            todoSuccess(doneCollection);
+            addListItems(doneCollection, {sectionTitle: "Completed Tasks"});
             break;
     }
 }
@@ -183,16 +183,17 @@ function getTasks() {
         todo.fetch();
     }
 
-    todoSuccess();
+    addListItems();
 }
 
 /**
  * Add the todo records to the List View Section
- * @method todoSuccess
+ * @method addListItems
  * @param {} recordsToShow
  * @return
  */
-function todoSuccess(recordsToShow) {
+function addListItems(recordsToShow, args) {
+    var sectionTitle = args.sectionTitle ? args.sectionTitle : "Tasks";
     var sortedCollection;
 
     if (recordsToShow) {
@@ -200,32 +201,32 @@ function todoSuccess(recordsToShow) {
     } else {
         sortedCollection = _.sortBy(todo.toJSON(),
             function(item) {
-                // return item.intervalMileage;
+                return item.get("dueDateDateTime");
             });
     }
 
-    log.debug('[TodoList] : todoSuccess() : sortedCollection', sortedCollection);
+    log.debug('[TodoList] : addListItems() : sortedCollection', sortedCollection);
 
     var data = [];
 
     // Push data to the List View
     _.each(sortedCollection, function(item) {
         var date = "";
-        if (item.dueDateDateTime) {
-            date = moment(item.dueDateDateTime).format("MM DD");
+        if (item.get("dueDateDateTime", false)) {
+            date = moment(item.get("dueDateDateTime")).format("MM DD");
         }
 
         data.push({
             viewStatusColor: {
-                backgroundColor: item.status ? "green" : "white"
+                backgroundColor: item.get("status") ? "green" : "white"
             },
             imageViewCheckmark: {
-                image: item.status ? "/images/navigation/ic_check_black_48dp.png" : "",
+                image: item.get("status") ? "/images/navigation/ic_check_black_48dp.png" : "",
                 left: 10,
                 right:10
             },
             itemTitle: {
-                text: item.name,
+                text: item.get("name"),
                 font: {
                     fontSize: '18sp'
                 },
@@ -238,8 +239,9 @@ function todoSuccess(recordsToShow) {
                 text: date
             },
             properties: {
-                itemId: item.todo_id,
-                searchableText: item.name,
+                //itemId: item.todo_id,
+                itemId: item.get("todo_id"),
+                searchableText: item.get("name"),
                 backgroundColor: '#fff',
                 height: 90
             }
@@ -251,12 +253,12 @@ function todoSuccess(recordsToShow) {
         // properties
         items: data,
         //headerView : listSectionHeaderView
-        headerTitle: "To-do List"
+        headerTitle: sectionTitle
     });
 
     $.listViewTodo.appendSection(listSection);
 
-    filterByDate();
+    //filterByDate();
 }
 
 /**
@@ -294,7 +296,8 @@ function deleteItem(e){
 }
 
 /**
- *
+ * This will return items that have due date of today, tomorrow, this week, and this month
+ * @method filterByDate
  */
 function filterByDate() {
 
@@ -308,24 +311,49 @@ function filterByDate() {
         return moment(item.get("dueDateDateTime", false)).subtract(1, 'd').isSame(new Date(), 'day');
     });
 
-    // _.difference(
-
     var tasksForThisWeek = todo.filter(function(item){
         if (item.get("dueDateDateTime") === null) return false;
         return moment(item.get("dueDateDateTime", false)).isSame(new Date(), 'week');
     });
 
+    var tasksForThisMonth = todo.filter(function(item){
+        if (item.get("dueDateDateTime") === null) return false;
+        return moment(item.get("dueDateDateTime", false)).isSame(new Date(), 'month');
+    });
+
+    var remainingTasks = todo.filter(function(item){
+        if (!item.get("dueDateDateTime", false)) return true;
+        //return moment(item.get("dueDateDateTime", false)).isSame(new Date(), 'month');
+    });
+
     // The difference between the union of the top two
     tasksForThisWeek = _.difference(tasksForThisWeek, _.union(tasksForToday, tasksForTomorrow));
-    var remainingTasks = [];
+    tasksForThisMonth = _.difference(tasksForThisMonth, _.union(tasksForToday, tasksForTomorrow, tasksForThisWeek));
+
+    //var remainingTasks = _.difference(todo, _.union(tasksForToday, tasksForTomorrow, tasksForThisWeek, tasksForThisMonth));
+
+    var taskMessage = "";
 
     if (tasksForToday.length > 0) {
-        alert("Today's task length" + tasksForToday.length);
+        taskMessage += "Today: " + tasksForToday.length + "\n";
+        addListItems(tasksForToday, {sectionTitle: "Today's Tasks"});
     }
     if (tasksForTomorrow.length > 0) {
-        alert("Tomorrow's task length" + tasksForTomorrow.length);
+        taskMessage += "Tomorrow: " + tasksForTomorrow.length + "\n";
+        addListItems(tasksForTomorrow, {sectionTitle: "Tomorrow's Tasks"});
     }
     if (tasksForThisWeek.length > 0) {
-        alert("This week's task length" + tasksForThisWeek.length);
+        taskMessage += "Week: " + tasksForThisWeek.length + "\n";
+        addListItems(tasksForThisWeek, {sectionTitle: "This Week's Tasks"});
     }
+    if (tasksForThisMonth.length > 0) {
+        taskMessage += "Month: " + tasksForThisMonth.length + "\n";
+        addListItems(tasksForThisMonth, {sectionTitle: "This Month's Tasks"});
+    }
+    if (remainingTasks.length > 0) {
+        taskMessage += "Others: " + remainingTasks.length + "\n";
+        addListItems(remainingTasks, {sectionTitle: "Tasks With No Due Date"});
+    }
+
+    alert(taskMessage);
 }
