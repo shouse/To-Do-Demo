@@ -13,7 +13,9 @@ exports.definition = {
             "dueDateDateTime"	    : "INTEGER",
 			"hasPhoto"			    : "BOOLEAN",
 			"photoCount"		    : "INTEGER",
-            "categories"            : "TEXT"
+            "categories"            : "TEXT",
+            "location"              : "TEXT",
+            "locationName"          : ""
 	    },
 		"defaults" : {
 			"content"               : "",
@@ -24,7 +26,8 @@ exports.definition = {
 			"hasPhoto"			    : false,
 			"hasVideo"			    : false,
 			"photoCount"		    : 0,
-            "categories"            : ''
+            "categories"            : [],
+            "location"              : false,
 		},
 		"adapter" : {
 			"idAttribute": "todo_id",
