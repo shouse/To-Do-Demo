@@ -1,7 +1,7 @@
 dependencies: \
-  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiUIDashboardItem.m \
-  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiUIDashboardItem.h \
-  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiUIView.h \
+  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiUIViewProxy.m \
+  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiUIViewProxy.h \
+  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiViewProxy.h \
   /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiProxy.h \
   /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiBase.h \
   /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiThreading.h \
@@ -17,6 +17,7 @@ dependencies: \
   /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/KrollCallback.h \
   /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/KrollObject.h \
   /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiBindingRunLoop.h \
+  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiUIView.h \
   /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiAnimation.h \
   /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiPoint.h \
   /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiDimension.h \
@@ -30,9 +31,5 @@ dependencies: \
   /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiBlob.h \
   /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/LayoutConstraint.h \
   /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiGradient.h \
-  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiUIDashboardItemProxy.h \
-  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiViewProxy.h \
   /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiRect.h \
-  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiViewTemplate.h \
-  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/LauncherItem.h \
-  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/LauncherButton.h
+  /Users/ts949370/Documents/Apps2/To-Do-Demo/build/iphone/Classes/TiViewTemplate.h

@@ -16,7 +16,7 @@
 var log = Alloy.Globals.log;
 log.debug('[ROOT] Vroom!  Starting up!');
 
-var leftMenuWidth = 350;
+//var leftMenuWidth = 350;
 
 // Variable declarations
 var animateRight, animateLeft, animateReset, animateSideContent;
@@ -194,7 +194,7 @@ exports.setMainContent = function(viewTitle, args) {
         $.viewMainContent.add(mainContentView.getView());
         configureNavBar(viewTitle);
 
-        args.title ? exports.setTitle(args.title) : function() {};
+        if (args.title) exports.setTitle(args.title);
     }
 };
 
@@ -483,7 +483,7 @@ exports.showInfoBar = function(args) {
 
     var cancel;
     if (args.cancel !== null && args.cancel !== undefined) {
-        var cancel = function() {
+        cancel = function() {
             args.cancel();
             exports.hideInfoBar();
         };
@@ -652,13 +652,13 @@ exports.addMenuView = function(view) {
 exports.changeMenu = function(args) {
     args = args ? args : {};
     // Left or right menu?
-    var menuSide = args.side;
-    var image = args.image;
-    var onclick = args.onclick;
+    var menuSide = args.side || "left";
+    var image = args.image || false;
+    var onclick = args.onclick || function() {};
 
     if (menuSide === 'right') {
         if (image) {
-            $.buttonRight.image;
+            $.buttonRight.image = image;
         }
         if (onclick) {
             $.buttonRight.removeEventListener('touchend');
@@ -667,7 +667,7 @@ exports.changeMenu = function(args) {
 
     } else {
         if (image) {
-            $.buttonLeft.image;
+            $.buttonLeft.image = image;
         }
         if (onclick) {
             $.buttonLeft.removeEventListener('touchend');
@@ -730,11 +730,11 @@ function addEventListeners() {
     */
     Ti.App.addEventListener("sliderToggled", function(e) {
         alert('Does this code ever get hit???');
-        if (e.direction == "right") {
+        if (e.direction === "right") {
             $.leftMenu.zIndex = 2;
             $.rightMenu.zIndex = 100;
             $.topNavigationDrawer.zIndex = 0;
-        } else if (e.direction == "left") {
+        } else if (e.direction === "left") {
             $.leftMenu.zIndex = 1;
             $.rightMenu.zIndex = 200;
             $.topNavigationDrawer.zIndex = 0;

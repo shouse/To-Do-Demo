@@ -10,6 +10,8 @@
 var log = Alloy.Globals.log;
 log.info("Opened TodoListDetails");
 
+var menu = Alloy.Globals.Menu;
+
 var args = arguments[0] || {};
 var todo_id = args.todo_id || "";
 
@@ -18,7 +20,7 @@ var todo = Alloy.Collections.instance("ToDo");
 var todoItem = _.first(todo.where({ todo_id: parseInt(todo_id) }));
 
 var galleryExists = false;
-var checkBox;
+var checkbox;
 var moment = require('moment');
 
 init();
@@ -46,20 +48,10 @@ function init() {
         $.labelDueDate.text = "Due " + moment(todoItem.get('dueDateDateTime')).fromNow();
     }
 
-    /*
-     if (hasReminder()) {
-     $.viewAptTime.height = 44;
-     $.viewScheduleApt.height = 0;
-     $.addClass($.viewScheduleApt, 'bgDarkGreen');
-
-     var reminderDate = todoItem.get('reminderDateTime');
-
-     var dateText = moment.utc(reminderDate).fromNow();
-     $.labelReminder.text = dateText;
-     // + reminderDate;
-     }
-     */
-
+    if (hasReminder()) {
+        var reminderDate = todoItem.get('reminderDateTime');
+        $.labelReminder.text = "Reminder set: " + moment(reminderDate).fromNow();
+    }
 }
 
 /**
@@ -77,30 +69,30 @@ $.viewMain.cleanup = function() {
  * @method setupNav
  */
 function setupNav() {
-    Alloy.Globals.Menu.setTitle("Detail View");
+    menu.setTitle("Detail View");
     // Add menu
-    Alloy.Globals.Menu.setButton({
+    menu.setButton({
         button: 'l1',
         image : "/images/navigation/ic_chevron_left_white_48dp.png",
         success: function() {
             log.debug('[Maintain] : Redirecting to HomePage');
-            Alloy.Globals.Menu.setMainContent('TodoList');
+            menu.setMainContent('TodoList');
         }
     });
 
     // Add menu
-    Alloy.Globals.Menu.setButton({
+    menu.setButton({
         button: 'r1',
         image : "/images/action/ic_mode_edit_white_48dp.png",
         success: function() {
             log.debug('[Maintain] : Redirecting to Edit Page');
-            Alloy.Globals.Menu.setMainContent('TodoListNewEdit', {todo_id: todoItem.get('todo_id')});
+            menu.setMainContent('TodoListNewEdit', {todo_id: todoItem.get('todo_id')});
         }
     });
 
-    Alloy.Globals.Menu.showButton('l1');
-    Alloy.Globals.Menu.showButton('r1');
-    Alloy.Globals.Menu.hideButton('r2');
+    menu.showButton('l1');
+    menu.showButton('r1');
+    menu.hideButton('r2');
 }
 
 /**
@@ -120,8 +112,35 @@ function addEventListeners() {
 
     // Share the task
     $.viewGallery.addEventListener('click', function(){
-        Alloy.Globals.Menu.setMainContent('TodoListGallery', {todo_id: todoItem.get("todo_id")});
+        menu.setMainContent('TodoListGallery', {todo_id: todoItem.get("todo_id")});
     });
+
+    // Schedule a reminder
+    $.viewSetReminder.addEventListener('click', setReminder);
+
+    $.viewTags.addEventListener('click', setTags);
+}
+
+/**
+ * This sets the Local Notification for the reminder
+ * @method setLocalNotification
+ */
+function setLocalNotification() {
+    // @TODO normalize between iOS and Android
+    var dateString = todoItem.get('dueDateDateTime') ? " is due at " + moment(todoItem.get('dueDateDateTime')).format('l') : "";
+    var notifyArgs = {
+        alertBody: "Task Reminder: " + todoItem.get('name') + dateString,
+        badge: 1,
+        data: {
+            taskName : todoItem.get('name'),
+            taskDesc : todoItem.get('content'),
+            taskDue : todoItem.get('due'),
+            itemId : todoItem.get('todo_id')
+        }
+    };
+
+    var notify = require('localNotify');
+    notify.schedule(notifyArgs);
 }
 
 /**
@@ -148,13 +167,13 @@ function addCheckbox() {
  */
 function toggleStatus() {
     log.warn("[Task Details] toggling status to " + !todoItem.get("status"));
-    if (todoItem.get("status") == 0){
+    if (todoItem.get("status") === 0){
         todoItem.set({
             status: 1,
             completedDateTime: new Date().toISOString(),
             lastModifiedDateTime: new Date().toISOString()
         });
-        Alloy.Globals.Menu.showInfoBar({title: "Keep Up The Good Work!"});
+        menu.showInfoBar({title: "Keep Up The Good Work!"});
     } else {
         todoItem.set({
             status: 0,
@@ -166,6 +185,20 @@ function toggleStatus() {
     todoItem.save();
     todo.fetch();
     log.warn("TODO: ", todo);
+}
+
+/**
+ * @method setTags
+ */
+function setTags() {
+    alert('Not Implemented yet.');
+}
+
+/**
+ * @method getTags
+ */
+function getTags() {
+
 }
 
 /**
@@ -202,7 +235,7 @@ function hasPhoto() {
 
 /**
  * Invoke the calendar module to set a date
- * @method setReminder
+ * @method setDueDate
  * @return
  */
 function setDueDate() {
@@ -317,7 +350,7 @@ function setDueDate() {
                 if (e.index == 0) {
                     saveDate(d.dateValue, "Due Date");
                 } else {
-                    Alloy.Globals.Menu.showInfoBar("Due Date NOT Set");
+                    menu.showInfoBar("Due Date NOT Set");
                 }
 
                 $.viewMain.remove(calendarView);
@@ -338,12 +371,12 @@ function setDueDate() {
 function setReminder() {
     log.debug('[TodoDetail] : setReminder');
 
-    if (Ti.Platform.osname === 'android') {
-        var now = new Date();
-        var month = now.getUTCMonth() + 1;
-        var day = now.getUTCDate();
-        var year = now.getUTCFullYear();
+    var now = new Date();
+    var month = now.getUTCMonth() + 1;
+    var day = now.getUTCDate();
+    var year = now.getUTCFullYear();
 
+    if (Ti.Platform.osname === 'android') {
         var Dialogs = require("yy.tidialogs");
         // Create the dialog
 
@@ -379,11 +412,6 @@ function setReminder() {
         $.viewRow.height = 0;
 
         var calendar = require('ti.sq');
-
-        var now = new Date();
-        var month = now.getUTCMonth() + 1;
-        var day = now.getUTCDate();
-        var year = now.getUTCFullYear();
 
         var minYear = year - 1;
         var maxYear = year + 1;
@@ -446,8 +474,9 @@ function setReminder() {
             dialog.addEventListener('click', function(e) {
                 if (e.index == 0) {
                     saveDate(d.dateValue, "Reminder");
+                    setLocalNotification();
                 } else {
-                    Allog.Globals.Menu.showInfoBar("Reminder NOT Set");
+                    menu.showInfoBar("Reminder NOT Set");
                 }
 
                 $.viewMain.remove(calendarView);
@@ -461,6 +490,7 @@ function setReminder() {
 }
 
 /**
+ * Save the date of a Due Date or Reminder
  * @method saveDate
  */
 function saveDate(d, type) {
@@ -472,13 +502,24 @@ function saveDate(d, type) {
         eventId: todoItem.get('name')
     });
 
-    todoItem.set({ dueDateDateTime: d });
+    if (type === "Reminder") {
+        todoItem.set({ reminderDateTime: moment(d).format() });
+    } else {
+        todoItem.set({ dueDateDateTime: moment(d).format() });
+    }
+
     todoItem.save();
     todo.fetch();
 
-    $.labelDueDate.text = "Due " + moment(d).fromNow();
+    if (type === "Reminder") {
+        $.labelReminder.text = "Reminder " + moment(d).fromNow();
+    } else {
+        $.labelDueDate.text = "Due " + moment(d).fromNow();
+    }
+
+
     //Alloy.Globals.toast.show("Reminder set!");
-    Alloy.Globals.Menu.showInfoBar({title: type + " set " + moment(d).fromNow() + " from now"});
+    menu.showInfoBar({title: type + " set " + moment(d).fromNow() + " from now"});
 }
 
 /**
@@ -538,7 +579,7 @@ function shareTask() {
  * @method savePhoto
  */
 function savePhoto(image) {
-    if (image.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
+    if (image.mediaType === Ti.Media.MEDIA_TYPE_PHOTO) {
 
         log.event({
             type: 'todo',

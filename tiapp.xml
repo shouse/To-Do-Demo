@@ -15,7 +15,12 @@
 	<ios>
 		<plist>
 			<dict>
-				<key>UISupportedInterfaceOrientations~iphone</key>
+                <key>UIBackgroundModes</key>
+                <array>
+                    <string>fetch</string>
+                    <string>remote-notification</string>
+                </array>
+                <key>UISupportedInterfaceOrientations~iphone</key>
 				<array>
 					<string>UIInterfaceOrientationPortrait</string>
 				</array>
@@ -37,20 +42,48 @@
 			</dict>
 		</plist>
 	</ios>
-	<android xmlns:android="http://schemas.android.com/apk/res/android">
-        <manifest>
-            <application android:theme="@style/Theme.Titanium"/>
+    <android xmlns:android="http://schemas.android.com/apk/res/android">
+        <tool-api-level>16</tool-api-level>
+        <manifest android:installLocation="auto" android:versionCode="1" android:versionName="1" package="com.mkamithkumar.whatstoday" xmlns:android="http://schemas.android.com/apk/res/android">
+            <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="11"/>
+            <supports-screens android:anyDensity="true"/>
+            <application android:debuggable="false" android:icon="@drawable/appicon" android:label="Whats Today" android:name="WhatsTodayApplication" android:theme="@android:style/Theme.DeviceDefault.Light">
+
+                <receiver android:name="bencoding.alarmmanager.AlarmNotificationListener"/>
+                <receiver android:name="bencoding.alarmmanager.AlarmServiceListener"/>
+                <activity android:configChanges="keyboardHidden|orientation|screenSize"
+                          android:alwaysRetainTaskState="true"
+                          android:label="Whats Today"
+                          android:name=".TodoActivity"
+                          android:theme="@style/Theme.Titanium"
+                          android:launchMode="singleTop">
+                    <intent-filter>
+                        <action android:name="android.intent.action.MAIN"/>
+                        <category android:name="android.intent.category.LAUNCHER"/>
+                    </intent-filter>
+                </activity>
+                <activity android:configChanges="keyboardHidden|orientation|screenSize" android:name="org.appcelerator.titanium.TiActivity"/>
+                <activity android:configChanges="keyboardHidden|orientation|screenSize" android:name="org.appcelerator.titanium.TiTranslucentActivity" android:theme="@android:style/Theme.Translucent"/>
+                <activity android:configChanges="keyboardHidden|orientation|screenSize" android:name="org.appcelerator.titanium.TiModalActivity" android:theme="@android:style/Theme.Translucent"/>
+                <activity android:configChanges="keyboardHidden|orientation|screenSize" android:name="ti.modules.titanium.ui.TiTabActivity"/>
+                <activity android:name="ti.modules.titanium.ui.android.TiPreferencesActivity"/>
+                <service android:exported="false" android:name="org.appcelerator.titanium.analytics.TiAnalyticsService"/>
+
+            </application>
+            <uses-permission android:name="android.permission.VIBRATE"/>
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+            <uses-permission android:name="android.permission.VIBRATE"/>
+            <uses-permission android:name="android.permission.WAKE_LOCK"/>
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+            <uses-permission android:name="android.permission.INTERNET"/>
+
         </manifest>
-	</android>
-	<mobileweb>
-		<precache>
-		</precache>
-		<splash>
-			<enabled>true</enabled>
-			<inline-css-images>true</inline-css-images>
-		</splash>
-		<theme>default</theme>
-	</mobileweb>
+        <services>
+            <service type="interval" url="notificationService.js"/>
+        </services>
+    </android>
+
 	<modules>
     <module platform="android" version="0.2">ti.sq</module>
     <module platform="iphone" version="0.4">ti.sq</module>
@@ -60,6 +93,7 @@
     <module platform="android">crittercism</module>
     <module platform="android" version="0.1.2">net.iamyellow.tiws</module>
     <module platform="iphone" version="0.5">net.iamyellow.tiws</module>
+    <module platform="android" version="0.11">bencoding.alarmmanager</module>
   </modules>
 	<deployment-targets>
 		<target device="android">true</target>
