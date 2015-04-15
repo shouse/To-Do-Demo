@@ -59,7 +59,11 @@
 					<Label id="labelInfoBarTitle" class="h4 w-fill h-fill text-center l-65 r-65" color="white"/>
 					<ImageView id="imageViewInfoBarIcon2" class="r-5 t-5 b-5 h-35 w-35" />
 				</View>
-				<View id="viewInfoBar" class="t-90 h-45 w-fill" formFactor="tablet" zIndex="100" />
+				<View id="viewInfoBar" class="t-90 h-65 w-fill" formFactor="tablet" zIndex="100">
+                    <ImageView id="imageViewInfoBarIcon" class="l-5 t-5 b-5 h-35 w-35" />
+                    <Label id="labelInfoBarTitle" class="h4 w-fill h-fill text-center l-65 r-65" color="white"/>
+                    <ImageView id="imageViewInfoBarIcon2" class="r-5 t-5 b-5 h-35 w-35" />
+                </View>
 
 				<!-- MAIN CONTENT VIEW for controllers to display views in via controller exports -->
 				<View id="viewContentArea" class="lo-horizontal" backgroundColor="f2eee9">
