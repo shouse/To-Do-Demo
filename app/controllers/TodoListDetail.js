@@ -10,6 +10,8 @@
 var log = Alloy.Globals.log;
 log.info("Opened TodoListDetails");
 
+var menu = Alloy.Globals.Menu;
+
 var args = arguments[0] || {};
 var todo_id = args.todo_id || "";
 
@@ -18,7 +20,7 @@ var todo = Alloy.Collections.instance("ToDo");
 var todoItem = _.first(todo.where({ todo_id: parseInt(todo_id) }));
 
 var galleryExists = false;
-var checkBox;
+var checkbox;
 var moment = require('moment');
 
 init();
@@ -67,30 +69,30 @@ $.viewMain.cleanup = function() {
  * @method setupNav
  */
 function setupNav() {
-    Alloy.Globals.Menu.setTitle("Detail View");
+    menu.setTitle("Detail View");
     // Add menu
-    Alloy.Globals.Menu.setButton({
+    menu.setButton({
         button: 'l1',
         image : "/images/navigation/ic_chevron_left_white_48dp.png",
         success: function() {
             log.debug('[Maintain] : Redirecting to HomePage');
-            Alloy.Globals.Menu.setMainContent('TodoList');
+            menu.setMainContent('TodoList');
         }
     });
 
     // Add menu
-    Alloy.Globals.Menu.setButton({
+    menu.setButton({
         button: 'r1',
         image : "/images/action/ic_mode_edit_white_48dp.png",
         success: function() {
             log.debug('[Maintain] : Redirecting to Edit Page');
-            Alloy.Globals.Menu.setMainContent('TodoListNewEdit', {todo_id: todoItem.get('todo_id')});
+            menu.setMainContent('TodoListNewEdit', {todo_id: todoItem.get('todo_id')});
         }
     });
 
-    Alloy.Globals.Menu.showButton('l1');
-    Alloy.Globals.Menu.showButton('r1');
-    Alloy.Globals.Menu.hideButton('r2');
+    menu.showButton('l1');
+    menu.showButton('r1');
+    menu.hideButton('r2');
 }
 
 /**
@@ -110,7 +112,7 @@ function addEventListeners() {
 
     // Share the task
     $.viewGallery.addEventListener('click', function(){
-        Alloy.Globals.Menu.setMainContent('TodoListGallery', {todo_id: todoItem.get("todo_id")});
+        menu.setMainContent('TodoListGallery', {todo_id: todoItem.get("todo_id")});
     });
 
     // Schedule a reminder
@@ -165,13 +167,13 @@ function addCheckbox() {
  */
 function toggleStatus() {
     log.warn("[Task Details] toggling status to " + !todoItem.get("status"));
-    if (todoItem.get("status") == 0){
+    if (todoItem.get("status") === 0){
         todoItem.set({
             status: 1,
             completedDateTime: new Date().toISOString(),
             lastModifiedDateTime: new Date().toISOString()
         });
-        Alloy.Globals.Menu.showInfoBar({title: "Keep Up The Good Work!"});
+        menu.showInfoBar({title: "Keep Up The Good Work!"});
     } else {
         todoItem.set({
             status: 0,
@@ -348,7 +350,7 @@ function setDueDate() {
                 if (e.index == 0) {
                     saveDate(d.dateValue, "Due Date");
                 } else {
-                    Alloy.Globals.Menu.showInfoBar("Due Date NOT Set");
+                    menu.showInfoBar("Due Date NOT Set");
                 }
 
                 $.viewMain.remove(calendarView);
@@ -369,12 +371,12 @@ function setDueDate() {
 function setReminder() {
     log.debug('[TodoDetail] : setReminder');
 
-    if (Ti.Platform.osname === 'android') {
-        var now = new Date();
-        var month = now.getUTCMonth() + 1;
-        var day = now.getUTCDate();
-        var year = now.getUTCFullYear();
+    var now = new Date();
+    var month = now.getUTCMonth() + 1;
+    var day = now.getUTCDate();
+    var year = now.getUTCFullYear();
 
+    if (Ti.Platform.osname === 'android') {
         var Dialogs = require("yy.tidialogs");
         // Create the dialog
 
@@ -410,11 +412,6 @@ function setReminder() {
         $.viewRow.height = 0;
 
         var calendar = require('ti.sq');
-
-        var now = new Date();
-        var month = now.getUTCMonth() + 1;
-        var day = now.getUTCDate();
-        var year = now.getUTCFullYear();
 
         var minYear = year - 1;
         var maxYear = year + 1;
@@ -479,7 +476,7 @@ function setReminder() {
                     saveDate(d.dateValue, "Reminder");
                     setLocalNotification();
                 } else {
-                    Allog.Globals.Menu.showInfoBar("Reminder NOT Set");
+                    menu.showInfoBar("Reminder NOT Set");
                 }
 
                 $.viewMain.remove(calendarView);
@@ -522,7 +519,7 @@ function saveDate(d, type) {
 
 
     //Alloy.Globals.toast.show("Reminder set!");
-    Alloy.Globals.Menu.showInfoBar({title: type + " set " + moment(d).fromNow() + " from now"});
+    menu.showInfoBar({title: type + " set " + moment(d).fromNow() + " from now"});
 }
 
 /**
@@ -582,7 +579,7 @@ function shareTask() {
  * @method savePhoto
  */
 function savePhoto(image) {
-    if (image.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
+    if (image.mediaType === Ti.Media.MEDIA_TYPE_PHOTO) {
 
         log.event({
             type: 'todo',
