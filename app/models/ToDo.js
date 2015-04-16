@@ -15,7 +15,7 @@ exports.definition = {
 			"photoCount"		    : "INTEGER",
             "categories"            : "TEXT",
             "location"              : "TEXT",
-            "locationName"          : ""
+            "locationName"          : "TEXT"
 	    },
 		"defaults" : {
 			"content"               : "",
@@ -26,8 +26,8 @@ exports.definition = {
 			"hasPhoto"			    : false,
 			"hasVideo"			    : false,
 			"photoCount"		    : 0,
-            "categories"            : [],
-            "location"              : false,
+            "categories"            : false,
+            "location"              : false
 		},
 		"adapter" : {
 			"idAttribute": "todo_id",

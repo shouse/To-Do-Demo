@@ -214,11 +214,8 @@ exports.Logger = function(args) {
 
 
         var clickFunction = function() {
-            var widgetLogger = Alloy.createWidget(
-                "com.sivci.logger");
-            widgetLogger.show({
-                title: "Logs"
-            });
+            var widgetLogger = Alloy.createWidget("com.sivci.logger");
+            widgetLogger.show({ title: "Logs" });
         };
             //notify("ERROR", message, null, clickFunction);
 

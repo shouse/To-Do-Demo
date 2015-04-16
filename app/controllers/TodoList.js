@@ -156,7 +156,7 @@ function filter(item) {
                 $.listViewTodo.deleteSectionAt(0);
             });
 
-            var doneCollection = _.where(todo.toJSON(), {status: 1});
+            var doneCollection = todo.where({status: 1});
             addListItems(doneCollection, {sectionTitle: "Completed Tasks"});
             break;
     }
@@ -335,25 +335,18 @@ function filterByDate() {
     var taskMessage = "";
 
     if (tasksForToday.length > 0) {
-        taskMessage += "Today: " + tasksForToday.length + "\n";
         addListItems(tasksForToday, {sectionTitle: "Today's Tasks"});
     }
     if (tasksForTomorrow.length > 0) {
-        taskMessage += "Tomorrow: " + tasksForTomorrow.length + "\n";
         addListItems(tasksForTomorrow, {sectionTitle: "Tomorrow's Tasks"});
     }
     if (tasksForThisWeek.length > 0) {
-        taskMessage += "Week: " + tasksForThisWeek.length + "\n";
         addListItems(tasksForThisWeek, {sectionTitle: "This Week's Tasks"});
     }
     if (tasksForThisMonth.length > 0) {
-        taskMessage += "Month: " + tasksForThisMonth.length + "\n";
         addListItems(tasksForThisMonth, {sectionTitle: "This Month's Tasks"});
     }
     if (remainingTasks.length > 0) {
-        taskMessage += "Others: " + remainingTasks.length + "\n";
         addListItems(remainingTasks, {sectionTitle: "Tasks With No Due Date"});
     }
-
-    alert(taskMessage);
 }
