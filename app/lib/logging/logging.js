@@ -81,6 +81,9 @@ exports.Logger = function(args) {
     var logFile = Ti.Filesystem.getFile(logDirName, logFileName);
     deleteOldLogFiles();
 
+    var tiws;
+    var socketConnected = false;
+
     var collection = Backbone.Collection.extend({
         /**
          * Order by title
@@ -111,10 +114,12 @@ exports.Logger = function(args) {
         //_self.logCollection = new collection();
         logCollection = new collection();
         // Setup Crittercism
-        //if (Ti.Platform.osname !== 'android') {
         crittercism();
-        //}
         // currentLogFile = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, 'logs.txt');
+
+        if (Alloy.CFG.logger.webSocket === true) {
+            //websocketSetup();
+        }
     };
 
     /**
@@ -181,8 +186,10 @@ exports.Logger = function(args) {
      */
     _self.warn = function(message, data) {
         data = data || '';
-        Ti.API.warn("[LOGGER] :: " + message + JSON.stringify(data, null,
-            4));
+        //var warnTemplate = _.template("[LOGGER] :: WARNING!!  WARNING!!\N\N<%- value %></b>");
+        //var messageString = warnTemplate(message + JSON.stringify(data, null, 4)));
+        Ti.API.warn("[LOGGER] :: " + message + JSON.stringify(data, null, 4));
+        //Ti.API.warn(warnTemplate);
         log('W', message, data);
     };
 
@@ -207,11 +214,8 @@ exports.Logger = function(args) {
 
 
         var clickFunction = function() {
-            var widgetLogger = Alloy.createWidget(
-                "com.sivci.logger");
-            widgetLogger.show({
-                title: "Logs"
-            });
+            var widgetLogger = Alloy.createWidget("com.sivci.logger");
+            widgetLogger.show({ title: "Logs" });
         };
             //notify("ERROR", message, null, clickFunction);
 
@@ -235,6 +239,9 @@ exports.Logger = function(args) {
         var eventId = args.eventId ? args.eventId : false;
 
         var remote = args.remote ? args.remote : false;
+        var analytics = args.analytics ? args.analytics : false;
+
+        // This is for Titanium Analytics.  FALSE BY DEFAULT
         var feature = (args.feature !== undefined) ? args.feature : false;
 
         // These are the constructors for the overall message..
@@ -273,6 +280,12 @@ exports.Logger = function(args) {
         if (feature) {
           Ti.Analytics.featureEvent(message);
         }
+
+        if (analytics) {
+
+        }
+
+
 
     };
 
@@ -411,6 +424,24 @@ exports.Logger = function(args) {
     }
 
     /**
+     * Template a log string
+     * @param data
+     * @param template
+     */
+    function template(data, template) {
+        //var compiled = _.template("Awesome Guy: <%= name %>");
+        //compiled({name: 'Steven'});
+        try {
+            var compiled = _.template(template);
+            return compiled(data);
+        } catch (err) {
+            alert("Template Error: " + JSON.stringify(error, null, 4));
+            return ("Template Error: " + JSON.stringify(error, null, 4));
+        }
+
+    }
+
+    /**
      * Write log message to file
      * @method writeLogToFile
      * @param {} level
@@ -435,6 +466,55 @@ exports.Logger = function(args) {
     function readLogFile(file) {
         file = file ? file : logFile;
         return file.read().text;
+    }
+
+    /**
+     * Open a web socket for logging
+     */
+
+    function websocketSetup() {
+        var wsURI = Alloy.CFG.logger.webSocketURI ? Alloy.CFG.logger.webSocketURI : false
+        if (!wsURI) {
+            alert("Provide a websocket URI in config.json");
+            return;
+        }
+
+        tiws = require('net.iamyellow.tiws').createWS();
+
+        tiws.addEventListener('open', function () {
+            alert('opened')
+            _self.info('Websocket opened');
+            socketConnected = true;
+            websocketSendMessage("THIS IS A TEST MESSAGE FROM TITANIUM");
+        });
+
+        tiws.addEventListener('close', function (ev) {
+            Ti.API.info(ev);
+            socketConnected = false;
+        });
+
+        tiws.addEventListener('error', function (ev) {
+            Ti.API.error(ev);
+        });
+
+        tiws.addEventListener('message', function (ev) {
+            Ti.API.log(ev);
+            alert('WS Message: ' + JSON.stringify(ev, null, 4));
+        });
+
+        tiws.open(wsURI);
+    }
+
+    /**
+     * This sends a web socket message to a URI provided in the setup
+     * @method webSocketSendMessage
+     * @param message
+     */
+    function websocketSendMessage(message) {
+        if (socketConnected === true) {
+            tiws.send(message);
+        }
+
     }
 
     /**
@@ -574,14 +654,14 @@ exports.Logger = function(args) {
         Ti.API.info("[lLOGGER] :: log.event called with args: " + JSON.stringify(
             args));
         var to = args.to ? args.to : false;
-        var from = args.from ? args.from : "support@thefleetapp.com"
+        var from = args.from ? args.from : "support@test.com"
         // need to implement this
         var sendgrid = require('/utils/tisendgrid')(args.username, args.password);
         sendgrid.send({
-            to: args.to,
-            from: args.from,
-            subject: args.subject,
-            text: args.text
+            to: to,
+            from: from,
+            subject: args.subject ? args.subject : 'Logging Notification',
+            text: args.text ? args.text : ''
         }, function (e) {
             if (e) {
                 console.log(e); // Email wasn't sent
@@ -618,15 +698,11 @@ exports.Logger = function(args) {
             },
 
             success: function(resp) {
-                _self.info(
-                    '[LOGGER] : Created a Cloud Log on ACS',
-                    resp);
+                _self.info('[LOGGER] : Created a Cloud Log on ACS', resp);
             },
 
             error: function(resp) {
-                _self.warn(
-                    '[LOGGER] : Cloud Log ERROR on ACS',
-                    resp);
+                _self.warn('[LOGGER] : Cloud Log ERROR on ACS', resp);
             }
         };
 

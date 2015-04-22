@@ -11,19 +11,22 @@
 var log = Alloy.Globals.log;
 log.warn('[mapUtils] : Opened Library');
 
-var xhr = require('network/httpClient');
+var xhr = require('httpClient');
 var key = "AIzaSyCgBVzz7tXycmVYq4d-X0vax3MkkOSi5cs";
+
 /**
- * Description
- * @method getLocalMechanics
- * @param {} args
+ * Get a local place
+ * @method getLocalPlace
+ * @param {Object} args
  * @return
  */
-exports.getLocalMechanics = function(args) {
+exports.getLocalPlace = function(args) {
     var lat = args.lat;
     var lng = args.lng;
     var success = args.success || function(resp) {};
     var error = args.error || function(resp) {};
+    var placeType = args.placeType || false;
+    var radius = args.radius || 2500;
 
     var xhrSetup = {};
     xhrSetup.requestType = "GET";
@@ -31,22 +34,59 @@ exports.getLocalMechanics = function(args) {
     xhrSetup.url =
         "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" +
         lat + "," + lng +
-        "&radius=2500&types=car_repair&sensor=false&key=" + key;
+        "&radius=" + radius + "&types=" + placeType + "&sensor=false&key=" + key;
 
     xhrSetup.success = success;
-
-    /**
-     * Description
-     * @method error
-     * @param {} err
-     * @param {} context
-     * @return
-     */
     xhrSetup.error = function(err, context) {
         error(err, context);
     };
 
     xhr.request(xhrSetup);
+};
+
+/**
+ * Get a local place
+ * @method getLocalPlace
+ * @param {Object} args
+ * @return
+ */
+exports.getPlaceAnnotiations = function(args) {
+    /*
+    var latLngData = [];
+    var points = [];
+
+    var places = args.places.results;
+
+    _.each(places.results, function(place, index) {
+        log.warn(JSON.stringify(place, null, 4));
+
+        var lat = place.geometry.location.lat;
+        var lng = place.geometry.location.lng;
+
+        var annotation = {
+            latitude: place.geometry.location.lat,
+            longitude: place.geometry.location.lng,
+            title: place.name,
+            subtitle: place.vicinity,
+            pincolor: Alloy.Globals.Map.ANNOTATION_RED,
+            leftButton: '/images/navigation/ic_arrow_back_black_18dp.png',
+            rightButton: '/images/navigation/ic_arrow_forward_black_18dp.png',
+            myid: place.place_id// Custom property to uniquely identify this annotation.
+        };
+
+        // API calls to the map module need to use the Alloy.Globals.Map reference
+        var mechanicAnnotation = Alloy.Globals.Map.createAnnotation(annotation);
+        $.mapview.addAnnotation(mechanicAnnotation);
+        $.mapview.userLocation = true;
+
+        points.push({
+            latitude: place.geometry.location.lat,
+            longitude: place.geometry.location.lng
+        });
+    });
+
+    return points;
+    */
 };
 
 /**
@@ -113,81 +153,135 @@ exports.getGMapsPhoto = function(args) {
     xhr.request(xhrSetup);
 }
 
-/*
-{
-   "html_attributions" : [],
-   "results" : [
-      {
-         "geometry" : {
-            "location" : {
-               "lat" : -33.870199,
-               "lng" : 151.192077
+
+/**
+ * This returns a region object that can be used to set the map region
+ * @example $.mapview.region = findZoomRegion(points);
+ * @method findZoomRegion
+ * @param {Object} points
+ * @return region
+ */
+exports.findZoomRegion = function(points) {
+    var nbPtToShow = points.length - 1;
+    var tmpDeltatLat = 0,
+        tmpDeltatLong = 0,
+        maxDeltatLat = 0,
+        maxDeltatLong = 0,
+        centerLat = 0,
+        centerLong = 0;
+
+    for (var i = 0; i <= Math.floor(points.length / 2); i++) {
+        for (var j = nbPtToShow; j >= Math.floor(points.length / 2); j--) {
+            if (j != i) {
+                tmpDeltatLat = Math.abs(Math.abs(points[i].latitude) - Math
+                    .abs(points[j].latitude));
+                if (tmpDeltatLat > maxDeltatLat) {
+                    maxDeltatLat = tmpDeltatLat;
+                    centerLat = Math.min(points[i].latitude, points[j].latitude) +
+                    maxDeltatLat / 2;
+                }
+                tmpDeltatLong = Math.abs(Math.abs(points[i].longitude) -
+                Math.abs(points[j].longitude));
+                if (tmpDeltatLong > maxDeltatLong) {
+                    maxDeltatLong = tmpDeltatLong;
+                    centerLong = Math.min(points[i].longitude, points[j].longitude) +
+                    maxDeltatLong / 2;
+                }
             }
-         },
-         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
-         "id" : "1480c14750e7281fa1f3f97a6c0f620d9ef4cc84",
-         "name" : "Automotive Vehicle Inspections Pty Ltd",
-         "reference" : "CpQBiAAAALLkdW2xbnol1IRj9gMrGd9LV_h5r_cQLERT8Ue3p7DJyioUp1AEAnwOK5Wuqqr4h-DWBYDRMoUDVtS8IHwF8ITRCB_gJ8dBAMYJ8BeTYncgubby3sKOFZauts8evQje2CTj1vpeFJqBOQBr0azhD1Ijh8Pt4Je20Tnom3fZwbXUll2Yc0be6eYRGMxbxeGlxRIQTbOkheD5AAXI8t5SZh8doRoUCL4HrI4jrTIAu1nh2DCgPVOCJko",
-         "types" : [ "car_repair", "establishment" ],
-         "vicinity" : "214/102 Miller Street, Pyrmont"
-      },
-      {
-         "geometry" : {
-            "location" : {
-               "lat" : -33.868789,
-               "lng" : 151.194217
-            }
-         },
-         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
-         "id" : "95089fec229ebe8eed7f1aa8845a97379bd0dcee",
-         "name" : "Tyres Central",
-         "opening_hours" : {
-            "open_now" : true
-         },
-         "photos" : [
-            {
-               "height" : 151,
-               "html_attributions" : [],
-               "photo_reference" : "CnRnAAAA_lbpdhLhoybL4txlEnw-q3KgyNH-nRMbfp9mgSajfvAL02ZkqNObN8xrNdzARhz7KwYhesAeVigDwMIBZoMbKkDt_0RF9xXjJhaGqc4ZxGFwnqyY8pfPzJMTLtiDpoFIpNou6ImlEPmCapSp8BXI5BIQ-qXQVpF1uuGF6piBptyuDRoUpjUsVrf7hEjMawZg-ZFqNbVMHOc",
-               "width" : 269
-            }
-         ],
-         "reference" : "CnRvAAAAC6oaIu8sJS5BN4bry_7n_c9scDmpuROoQe9wJFfy1TjLFTEb4ol9DmxqaHFFgxSVjClCRGarEqQUeJdQanHVPReaiJFfh5CvcKOIUDNC8KZeLSPduUTsHPMN18Cs8zFMU9PviomUlfMzzN8dNdnj0hIQrk_KE5578UaN7sehh1Nk9RoUhdo52FMCb9p_7lTtCCnRBQB7itY",
-         "types" : [ "store", "car_repair", "establishment" ],
-         "vicinity" : "Pyrmont"
-      },
-      {
-         "geometry" : {
-            "location" : {
-               "lat" : -33.870545,
-               "lng" : 151.194722
-            }
-         },
-         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
-         "id" : "2f50bbfae132abbb07fa184cb826e1d29555cb53",
-         "name" : "Moses & Sons Smash Repairs",
-         "reference" : "CoQBfAAAAAQwiJgMtoLGKX-CGZzF0_Be-OJADVyH8LyC07C8auDpAPDVxZYYH0Cqx70cruFU-cTWI9JlFPRYt2ydsmtEDzaUtNeKnHg_3HLrP9doHP2mCvTWYUGRWFFsHS6Osv_i7rXQX_Iqng0YqWpLD6d4ltTChJMZNoNWrIk8cDzlwrVIEhBxzWeiw5Hl_N2RtMCclqUPGhS01VaK5zAT3VUcsCPH6iIAtnfl8Q",
-         "types" : [ "car_repair", "establishment" ],
-         "vicinity" : "192 Harris St, Pyrmont"
-      },
-      {
-         "geometry" : {
-            "location" : {
-               "lat" : -33.87059,
-               "lng" : 151.192477
-            }
-         },
-         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
-         "id" : "c23fc6981ac31013d93377a994eec048f6765717",
-         "name" : "Auto Inspect",
-         "opening_hours" : {
-            "open_now" : false
-         },
-         "reference" : "CnRuAAAAgoMrldqrw66hHDUGZld4nBW5cCbiy3l_9GUq7-xv01BkIIlZJokXMf15ghj1FkA_iXg8khxVXXbQJn_3704d9GS59gF195eMsv23oKzCrTmLBXibHUIaqjbVWliAHhwuibCrSB6b3z9Z6dQoH-eophIQwD3XlE8BPMaJ6yvogqwPZRoUGd-4S3IygVNdgFMC-T9sGWZ0ybs",
-         "types" : [ "car_repair", "establishment" ],
-         "vicinity" : "5.01/55 Miller Ln, Pyrmont"
-      }
-   ],
-   "status" : "OK"
+        }
+    }
+    var region = {
+        latitude: centerLat,
+        longitude: centerLong,
+        latitudeDelta: maxDeltatLat,
+        longitudeDelta: maxDeltatLong
+    };
+    return region;
 }
-*/
+
+/**
+ * @method getLocation
+ */
+exports.getLocation = function() {
+    if (Ti.Geolocation.locationServicesEnabled) {
+        Titanium.Geolocation.purpose = 'Get Current Location';
+        Titanium.Geolocation.getCurrentPosition(function(loc) {
+            if (loc.error) {
+                Ti.API.error('Error: ' + loc.error);
+            } else {
+                currentLoc = loc;
+                getLocalMechanics();
+            }
+        });
+    } else {
+        alert('Please enable location services');
+    }
+}
+
+/**
+ * @method forwardGeocode
+ */
+exports.forwardGeocode = function() {
+    //Add the core module into your project
+    var geocoder = require('ti.geocoder');
+
+    function forwardGeoCallback(e){
+        Ti.API.info("Did it work? " + e.success);
+        if(e.success){
+            Ti.API.info("This is the number of places found, it can return many depending on your search");
+            Ti.API.info("Places found = " + e.placeCount);
+        }
+
+        var test = JSON.stringify(e);
+        Ti.API.info("Forward Results stringified" + test);
+    };
+
+    Ti.API.info("Now let's do some forward Geo and lookup the address for Appcelerator HQ");
+    var address="440 N. Bernardo Avenue Mountain View, CA";
+
+    Ti.API.info("We call the forward Geocoder providing an address and callback");
+    Ti.API.info("Now we wait for the lookup");
+    geocoder.forwardGeocoder(address,forwardGeoCallback);
+}
+
+/**
+ * @method reverseGeocode
+ */
+exports.reverseGeocode = function() {
+    //Add the core module into your project
+    var geocoder = require('ti.geocoder');
+
+    function reverseGeoCallback(e){
+        Ti.API.info("Did it work? " + e.success);
+        if(e.success){
+            Ti.API.info("This is the number of places found, it can return many depending on your search");
+            Ti.API.info("Places found = " + e.placeCount);
+        }
+
+        var test = JSON.stringify(e);
+        Ti.API.info("Forward Results stringified" + test);
+    };
+
+    Ti.API.info("Let's now try to do a reverse Geo lookup using the Time Square coordinates");
+    Ti.API.info("Pass in our coordinates and callback then wait...");
+    geocoder.reverseGeocoder(40.75773,-73.985708,reverseGeoCallback);
+}
+
+/**
+ * Retrieves the last known place information (address) from the device.
+ * @method getCurrentPlace
+ */
+exports.getCurrentPlace = function() {
+    var geocoder = require('ti.geocoder');
+
+    function resultsCallback(e){
+        if (!e.success){
+            log.warn("[Todo List] Location Failure ", e);
+            return;
+        }
+        log.info("[Todo List] Address Found", e);
+    }
+
+    log.debug("[Todo List Detail] Getting address for our current location");
+    geocoder.getCurrentPlace(resultsCallback);
+}

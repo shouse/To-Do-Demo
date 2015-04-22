@@ -1,3 +1,4 @@
+var moment = require("moment");
 exports.definition = {
 
 	config : {
@@ -9,18 +10,24 @@ exports.definition = {
 			"createdDateTime"       : "TEXT",
 			"lastModifiedDateTime"	: "TEXT",
 			"reminderDateTime"	    : "TEXT",
-            "dueDateDateTime"	    : "TEXT",
+            "dueDateDateTime"	    : "INTEGER",
 			"hasPhoto"			    : "BOOLEAN",
-			"photoCount"		    : "INTEGER"
+			"photoCount"		    : "INTEGER",
+            "categories"            : "TEXT",
+            "location"              : "TEXT",
+            "locationName"          : "TEXT"
 	    },
 		"defaults" : {
-			"content"               : "test",
+			"content"               : "",
             "status"                : false,
-			"reminderDateTime" 	    : false,
-            "lastModifiedDateTime"	: new Date(),
+			"dueDateDateTime" 	    : false,
+            "reminderDateTime" 	    : false,
+            "lastModifiedDateTime"	: moment().format(),
 			"hasPhoto"			    : false,
 			"hasVideo"			    : false,
-			"photoCount"		    : 0
+			"photoCount"		    : 0,
+            "categories"            : false,
+            "location"              : false
 		},
 		"adapter" : {
 			"idAttribute": "todo_id",

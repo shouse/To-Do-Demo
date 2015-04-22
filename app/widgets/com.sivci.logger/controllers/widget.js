@@ -1,6 +1,6 @@
 /**
  * This is the main controller for the logger widget
- * @Class Widget.Logger
+ * @Class Widget.Logger.Main
  * @author Steven House ,steven.house@sprint.com.
  *
  */
@@ -15,6 +15,7 @@ updateListView();
 
 /**
  * Add event listeners;
+ * @method addEventListeners
  */
 function addEventListeners() {
     $.buttonFilterAll.addEventListener('click', function() {
