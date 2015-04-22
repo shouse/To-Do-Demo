@@ -108,7 +108,6 @@ function setupNav() {
 function addEventListeners() {
 
      // Filter: ALL
-     //$.viewFilterAll.addEventListener('click', function(e){
      $.labelFilterAll.addEventListener('click', function(e) {
          //$.search.height = '0dp';
          filter(e.source.id);

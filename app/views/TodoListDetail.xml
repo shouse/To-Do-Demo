@@ -45,6 +45,11 @@
                         <Label id="labelGallery">SHOW GALLERY</Label>
                     </View>
 
+                    <View id="viewAddLocation" class="todobbutton w-fill h-45 r-10 l-10 t-10 borderGreen">
+                        <ImageView id="imageAddLocation" image="/images/action/ic_local_offer_black_48dp.png" class="w-35 h-35 l-10 t-5" />
+                        <Label id="labelAddLocation">ADD LOCATION</Label>
+                    </View>
+
                     <View id="viewTags" class="todobbutton w-fill h-45 r-10 l-10 t-10 borderGreen">
                         <ImageView id="imageTags" image="/images/action/ic_local_offer_black_48dp.png" class="w-35 h-35 l-10 t-5" />
                         <Label id="labelTags">ADD CATEGORY</Label>

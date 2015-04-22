@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><ti:app xmlns:ti="http://ti.appcelerator.org">
+<?xml version="1.0" encoding="UTF-8"?>
+<ti:app xmlns:ti="http://ti.appcelerator.org">
 	<id>com.stevenhouse.todo</id>
 	<name>To-Do</name>
 	<version>1.0</version>
@@ -78,6 +79,24 @@
             <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
             <uses-permission android:name="android.permission.INTERNET"/>
 
+            <!-- Use GPS for device location -->
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+            <!-- Use Wi-Fi or mobile connection for device location -->
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+            <!-- Allow Mock Location -->
+            <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+            <!-- Allows the API to access Google web-based services -->
+            <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+            <!-- Specify OpenGL ES 2.0 as a requirement -->
+            <uses-feature android:glEsVersion="0x00020000" android:required="true"/>
+            <!-- Replace <com.domain.appid> with your application ID -->
+            <permission android:name="com.sivci.thefleet.permission.MAPS_RECEIVE" android:protectionLevel="signature"/>
+            <uses-permission android:name="com.sivci.thefleet.permission.MAPS_RECEIVE"/>
+            <application android:theme="@style/Theme.NoActionBar">
+                <!-- Replace "PASTE YOUR GOOGLE MAPS API KEY HERE" with the Google API key you obtained -->
+                <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyC1kuSBYwxo0Iy562fgXLZDVzbdhp9Lnqk"/>
+            </application>
+
         </manifest>
         <services>
             <service type="interval" url="notificationService.js"/>
@@ -85,22 +104,28 @@
     </android>
 
 	<modules>
-    <module platform="android" version="0.2">ti.sq</module>
-    <module platform="iphone" version="0.4">ti.sq</module>
-    <module platform="ios" version="1.7.10">dk.napp.social</module>
-    <module platform="android" version="0.3">yy.tidialogs</module>
-    <module platform="ios">crittercism</module>
-    <module platform="android">crittercism</module>
-    <module platform="android" version="0.1.2">net.iamyellow.tiws</module>
-    <module platform="iphone" version="0.5">net.iamyellow.tiws</module>
-    <module platform="android" version="0.11">bencoding.alarmmanager</module>
-  </modules>
+        <module platform="android" version="0.2">ti.sq</module>
+        <module platform="iphone" version="0.4">ti.sq</module>
+        <module platform="ios" version="1.7.10">dk.napp.social</module>
+        <module platform="android" version="0.3">yy.tidialogs</module>
+        <module platform="ios">crittercism</module>
+        <module platform="android">crittercism</module>
+        <module platform="android" version="0.1.2">net.iamyellow.tiws</module>
+        <module platform="iphone" version="0.5">net.iamyellow.tiws</module>
+        <module platform="android" version="0.11">bencoding.alarmmanager</module>
+        <module platform="android">ti.map</module>
+        <module platform="iphone">ti.map</module>
+        <module platform="iphone" version="1.0.0">ti.geocoder</module>
+        <module platform="android" version="1.0.0">ti.geocoder</module>
+        <module platform="android" version="0.6">bencoding.basicgeo</module>
+        <module platform="iphone" version="0.92">bencoding.basicgeo</module>
+    </modules>
 	<deployment-targets>
 		<target device="android">true</target>
 		<target device="ipad">true</target>
 		<target device="iphone">true</target>
 	</deployment-targets>
-	<sdk-version>3.4.1.GA</sdk-version>
+	<sdk-version>3.5.1.GA</sdk-version>
 <plugins><plugin version="1.0">ti.alloy</plugin>
 </plugins>
 </ti:app>

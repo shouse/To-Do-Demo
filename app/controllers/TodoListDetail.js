@@ -117,8 +117,11 @@ function addEventListeners() {
 
     // Schedule a reminder
     $.viewSetReminder.addEventListener('click', setReminder);
-
+    // Associate
+    $.viewAddLocation.addEventListener('click', setLocation);
+    // Add categories
     $.viewTags.addEventListener('click', setTags);
+
 }
 
 /**
@@ -192,6 +195,7 @@ function toggleStatus() {
  */
 function setTags() {
     alert('Not Implemented yet.');
+
 }
 
 /**
@@ -588,7 +592,7 @@ function savePhoto(image) {
             eventId: todoItem.get('name')
         });
 
-        log.debug('[TodoDetail] : captureImage : Camera Success, image = ', JSON.stringify(image, null, 4));
+        log.debug('[Todo Detail] : captureImage : Camera Success, image = ', JSON.stringify(image, null, 4));
 
         // This part should be skipped to the existing function
         var imageDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, 'todo');
@@ -601,7 +605,7 @@ function savePhoto(image) {
 
         var file = Ti.Filesystem.getFile(imageDir.resolve(), todo_id + photoCount + '.png');
 
-        log.debug("[TodoDetail] : Saving image to = ", imageDir.resolve() + todo_id + photoCount + '.png');
+        log.debug("[Todo Detail] : Saving image to = ", imageDir.resolve() + todo_id + photoCount + '.png');
 
         // Write to storage
         file.write(image.media);
@@ -612,7 +616,7 @@ function savePhoto(image) {
         });
         todoItem.save();
 
-        log.debug('[TodoDetail] : Saved image to this location : ', file.nativePath);
+        log.debug('[Todo Detail] : Saved image to this location : ', file.nativePath);
 
     } else {
         alert('We are only supporting images at the moment.');
@@ -624,4 +628,19 @@ function savePhoto(image) {
     }
 
     todo.fetch();
+}
+
+/**
+ * This will prompt the user for the location of their task
+ * @method Prompt User for the Location.
+ */
+function setLocation() {
+    menu.setMainContent('TodoListMap', {todo_id: todoItem.get('todo_id')});
+}
+
+/**
+ * @method saveLocation
+ */
+function saveLocation() {
+
 }

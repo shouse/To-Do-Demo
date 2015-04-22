@@ -1,0 +1,28 @@
+<Alloy>
+    <View id="viewMain" class="h-fill w-fill t-0 lo-vertical">
+        <View class="lo-horizontal w-fill h-65">
+            <Label class="w-size h-fill">Address</Label>
+            <TextField id="textFieldAddress" class="w-fill h-fill"/>
+        </View>
+        <View id="mapview" ns="Alloy.Globals.Map" class="h-50% w-fill"/>
+        <View id="viewMechanicList" class="h-fill% w-fill">
+            <!--<Widget src="com.appcelerator.ui.listview" id="widgetListView"/>-->
+            <ListView id="listViewMaintain" class="h-fill" defaultItemTemplate="templateMap">
+                <SearchBar id="search" barColor="#9fcd4c" showCancel="true" height="0"/>
+                <Templates>
+                    <ItemTemplate id="templateMap" name="templateMap" class="templateMap">
+                        <View bindId="viewRow" id="viewRow" class="h-size lo-horizontal">
+                            <ImageView bindId="imageViewCall" id="imageViewCall" image="/images/communication/ic_call_black_48dp.png" class="w-45 h-45"/>
+                            <View layout="vertical" class="h-size">
+                                <Label bindId="itemTitle" id="itemTitle" class="w-fill h-size"/>
+                                <Label bindId="itemSubtitle" id="itemSubtitle" class="w-fill h-25"/>
+                                <Label bindId="itemSubtitle2" id="itemSubtitle2" class="w-fill h-25"/>
+                            </View>
+                        </View>
+                    </ItemTemplate>
+                </Templates>
+            </ListView>
+        </View>
+
+    </View>
+</Alloy>

@@ -118,7 +118,7 @@ exports.Logger = function(args) {
         // currentLogFile = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, 'logs.txt');
 
         if (Alloy.CFG.logger.webSocket === true) {
-            websocketSetup();
+            //websocketSetup();
         }
     };
 
